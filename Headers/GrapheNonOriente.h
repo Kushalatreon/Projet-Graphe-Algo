@@ -5,8 +5,9 @@
 #ifndef GRAPHES_GRAPHENONORIENTE_H
 #define GRAPHES_GRAPHENONORIENTE_H
 
+#include "Graphe.h"
 
-class GrapheNonOriente {
+class GrapheNonOriente : public Graphe {
 
 };
 

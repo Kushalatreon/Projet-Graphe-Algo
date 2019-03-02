@@ -6,7 +6,9 @@
 #define GRAPHES_GRAPHEORIENTE_H
 
 
-class GrapheOriente {
+#include "Graphe.h"
+
+class GrapheOriente : public Graphe {
 
 };
 
