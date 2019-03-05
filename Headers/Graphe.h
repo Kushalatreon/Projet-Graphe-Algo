@@ -50,6 +50,24 @@ public:
 
 
 
+
+    // ---------------------------- MANIPULATION ----------------------------
+
+    /**
+     * Methode qui permet d'initialiser la matrice d'adjacence
+     */
+    void initAdj();
+
+
+    /**
+     * méthode qui permet de rajouter une arete ou un arc dans la matrice d'adjacence
+     * @param [in] predecesseur - sommet pere
+     * @param [in] successeur - sommet fils
+     * @param [in] valeur - valeur de la liaison
+     */
+    void ajouterLisaison(int predecesseur, int successeur, int valeur);
+
+
     // ----------------------------- Methodes d'acces et modification des attributs prives -----------------------------
     /**
      * Retourne la matrice d'adjacence
@@ -101,7 +119,7 @@ public:
      * @param [out] fs : tableau fs a remplir
      * @param [out] aps : tableau aps a remplir
      */
-  //  virtual void adj_2_fs_aps(vector<int> &fs, vector<int> &aps) const;
+    virtual void adj_2_fs_aps(vector<int> &fs, vector<int> &aps) const;
 
     /**
      * Determine la tableau des distance pour un sommet donne
@@ -146,21 +164,19 @@ public:
      * @param [in] aps
      * @return tableau 1D : ddi
      */
-  //  virtual vector<int> det_ddi(const vector<int> &fs, const vector<int> &aps) const;
-
-    /**
-     * Methode qui permet d'initialiser la matrice d'adjacence
-     */
-    void initAdj();
+    virtual vector<int> det_ddi(const vector<int> &fs, const vector<int> &aps) const;
 
 
-    /**
-     * méthode qui permet de rajouter une arete ou un arc dans la matrice d'adjacence
-     * @param [in] predecesseur - sommet pere
-     * @param [in] successeur - sommet fils
-     * @param [in] valeur - valeur de la liaison
-     */
-    void ajouterLisaison(int predecesseur, int successeur, int valeur);
+
+
+
+    virtual void tarjan() const = 0;
+
+    virtual void ordonnancement() const = 0;
+
+
+
+
 
 private:
     vector<vector<int>> d_adj;

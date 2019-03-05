@@ -17,7 +17,7 @@ public:
      * constructeur avec un nombre de sommet en parametre qui va permettre d'initialiser la taille de la matrice
      * @param [in] nbSommets
      */
-    GrapheOriente(int nbSommets);
+    explicit GrapheOriente(int nbSommets);
 
 
     /**
@@ -27,10 +27,9 @@ public:
      */
     void ajouterArete(int predecesseur, int successeur);
 
+    virtual void tarjan() const override;
 
-    void tarjan();
-
-    void ordonnancement();
+    virtual void ordonnancement() const override;
 private:
 
 };

@@ -11,7 +11,15 @@ GrapheOriente::GrapheOriente(int nbSommets) : Graphe(nbSommets)
     initAdj();
 }
 
-int GrapheOriente::ajouterArete(int predecesseur, int successeur)
+void GrapheOriente::ajouterArete(int predecesseur, int successeur)
 {
     ajouterLisaison(predecesseur,successeur, 1);
+}
+
+void GrapheOriente::tarjan() const {
+
+}
+
+void GrapheOriente::ordonnancement() const {
+
 }
