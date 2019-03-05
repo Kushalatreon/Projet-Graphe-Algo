@@ -13,20 +13,28 @@ class Graphe
 public:
 
     /**
-     * Destructeur virtuel de Graphe (car methodes virtuelles)
-     */
-    virtual ~Graphe();
-
-    /**
      * Constructeur de Graphe par defaut : cree un graphe avec une matrice d'adjacence vide
      */
     Graphe();
+
+    /**
+     * Destructeur virtuel de Graphe (car methodes virtuelles)
+     */
+    virtual ~Graphe();
 
     /**
      * Constructeur de Graphe avec une matrice d'adjacence en parametre
      * @param [in] adj
      */
     Graphe(const vector<vector<int>> &adj);
+
+
+    /**
+     * Constructeur de Graphe avec le nombre de sommets et le nombres d'arcs/aretes
+     * @param nbSommets
+     * @param nbLiaison
+     */
+    Graphe(const int nbSommets);
 
 
 
@@ -93,7 +101,7 @@ public:
      * @param [out] fs : tableau fs a remplir
      * @param [out] aps : tableau aps a remplir
      */
-    virtual void adj_2_fs_aps(vector<int> &fs, vector<int> &aps) const;
+  //  virtual void adj_2_fs_aps(vector<int> &fs, vector<int> &aps) const;
 
     /**
      * Determine la tableau des distance pour un sommet donne
@@ -138,10 +146,25 @@ public:
      * @param [in] aps
      * @return tableau 1D : ddi
      */
-    virtual vector<int> det_ddi(const vector<int> &fs, const vector<int> &aps) const;
+  //  virtual vector<int> det_ddi(const vector<int> &fs, const vector<int> &aps) const;
+
+    /**
+     * Methode qui permet d'initialiser la matrice d'adjacence
+     */
+    void initAdj();
+
+
+    /**
+     * méthode qui permet de rajouter une arete ou un arc dans la matrice d'adjacence
+     * @param [in] predecesseur - sommet pere
+     * @param [in] successeur - sommet fils
+     * @param [in] valeur - valeur de la liaison
+     */
+    void ajouterLisaison(int predecesseur, int successeur, int valeur);
 
 private:
     vector<vector<int>> d_adj;
+
 };
 
 
