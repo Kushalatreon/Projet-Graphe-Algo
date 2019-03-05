@@ -1,5 +1,7 @@
-//
-// Created by Thibaud on 01/03/2019.
-//
-
 #include "../Headers/Graphe.h"
+
+Graphe::Graphe() : d_adj{}
+{}
+
+Graphe::Graphe(const vector<vector<int>> &adj) : d_adj{adj}
+{}

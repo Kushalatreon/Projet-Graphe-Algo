@@ -1,16 +1,14 @@
-//
-// Created by Thibaud on 01/03/2019.
-//
-
 #ifndef GRAPHES_GRAPHE_H
 #define GRAPHES_GRAPHE_H
 
 
 #include <vector>
+#include <istream>
 
 using std::vector;
 
-class Graphe {
+class Graphe
+{
 
 public:
 
@@ -29,6 +27,20 @@ public:
      * @param [in] adj
      */
     Graphe(const vector<vector<int>> &adj);
+
+
+
+
+    // ---------------------------- CHARGEMENT -----------------------------
+
+    /**
+     * Charge un graphe depuis un objet istream
+     * Les fichiers permettant de sauvegarder un graphe sont au format txt. Il faut passer un istream en parametre, deja initialise sur un fichier
+     * @param ist - objet istream permettant le remplissage du graphe (la matrice d'adjacence)
+     */
+    void charger(const std::istream &ist);
+
+
 
     // ----------------------------- Methodes d'acces et modification des attributs prives -----------------------------
     /**
@@ -59,7 +71,7 @@ public:
     void setMatrice(const vector<vector<int>> &adj);
 
 
-    // ----------------------------- Methodes de classe -----------------------------
+    // ----------------------------- Methodes de classe (par rapport au graphe)  -----------------------------
 
     /**
      * Determine la tableau des premiers successeurs (aps)
@@ -126,7 +138,7 @@ public:
      * @param [in] aps
      * @return tableau 1D : ddi
      */
-    vector<int> det_ddi(const vector<int> &fs, const vector<int> &aps) const;
+    virtual vector<int> det_ddi(const vector<int> &fs, const vector<int> &aps) const;
 
 private:
     vector<vector<int>> d_adj;

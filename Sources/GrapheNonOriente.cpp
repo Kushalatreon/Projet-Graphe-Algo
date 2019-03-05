@@ -1,5 +1,7 @@
-//
-// Created by Thibaud on 01/03/2019.
-//
-
 #include "../Headers/GrapheNonOriente.h"
+
+GrapheNonOriente::GrapheNonOriente() : Graphe()
+{}
+
+GrapheNonOriente::GrapheNonOriente(vector<vector<int>> adj) : Graphe(adj)
+{}

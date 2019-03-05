@@ -1,5 +1,7 @@
-//
-// Created by Thibaud on 01/03/2019.
-//
-
 #include "../Headers/GrapheOriente.h"
+
+GrapheOriente::GrapheOriente() : Graphe()
+{}
+
+GrapheOriente::GrapheOriente(vector<vector<int>> adj) : Graphe(adj)
+{}

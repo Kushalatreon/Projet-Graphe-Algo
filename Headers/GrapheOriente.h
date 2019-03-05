@@ -1,14 +1,21 @@
-//
-// Created by Thibaud on 01/03/2019.
-//
-
 #ifndef GRAPHES_GRAPHEORIENTE_H
 #define GRAPHES_GRAPHEORIENTE_H
 
 
 #include "Graphe.h"
 
-class GrapheOriente : public Graphe {
+class GrapheOriente : public Graphe
+{
+public:
+
+    GrapheOriente();
+
+    GrapheOriente(vector<vector<int>> adj);
+
+    void tarjan();
+
+    void ordonnancement();
+private:
 
 };
 
