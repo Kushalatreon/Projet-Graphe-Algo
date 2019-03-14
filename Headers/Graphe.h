@@ -172,7 +172,8 @@ public:
 
     virtual void tarjan() const = 0;
 
-    virtual void ordonnancement() const = 0;
+   // virtual void ordonnancement() const = 0;
+    virtual void ordonnancement(int fp[], int app[], int *d, int *&lc, int *&fpc, int *&appc) const = 0;
 
 
 

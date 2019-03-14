@@ -29,7 +29,38 @@ public:
 
     virtual void tarjan() const override;
 
-    virtual void ordonnancement() const override;
+
+    /**
+     *
+     * @param [in] fp - file de predecesseur
+     * @param [in] app - adresses des premiers predecesseurs
+     * @param [in] d - distance
+     * @param [in, out] lc - longueur critique, chemin le plus court pour tout finir
+     * @param [in, out] fpc - file des premiers critiques
+     * @param [in, out] appc - adresses des premiers critiques
+     */
+    virtual void ordonnancement(int fp[], int app[], int *d, int *&lc, int *&fpc, int *&appc) const override;
+
+    /**
+     *
+     * @param [in] fs
+     * @param [in] aps
+     * @param [in] prem
+     * @param [in] pilch
+     * @param [in] cfc
+     * @param [in, out] fsr
+     * @param [in, out] apsr
+     */
+    void graphe_reduit(int *fs, int *aps, int *prem, int *pilch, int *cfc, int *&fsr, int *& apsr);
+
+    /**
+     *
+     * @param [in] dist
+     * @param [in] prem
+     * @param [in, out] pilch
+     * @param [in, out] cfc
+     */
+    void det_cfc(int **dist, int *&prem, int *&pilch, int *&cfc);
 private:
 
 };
