@@ -67,7 +67,7 @@ public:
      * @param [in] fs
      * @param [in] aps
      */
-    virtual void det_ddi(int* fs, int* aps, int* &ddi) const override;
+    virtual void det_ddi(const int* fs, const int* aps, int* &ddi) const override;
 
     /**
      * Redéfinition
@@ -86,6 +86,7 @@ public:
      * @param app : tableau app
      */
     virtual void fs_aps_2_fp_app(int* fs, int* aps, int* &fp, int* &app) const override;
+
 private:
 
 };

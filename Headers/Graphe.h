@@ -26,7 +26,7 @@ public:
      * Constructeur de Graphe avec une matrice d'adjacence en parametre
      * @param [in] adj
      */
-    Graphe( int **&adj);
+    Graphe(int** adj);
 
 
     /**
@@ -34,7 +34,7 @@ public:
      * @param nbSommets
      * @param nbLiaison
      */
-    Graphe(const int nbSommets);
+    Graphe(int nbSommets);
 
 
 
@@ -94,17 +94,10 @@ public:
      * Permet d'affecter d_adj a une autre matrice
      * @param [in] adj : nouvelle matrice d'adjacence
      */
-    void setMatrice(int **&adj);
+    void setMatrice(int** &adj);
 
 
     // ----------------------------- Methodes de classe (par rapport au graphe)  -----------------------------
-
-    /**
-     * Determine la tableau des premiers successeurs (aps)
-     * Utilise l'attribut prive d_adj (on pourrait le passer en parametre)
-     * @return tableau 1D : aps
-     */
-    int* detAps() const;
 
     /**
      * Determine aps
@@ -116,56 +109,18 @@ public:
     void detAps(const int* fs, int* &aps) const;
 
     /**
-     * Determine fs et aps
+     * Determine fs et aps. Adj est attribut prive
      * @param [out] fs : tableau fs a remplir
      * @param [out] aps : tableau aps a remplir
      */
     virtual void adj_2_fs_aps(int* &fs, int* &aps) const;
 
     /**
-     * Determine la tableau des distance pour un sommet donne
-     * Correspond a une ligne de la matrice des distances
-     * Utilise fs, aps
-     * @param [in] fs : tableau fs const (pas modifie dans la methode)
-     * @param [in] aps : tableau aps const (pas modifie dans la methode)
-     * @param [in] s : numero du sommet dont il faut determine la tableau des distances
-     * @return tableau 1D : tableau des distance d'un sommet
+     * Remplit la matrice d'adjacence (d_adj) depuis fs et aps
+     * @param fs : tableau fs
+     * @param aps : teableau aps
      */
-    int* distance(const int* &fs, const int* &aps, int s) const;
-
-    /**
-     * Determine la matrice des distances
-     * Utilise la matrice d'adj (d_adj)
-     * @param [in] fs : tableau fs const
-     * @param [in] aps : tableau aps const
-     * @return tableau 2D : matrice des distances
-     */
-    int** m_distances(const int* &fs, const int* &aps) const;
-
-    /**
-     * Determine le rang d'un sommet s
-     * @param [in] fs : tableau fs
-     * @param [in] aps : tableau aps
-     * @param [in] s : numero du sommet
-     * @return int : rang du sommet
-     */
-    int rang(const int* &fs, const int* &aps, int s) const;
-
-    /**
-     * Determine le rang de tous les sommets du graphe
-     * @param [in] fs : tableau fs
-     * @param [in] aps : tableau aps
-     * @return tableau 1D : rang de tous les sommets
-     */
-    int* m_rangs(const int* &fs, const int* &aps) const;
-
-    /**
-     * Determine le nombre de predecesseurs de chaque sommet
-     * @param [in] fs : tableau fs
-     * @param [in] aps : tableau aps
-     */
-    virtual void det_ddi(int* fs, int* aps, int* &ddi) const = 0;
-
+    virtual void fs_aps_2_adj(const int* fs, const int* aps);
 
     /**
      * Détermine la file des premiers prédécesseurs
@@ -183,22 +138,73 @@ public:
      */
     virtual void fs_aps_2_fp_app(int* fs, int* aps, int* &fp, int* &app) const = 0;
 
+    /**
+     * Determine la tableau des distance pour un sommet donne
+     * Correspond a une ligne de la matrice des distances
+     * Utilise fs, aps
+     * @param [in] fs : tableau fs const (pas modifie dans la methode)
+     * @param [in] aps : tableau aps const (pas modifie dans la methode)
+     * @param [out] dist : tableau des distances
+     * @param [in] s : numero du sommet dont il faut determine la tableau des distances
+     */
+    void distance(const int* fs, const int* aps, int* &dist, int s) const;
 
+    /**
+     * Determine la matrice des distances
+     * Utilise la matrice d'adj (d_adj)
+     * @param [in] fs : tableau fs const
+     * @param [in] aps : tableau aps const
+     * @param [out] m_dist : matrice des distances
+     */
+    void m_distances(const int* fs, const int* aps, int** &m_dist) const;
 
+    /**
+     * Determine le rang d'un sommet s
+     * @param [in] fs : tableau fs
+     * @param [in] aps : tableau aps
+     * @param [in] s : numero du sommet
+     * @return int : rang du sommet
+     */
+    int rang(const int* fs, const int* aps, int s) const;
 
+    /**
+     * Determine le rang de tous les sommets du graphe
+     * @param [in] fs : tableau fs
+     * @param [in] aps : tableau aps
+     * @param [out] m_rangs : matrice des rangs
+     */
+    void m_rangs(const int* fs, const int* aps, int** &m_rangs) const;
 
+    /**
+     * Determine le nombre de predecesseurs de chaque sommet
+     * @param [in] fs : tableau fs
+     * @param [in] aps : tableau aps
+     * @param [out] ddi : tableau des successeurs
+     */
+    virtual void det_ddi(const int* fs, const int* aps, int* &ddi) const = 0;
 
+    /**
+     * Algorithme de tarjan ### AJOUTER PARAMETRES GRAVE ERREUR ###
+     */
     virtual void tarjan() const = 0;
 
-    // virtual void ordonnancement() const = 0;
-    virtual void ordonnancement(int fp[], int app[], int *d, int *&lc, int *&fpc, int *&appc) const = 0;
+    /**
+     * Algorithme du probleme d'ordonnancement
+     * @param fp : tableau fp --> file des predecesseurs
+     * @param app : tableau app --> file des premiers predecesseurs
+     * @param d : aucune idee
+     * @param lc : aucune idee
+     * @param fpc : aucune idee
+     * @param appc : aucune idee
+     */
+    virtual void ordonnancement(int* fp, int* app, int *d, int *&lc, int *&fpc, int *&appc) const = 0;
 
 
 
 
 
 private:
-    int  **d_adj;
+    int** d_adj;
 
 };
 

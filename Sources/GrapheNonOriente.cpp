@@ -13,6 +13,6 @@ void GrapheNonOriente::adj_2_fs_aps(int* &fs, int* &aps) const
 }
 
 // a modifier
-void GrapheNonOriente::det_ddi(int* fs, int* aps, int* &ddi) const {
+void GrapheNonOriente::det_ddi(const int* fs, const int* aps, int* &ddi) const {
 
 }
