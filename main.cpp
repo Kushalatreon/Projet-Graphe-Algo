@@ -41,8 +41,6 @@ bool creerGrapheValueOuNon()
 
 }
 
-
-
 int nombreSommets()
 {
     int i;
@@ -58,7 +56,6 @@ int nombreLiaison()
     std::cin >> i;
     return i;
 }
-
 
 void creerGrapheOrienteClavier()
 {
@@ -139,10 +136,9 @@ void creerGrapheClavier()
 }
 
 
-
 int main() {
     creerGrapheOriente();
-    //creerGrapheClavier();
+    // creerGrapheClavier();
 
     std::cout << "Hello, World!" << std::endl;
     return 0;
