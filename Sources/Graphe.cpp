@@ -82,7 +82,24 @@ void Graphe::adj_2_fs_aps(int *&fs, int *&aps) const {
 
 void Graphe::fs_aps_2_adj(const int *fs, const int *aps)
 {
+    int n = aps[0], m = fs[0] -n;
 
+    /*
+     * Ce sont deux lignes a supprimer selon moi (dorian) car d_adj est cense etre alloue avant d'appeler cette fonction
+     * Pour creer d_adj, il faut le nombre de sommets au moins, soit aps[0].
+     * Il y a donc redondance.
+     * (Allah limite on peut laisser la deuxieme)
+     */
+    d_adj[0][0] = n;
+    d_adj[0][1] = m;
+
+    for(int i = 1 ; i <= n ; i++)
+    {
+        for(int j = aps[0] ; (j = fs[j]) != 0 ; j++)
+        {
+            d_adj[i][j] = 1;
+        }
+    }
 }
 
 void Graphe::distance(const int* fs, const int* aps, int* &dist, int s) const {
