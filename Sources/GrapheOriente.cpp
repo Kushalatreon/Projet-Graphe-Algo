@@ -123,3 +123,17 @@ void GrapheOriente::det_cfc(int **dist, int *&prem, int *&pilch, int *&cfc)
         }
     }
 }
+
+int* GrapheOriente::det_ddi(const int* &fs, const int* &aps) const
+{
+    int n = aps[0];
+    int* ddi = new int[n + 1];
+
+    for (int i = 0 ; i <= n ; ++i)
+        ddi[i] = 0;
+
+    for (int i = 1 ; i <= n ; ++i)
+        ++ddi[fs[i]];
+
+    return ddi;
+}

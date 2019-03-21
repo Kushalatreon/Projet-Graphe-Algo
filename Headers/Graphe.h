@@ -110,9 +110,10 @@ public:
      * Determine aps
      * Utilise fs
      * Fonction void car elle est utilisee quand un tableau est deja declare ailleurs dans le code. detAps remplit ce tableau
+     * @param [in] fs : tableau des successeurs
      * @param [out] aps : tableau aps a remplir
      */
-    void detAps(int* &aps) const;
+    void detAps(const int* fs, int* &aps) const;
 
     /**
      * Determine fs et aps
@@ -164,7 +165,9 @@ public:
      * @param [in] aps
      * @return tableau 1D : ddi
      */
-    virtual int* det_ddi(const int* &fs, const int* &aps) const;
+    virtual int* det_ddi(const int* &fs, const int* &aps) const = 0;
+
+
 
 
 

@@ -60,6 +60,8 @@ public:
      * @param [in, out] cfc
      */
     void det_cfc(int **dist, int *&prem, int *&pilch, int *&cfc);
+
+    virtual int* det_ddi(const int* &fs, const int* &aps) const override;
 private:
 
 };

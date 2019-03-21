@@ -54,11 +54,25 @@ void Graphe::setMatrice(int **&adj) {
 }
 
 int* Graphe::detAps() const {
-    return new int[0];
+    return 0;
 }
 
-void Graphe::detAps(int* &aps) const {
+void Graphe::detAps(const int* fs, int* &aps) const {
+    int n = fs[0];
+    aps = new int[n+1];
+    aps[0] = n;
+    aps[1] = 1;
 
+    int j = 1;
+    for (int i = 2 ; i < n ; ++i)
+    {
+        while(fs[j] != 0)
+        {
+            ++j;
+        }
+        ++j;
+        aps[i] = j;
+    }
 }
 
 void Graphe::adj_2_fs_aps(int *&fs, int *&aps) const {
@@ -81,7 +95,4 @@ int *Graphe::m_rangs(const int *&fs, const int *&aps) const {
     return nullptr;
 }
 
-int *Graphe::det_ddi(const int *&fs, const int *&aps) const {
-    return nullptr;
-}
 
