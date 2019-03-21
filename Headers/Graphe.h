@@ -161,12 +161,27 @@ public:
 
     /**
      * Determine le nombre de predecesseurs de chaque sommet
-     * @param [in] fs
-     * @param [in] aps
-     * @return tableau 1D : ddi
+     * @param [in] fs : tableau fs
+     * @param [in] aps : tableau aps
      */
-    virtual int* det_ddi(const int* &fs, const int* &aps) const = 0;
+    virtual void det_ddi(int* fs, int* aps, int* &ddi) const = 0;
 
+
+    /**
+     * Détermine la file des premiers prédécesseurs
+     * @param [in] ddi : tableau ddi
+     * @param [out] app : tableau app, adresses des premiers prédécesseurs
+     */
+    virtual void det_app(int* ddi, int* &app) const = 0;
+
+    /**
+     * Passage de fs aps à fp app
+     * @param fs : tableau fs
+     * @param aps : tableau aps
+     * @param fp : tableau fp, file des prédécesseurs
+     * @param app : tableau app
+     */
+    virtual void fs_aps_2_fp_app(int* fs, int* aps, int* &fp, int* &app) const = 0;
 
 
 

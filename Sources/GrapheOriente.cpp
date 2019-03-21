@@ -124,16 +124,50 @@ void GrapheOriente::det_cfc(int **dist, int *&prem, int *&pilch, int *&cfc)
     }
 }
 
-int* GrapheOriente::det_ddi(const int* &fs, const int* &aps) const
+void GrapheOriente::det_ddi(int* fs, int* aps, int* &ddi) const
 {
     int n = aps[0];
-    int* ddi = new int[n + 1];
+    ddi = new int[n + 1];
 
     for (int i = 0 ; i <= n ; ++i)
         ddi[i] = 0;
 
     for (int i = 1 ; i <= n ; ++i)
         ++ddi[fs[i]];
+}
 
-    return ddi;
+void GrapheOriente::det_app(int* ddi, int* &app) const
+{
+    int n = ddi[0];
+    app = new int[n +1 ];
+    app[0] = n;
+    app[1] = 1;
+
+    for (int i = 2 ; i <= n ; ++i)
+        app[i] = app[i - 1] + ddi[i - 1] + 1;
+}
+
+void GrapheOriente::fs_aps_2_fp_app(int* fs, int* aps, int* &fp, int* &app) const
+{
+    int* ddi;
+    int n = fs[0];
+    int j;
+
+    det_ddi(fs, aps, ddi);
+    det_app(ddi, app);
+    fp[0] = fs[0];
+
+    for(int i = 1 ; i <= n ; ++i)
+        for (int k = aps[i] ; (j = fs[k]) != 0 ; ++k)
+            fp[app[j]++] = i;
+
+    for (int i = 1 ; i <= n ; ++i)
+        fp[app[i]] = 0;
+
+    for (int i = n ; i > 1 ; --i)
+        app[i] = app[i - 1] + 1;
+
+    app[1] = 1;
+
+    delete[] ddi;
 }

@@ -61,7 +61,31 @@ public:
      */
     void det_cfc(int **dist, int *&prem, int *&pilch, int *&cfc);
 
-    virtual int* det_ddi(const int* &fs, const int* &aps) const override;
+    /**
+     * Redéfinition
+     * Determine le nombre de predecesseurs de chaque sommet
+     * @param [in] fs
+     * @param [in] aps
+     */
+    virtual void det_ddi(int* fs, int* aps, int* &ddi) const override;
+
+    /**
+     * Redéfinition
+     * Détermine la file des premiers prédécesseurs
+     * @param [in] ddi : tableau ddi
+     * @param [out] app : tableau app
+     */
+    virtual void det_app(int* ddi, int* &app) const override;
+
+    /**
+     * Redéfinition
+     * Passage de fs aps à fp app
+     * @param fs : tableau fs
+     * @param aps : tableau aps
+     * @param fp : tableau fp, file des prédécesseurs
+     * @param app : tableau app
+     */
+    virtual void fs_aps_2_fp_app(int* fs, int* aps, int* &fp, int* &app) const override;
 private:
 
 };
