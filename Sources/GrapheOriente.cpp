@@ -124,10 +124,6 @@ void GrapheOriente::det_cfc(int **dist, int *&prem, int *&pilch, int *&cfc)
     }
 }
 
-void GrapheOriente::fs_aps_2_adj(const int* fs, const int* aps)
-{
-
-}
 
 void GrapheOriente::det_ddi(const int* fs, const int* aps, int* &ddi) const
 {

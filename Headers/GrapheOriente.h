@@ -64,15 +64,6 @@ public:
      */
     void det_cfc(int **dist, int *&prem, int *&pilch, int *&cfc);
 
-
-    /**
-     * Redéfinition
-     * Remplit la matrice d'adjacence (d_adj) depuis fs et aps
-     * @param fs : tableau fs
-     * @param aps : teableau aps
-     */
-    virtual void fs_aps_2_adj(const int* fs, const int* aps) override;
-
     /**
      * Redéfinition
      * Determine le nombre de predecesseurs de chaque sommet

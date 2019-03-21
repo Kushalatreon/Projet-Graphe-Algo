@@ -9,6 +9,8 @@ using std::vector;
 
 class Graphe
 {
+private:
+    int** d_adj;
 
 public:
 
@@ -120,7 +122,7 @@ public:
      * @param fs : tableau fs
      * @param aps : teableau aps
      */
-    virtual void fs_aps_2_adj(const int* fs, const int* aps);
+    void fs_aps_2_adj(const int* fs, const int* aps);
 
     /**
      * Détermine la file des premiers prédécesseurs
@@ -199,12 +201,6 @@ public:
      * @param appc : aucune idee
      */
     virtual void ordonnancement(int* fp, int* app, int *d, int *&lc, int *&fpc, int *&appc) const = 0;
-
-
-
-
-private:
-    int** d_adj;
 
 };
 
