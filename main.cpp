@@ -7,6 +7,7 @@
  * Ces methodes serviront aussi pour la creation dynamique souris et clavier
  */
 void creerGrapheOriente(){
+
     GrapheOriente *g = new GrapheOriente(4);
     g->ajouterArete(1,2);
     g->ajouterArete(1,3);
