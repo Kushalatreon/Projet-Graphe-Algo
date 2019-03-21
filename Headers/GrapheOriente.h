@@ -19,8 +19,6 @@ public:
      */
     explicit GrapheOriente(int nbSommets);
 
-
-
     /**
      * Algorithme de tarjan ### AJOUTER PARAMETRES GRAVE ERREUR ###
      */
@@ -35,10 +33,10 @@ public:
     * @param [in, out] fpc - file des premiers critiques
     * @param [in, out] appc - adresses des premiers critiques
     */
-    virtual void ordonnancement(int fp[], int app[], int *d, int *&lc, int *&fpc, int *&appc) const override;
+    virtual void ordonnancement(int* fp, int* app, int *d, int *&lc, int *&fpc, int *&appc) const override;
 
     /**
-     * Permet de creer le graphe reduit a partir des composantes fortement connexe
+     * Permet de creer le graphe reduit a partir des composantes fortement connexes
      * @param [in] fs
      * @param [in] aps
      * @param [in] prem
@@ -64,7 +62,7 @@ public:
      * @param [in] fs
      * @param [in] aps
      */
-    virtual void det_ddi(const int* fs, const int* aps, int* &ddi) const override;
+    virtual void det_ddi(int* fs, int* aps, int* &ddi) const override;
 
     /**
      * Redéfinition

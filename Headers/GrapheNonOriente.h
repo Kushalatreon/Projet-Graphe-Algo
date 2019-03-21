@@ -12,7 +12,7 @@ public:
 
     virtual void adj_2_fs_aps(int* &fs, int* &aps) const override;
 
-    virtual void det_ddi(const int* fs, const int* aps, int* &ddi) const override;
+    virtual void det_ddi(int* fs, int* aps, int* &ddi) const override;
 
 private:
 };

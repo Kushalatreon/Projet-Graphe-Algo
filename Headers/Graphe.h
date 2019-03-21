@@ -67,7 +67,7 @@ public:
      * @param [in] successeur - sommet fils
      * @param [in] valeur - valeur de la liaison
      */
-    void ajouterLisaison(int predecesseur, int successeur, int valeur);
+    void ajouterLisaison(int predecesseur, int successeur, int valeur = 1);
 
 
     // ----------------------------- Methodes d'acces et modification des attributs prives -----------------------------
@@ -108,7 +108,7 @@ public:
      * @param [in] fs : tableau des successeurs
      * @param [out] aps : tableau aps a remplir
      */
-    void detAps(const int* fs, int* &aps) const;
+    void detAps(int* fs, int* &aps) const;
 
     /**
      * Determine fs et aps. Adj est attribut prive
@@ -122,7 +122,7 @@ public:
      * @param fs : tableau fs
      * @param aps : teableau aps
      */
-    void fs_aps_2_adj(const int* fs, const int* aps);
+    void fs_aps_2_adj(int* fs, int* aps);
 
     /**
      * Détermine la file des premiers prédécesseurs
@@ -149,7 +149,7 @@ public:
      * @param [out] dist : tableau des distances
      * @param [in] s : numero du sommet dont il faut determine la tableau des distances
      */
-    void distance(const int* fs, const int* aps, int* &dist, int s) const;
+    void distance(int* fs, int* aps, int* &dist, int s) const;
 
     /**
      * Determine la matrice des distances
@@ -158,7 +158,7 @@ public:
      * @param [in] aps : tableau aps const
      * @param [out] m_dist : matrice des distances
      */
-    void m_distances(const int* fs, const int* aps, int** &m_dist) const;
+    void m_distances(int* fs, int* aps, int** &m_dist) const;
 
     /**
      * Determine le rang d'un sommet s
@@ -167,7 +167,7 @@ public:
      * @param [in] s : numero du sommet
      * @return int : rang du sommet
      */
-    int rang(const int* fs, const int* aps, int s) const;
+    int rang(int* fs, int* aps, int s) const;
 
     /**
      * Determine le rang de tous les sommets du graphe
@@ -175,8 +175,17 @@ public:
      * @param [in] aps : tableau aps
      * @param [out] m_rangs : matrice des rangs
      */
-    void m_rangs(const int* fs, const int* aps, int** &m_rangs) const;
+    void m_rangs(int* fs, int* aps, int** &m_rangs) const;
 
+    /**
+     * Algorithme de Dijkstra : plus court chemin
+     * @param [in] fs - tableau fs
+     * @param [in] aps - tableau aps
+     * @param [in] s - sommet pour lequel on veut calculer le plus court chemin
+     * @param [in,out] d -
+     * @param [in,out] pred -
+     */
+    void dijkstra(int* fs, int* aps, int s, int* &d, int* &pred) const;
 
     /**
      * Determine le nombre de predecesseurs de chaque sommet
@@ -184,8 +193,11 @@ public:
      * @param [in] aps : tableau aps
      * @param [out] ddi : tableau des successeurs
      */
-    virtual void det_ddi(const int* fs, const int* aps, int* &ddi) const = 0;
+    virtual void det_ddi(int* fs, int* aps, int* &ddi) const = 0;
 
+    /*
+     * Peut etre qu'il faudra delete ces 2 fonctions
+     */
     /**
      * Algorithme de tarjan ### AJOUTER PARAMETRES GRAVE ERREUR ###
      */
@@ -193,12 +205,12 @@ public:
 
     /**
      * Algorithme du probleme d'ordonnancement
-     * @param fp : tableau fp --> file des predecesseurs
-     * @param app : tableau app --> file des premiers predecesseurs
-     * @param d : aucune idee
-     * @param lc : aucune idee
-     * @param fpc : aucune idee
-     * @param appc : aucune idee
+     * @param [in] fp : tableau fp --> file des predecesseurs
+     * @param [in] app : tableau app --> file des premiers predecesseurs
+     * @param [in] d : aucune idee
+     * @param [in,out] lc : aucune idee
+     * @param [in,out] fpc : aucune idee
+     * @param [in,out] appc : aucune idee
      */
     virtual void ordonnancement(int* fp, int* app, int *d, int *&lc, int *&fpc, int *&appc) const = 0;
 

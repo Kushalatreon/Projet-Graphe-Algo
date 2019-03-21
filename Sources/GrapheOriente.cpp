@@ -11,7 +11,6 @@ GrapheOriente::GrapheOriente(int nbSommets) : Graphe(nbSommets)
     initAdj();
 }
 
-
 void GrapheOriente::tarjan() const {
 
 }
@@ -121,7 +120,7 @@ void GrapheOriente::det_cfc(int **dist, int *&prem, int *&pilch, int *&cfc)
 }
 
 
-void GrapheOriente::det_ddi(const int* fs, const int* aps, int* &ddi) const
+void GrapheOriente::det_ddi(int* fs, int* aps, int* &ddi) const
 {
     int n = aps[0];
     ddi = new int[n + 1];
