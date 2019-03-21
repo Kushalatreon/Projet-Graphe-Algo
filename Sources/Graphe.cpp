@@ -3,11 +3,15 @@
 Graphe::Graphe() : d_adj{}
 {}
 
-Graphe::Graphe(const vector<vector<int>> &adj) : d_adj{adj}
+Graphe::Graphe( int **&adj) : d_adj{adj}
 {}
 
-Graphe::Graphe(const int nbSommets) : d_adj{(unsigned int)nbSommets+1, std::vector<int>(nbSommets+1)}
+Graphe::Graphe(const int nbSommets) : d_adj{}
 {
+    d_adj = new int*[nbSommets];
+    d_adj[0][0] = nbSommets;
+    for (int i = 0; i < nbSommets; i++)
+        d_adj[i] = new int [nbSommets];
 
 }
 
@@ -17,9 +21,9 @@ Graphe::~Graphe() {
 
 void Graphe::initAdj()
 {
-    for (int i = 1; i < d_adj.size(); i++)
+    for (int i = 1; i < d_adj[0][0]; i++)
     {
-        for (int j = 1; j < d_adj.size(); j++)
+        for (int j = 1; j < d_adj[0][0]; j++)
         {
             d_adj[i][j] = -1;
             if ( i == j ) d_adj[i][j] = 0;
@@ -33,52 +37,51 @@ void Graphe::ajouterLisaison(int predecesseur, int successeur, int valeur)
     d_adj[predecesseur][successeur] = valeur;
 }
 
-vector<vector<int>> Graphe::matriceAdj() const {
-    return vector<vector<int>>();
+int** Graphe::matriceAdj() const {
+    return d_adj;
 }
 
-vector<int> Graphe::tableauMatrice(int i) const {
-    return vector<int>();
+int* Graphe::tableauMatrice(int i) const {
+    return d_adj[i];
 }
 
 int Graphe::valMatrice(int i, int j) const {
     return 0;
 }
 
-void Graphe::setMatrice(const vector<vector<int>> &adj) {
+void Graphe::setMatrice(int **&adj) {
 
 }
 
-vector<int> Graphe::detAps() const {
-    return vector<int>();
+int* Graphe::detAps() const {
+    return new int[0];
 }
 
-void Graphe::detAps(vector<int> &aps) const {
-
-}
-
-void Graphe::adj_2_fs_aps(vector<int> &fs, vector<int> &aps) const {
+void Graphe::detAps(int* &aps) const {
 
 }
 
-vector<int> Graphe::distance(const vector<int> &fs, const vector<int> &aps, int s) const {
-    return vector<int>();
+void Graphe::adj_2_fs_aps(int *&fs, int *&aps) const {
+
 }
 
-vector<vector<int>> Graphe::m_distances(const vector<int> &fs, const vector<int> &aps) const {
-    return vector<vector<int>>();
+int *Graphe::distance(const int *&fs, const int *&aps, int s) const {
+    return nullptr;
 }
 
-int Graphe::rang(const vector<int> &fs, const vector<int> &aps, int s) const {
+int** Graphe::m_distances(const int *&fs, const int *&aps) const {
+    return nullptr;
+}
+
+int Graphe::rang(const int *&fs, const int *&aps, int s) const {
     return 0;
 }
 
-vector<int> Graphe::m_rangs(const vector<int> &fs, const vector<int> &aps) const {
-    return vector<int>();
+int *Graphe::m_rangs(const int *&fs, const int *&aps) const {
+    return nullptr;
 }
 
-vector<int> Graphe::det_ddi(const vector<int> &fs, const vector<int> &aps) const {
-    return vector<int>();
+int *Graphe::det_ddi(const int *&fs, const int *&aps) const {
+    return nullptr;
 }
-
 

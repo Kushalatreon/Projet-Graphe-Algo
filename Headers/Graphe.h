@@ -26,7 +26,7 @@ public:
      * Constructeur de Graphe avec une matrice d'adjacence en parametre
      * @param [in] adj
      */
-    Graphe(const vector<vector<int>> &adj);
+    Graphe( int **&adj);
 
 
     /**
@@ -73,14 +73,14 @@ public:
      * Retourne la matrice d'adjacence
      * @return tableau 2D : matrice d'adjacence
      */
-    vector<vector<int>> matriceAdj() const;
+    int** matriceAdj() const;
 
     /**
      * Retourne un tableau a une certaine ligne de la matrice d'adjacence
      * @param [in] i - ligne de la matrice
      * @return tableau 1D : ligne i de la matrice d'adjacence
      */
-    vector<int> tableauMatrice(int i) const;
+    int* tableauMatrice(int i) const;
 
     /**
      * Retourne une valeur a une certaine case de la matrivce d'adjacence
@@ -94,7 +94,7 @@ public:
      * Permet d'affecter d_adj a une autre matrice
      * @param [in] adj : nouvelle matrice d'adjacence
      */
-    void setMatrice(const vector<vector<int>> &adj);
+    void setMatrice(int **&adj);
 
 
     // ----------------------------- Methodes de classe (par rapport au graphe)  -----------------------------
@@ -104,7 +104,7 @@ public:
      * Utilise l'attribut prive d_adj (on pourrait le passer en parametre)
      * @return tableau 1D : aps
      */
-    vector<int> detAps() const;
+    int* detAps() const;
 
     /**
      * Determine aps
@@ -112,14 +112,14 @@ public:
      * Fonction void car elle est utilisee quand un tableau est deja declare ailleurs dans le code. detAps remplit ce tableau
      * @param [out] aps : tableau aps a remplir
      */
-    void detAps(vector<int> &aps) const;
+    void detAps(int* &aps) const;
 
     /**
      * Determine fs et aps
      * @param [out] fs : tableau fs a remplir
      * @param [out] aps : tableau aps a remplir
      */
-    virtual void adj_2_fs_aps(vector<int> &fs, vector<int> &aps) const;
+    virtual void adj_2_fs_aps(int* &fs, int* &aps) const;
 
     /**
      * Determine la tableau des distance pour un sommet donne
@@ -130,7 +130,7 @@ public:
      * @param [in] s : numero du sommet dont il faut determine la tableau des distances
      * @return tableau 1D : tableau des distance d'un sommet
      */
-    vector<int> distance(const vector<int> &fs, const vector<int> &aps, int s) const;
+    int* distance(const int* &fs, const int* &aps, int s) const;
 
     /**
      * Determine la matrice des distances
@@ -139,7 +139,7 @@ public:
      * @param [in] aps : tableau aps const
      * @return tableau 2D : matrice des distances
      */
-    vector<vector<int>> m_distances(const vector<int> &fs, const vector<int> &aps) const;
+    int** m_distances(const int* &fs, const int* &aps) const;
 
     /**
      * Determine le rang d'un sommet s
@@ -148,7 +148,7 @@ public:
      * @param [in] s : numero du sommet
      * @return int : rang du sommet
      */
-    int rang(const vector<int> &fs, const vector<int> &aps, int s) const;
+    int rang(const int* &fs, const int* &aps, int s) const;
 
     /**
      * Determine le rang de tous les sommets du graphe
@@ -156,7 +156,7 @@ public:
      * @param [in] aps : tableau aps
      * @return tableau 1D : rang de tous les sommets
      */
-    vector<int> m_rangs(const vector<int> &fs, const vector<int> &aps) const;
+    int* m_rangs(const int* &fs, const int* &aps) const;
 
     /**
      * Determine le nombre de predecesseurs de chaque sommet
@@ -164,7 +164,7 @@ public:
      * @param [in] aps
      * @return tableau 1D : ddi
      */
-    virtual vector<int> det_ddi(const vector<int> &fs, const vector<int> &aps) const;
+    virtual int* det_ddi(const int* &fs, const int* &aps) const;
 
 
 
@@ -172,15 +172,14 @@ public:
 
     virtual void tarjan() const = 0;
 
-   // virtual void ordonnancement() const = 0;
-    virtual void ordonnancement(int fp[], int app[], int *d, int *&lc, int *&fpc, int *&appc) const = 0;
+    virtual void ordonnancement() const = 0;
 
 
 
 
 
 private:
-    vector<vector<int>> d_adj;
+    int  **d_adj;
 
 };
 

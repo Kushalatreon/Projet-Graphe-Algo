@@ -8,11 +8,11 @@ class GrapheNonOriente : public Graphe
 public:
     GrapheNonOriente();
 
-    GrapheNonOriente(vector<vector<int>> adj);
+    GrapheNonOriente(int** adj);
 
-    virtual void adj_2_fs_aps(vector<int> &fs, vector<int> &aps) const override;
+    virtual void adj_2_fs_aps(int* &fs, int* &aps) const override;
 
-    virtual vector<int> det_ddi(const vector<int> &fs, const vector<int> &aps) const override;
+    virtual int* det_ddi(const int* &fs, const int* &aps) const override;
 
 private:
 };
