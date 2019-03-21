@@ -175,6 +175,7 @@ public:
      */
     void m_rangs(const int* fs, const int* aps, int** &m_rangs) const;
 
+
     /**
      * Determine le nombre de predecesseurs de chaque sommet
      * @param [in] fs : tableau fs
@@ -198,7 +199,6 @@ public:
      * @param appc : aucune idee
      */
     virtual void ordonnancement(int* fp, int* app, int *d, int *&lc, int *&fpc, int *&appc) const = 0;
-
 
 
 

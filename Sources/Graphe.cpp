@@ -9,10 +9,9 @@ Graphe::Graphe(int** adj) : d_adj{adj}
 Graphe::Graphe(int nbSommets) : d_adj{}
 {
     d_adj = new int*[nbSommets];
-    d_adj[0][0] = nbSommets;
-    for (int i = 0; i < nbSommets; i++)
+    for (int i = 0; i <= nbSommets; i++)
         d_adj[i] = new int [nbSommets];
-
+    d_adj[0][0] = nbSommets;
 }
 
 Graphe::~Graphe() {
@@ -26,9 +25,9 @@ void Graphe::charger(const std::istream &ist)
 
 void Graphe::initAdj()
 {
-    for (int i = 1; i < d_adj[0][0]; i++)
+    for (int i = 1; i <= d_adj[0][0]; i++)
     {
-        for (int j = 1; j < d_adj[0][0]; j++)
+        for (int j = 1; j <= d_adj[0][0]; j++)
         {
             d_adj[i][j] = -1;
             if ( i == j ) d_adj[i][j] = 0;
