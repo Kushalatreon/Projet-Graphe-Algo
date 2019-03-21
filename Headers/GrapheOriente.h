@@ -20,12 +20,6 @@ public:
     explicit GrapheOriente(int nbSommets);
 
 
-    /**
-     * permet d'ajouter une arete entre deux dommets
-     * @param [in] predecesseur - sommet pere
-     * @param [in] successeur - sommet fils
-     */
-    void ajouterArete(int predecesseur, int successeur);
 
     /**
      * Algorithme de tarjan ### AJOUTER PARAMETRES GRAVE ERREUR ###
@@ -44,7 +38,7 @@ public:
     virtual void ordonnancement(int fp[], int app[], int *d, int *&lc, int *&fpc, int *&appc) const override;
 
     /**
-     *
+     * Permet de creer le graphe reduit a partir des composantes fortement connexe
      * @param [in] fs
      * @param [in] aps
      * @param [in] prem

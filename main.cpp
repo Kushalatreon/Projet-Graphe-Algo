@@ -9,16 +9,22 @@
 void creerGrapheOriente(){
 
     GrapheOriente *g = new GrapheOriente(4);
-    g->ajouterArete(1,2);
-    g->ajouterArete(1,3);
-    g->ajouterArete(1,4);
-    g->ajouterArete(2,4);
-    g->ajouterArete(4,3);
+    g->ajouterLisaison(1,2,1);
+    g->ajouterLisaison(1,3,1);
+    g->ajouterLisaison(1,4,1);
+    g->ajouterLisaison(2,4,1);
+    g->ajouterLisaison(4,3,1);
 
 
     /** commenter cette ligne pour pouvoir tester, non commenté ici pour ne pas oublie de liberer l'espace memoir */
     delete g;
 }
+
+void creerGrapheClavier()
+{
+
+}
+
 
 
 int main() {
