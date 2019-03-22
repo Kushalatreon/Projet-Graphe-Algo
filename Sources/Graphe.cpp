@@ -198,16 +198,16 @@ void Graphe::dijkstra(int* fs, int* aps, int s, int* &d, int* &pred) const
 
     bool *x = new bool[n + 1];
 
-    // initialisation de d a INT32_MAX
+    // initialisation de d a -1
     for(int i = 1 ; i <= n ; i++)
     {
-        d[i] = INT32_MAX;
+        d[i] = -1;
     }
 
     for(int i = 1 ; i <= n ; i++)
     {
         d[i] = d_adj[s][i];
-        if(d[i] != INT32_MAX) pred[i] = s;
+        if(d[i] != -1) pred[i] = s;
         else pred[i] = -1;
         x[i] = false;
     }
