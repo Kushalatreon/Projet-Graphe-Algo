@@ -25,6 +25,7 @@ void Graphe::charger(const std::istream &ist)
 
 void Graphe::initAdj()
 {
+    d_adj[0][1] = 0;
     for (int i = 1; i <= d_adj[0][0]; i++)
     {
         for (int j = 1; j <= d_adj[0][0]; j++)
@@ -39,6 +40,9 @@ void Graphe::initAdj()
 void Graphe::ajouterLisaison(int predecesseur, int successeur, int valeur)
 {
     d_adj[predecesseur][successeur] = valeur;
+    d_adj[0][1]++;
+    /*d_adj[0][successeur]++;//Si l'on utilise la première ligne pour stocker le nombre de prédecesseur
+     *d_adj[predecesseur][0]++;//Si l'on utilise la première colonne pour stocker le nombre de successeur*/
 }
 
 int** Graphe::matriceAdj() const
@@ -61,7 +65,7 @@ void Graphe::setMatrice(int **&adj)
     d_adj = adj;
 }
 
-void Graphe::detAps(int* fs, int* &aps) const {
+void Graphe::detAps(int *fs, int *&aps) const {
     int n = fs[0];
     aps = new int[n+1];
     aps[0] = n;
@@ -82,7 +86,10 @@ void Graphe::detAps(int* fs, int* &aps) const {
 void Graphe::adj_2_fs_aps(int *&fs, int *&aps) const
 {
     int n = d_adj[0][0], m = d_adj[0][1];
-
+    /*int m = 0;
+     *for (int i = 1; i <= d_adj[0][0]; i++) //Si l'on utilise la première ligne/colonne
+     *  if(d_adj[i][0] != 0)
+     *      m += d_adj[i][0]; */
     fs = new int[n + m + 1];
     fs[0] = n + m;
 
@@ -95,7 +102,8 @@ void Graphe::adj_2_fs_aps(int *&fs, int *&aps) const
         aps[i] = k;
         for(int j = 1 ; j <= n ; j++)
         {
-            if(d_adj[i][j] >= 1) fs[k++] = j;
+            if(d_adj[i][j] >= 1)
+                fs[k++] = j;
         }
         fs[k++] = 0;
     }
@@ -118,11 +126,12 @@ void Graphe::fs_aps_2_adj(int *fs, int *aps)
     {
         for(int j = aps[0] ; (j = fs[j]) != 0 ; j++)
         {
-            d_adj[i][j] = 1;
+            d_adj[i][j] = 1;//Fonctionne pour un graphe non valué mais comment on procède dans le cas d'un graphe valué?
         }
     }
 }
 
+//Est-ce que la distance fait sens dans un graphe non Orienté? Sinon, déplacer la méthode dans Graphe Orianté
 void Graphe::distance(int* fs, int* aps, int* &dist, int s) const
 {
     int t = 0;
@@ -164,6 +173,7 @@ void Graphe::distance(int* fs, int* aps, int* &dist, int s) const
     delete[] fa;
 }
 
+//Même combat que précédemment
 void Graphe::m_distances(int *fs, int *aps, int **&m_dist) const
 {
     int n = aps[0];
@@ -178,10 +188,13 @@ void Graphe::m_distances(int *fs, int *aps, int **&m_dist) const
     }
 }
 
+//Ne peut exister que si le graphe est orienté
+//Est-ce nécessaire?
 int Graphe::rang(int* fs, int* aps, int s) const {
 
 }
 
+//Ne peut exister que si le graphe est orienté
 void Graphe::m_rangs(int* fs, int* aps, int** &m_rangs) const {
 
 }

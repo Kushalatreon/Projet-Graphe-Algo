@@ -167,3 +167,55 @@ void GrapheOriente::fs_aps_2_fp_app(int* fs, int* aps, int* &fp, int* &app) cons
 
     delete[] ddi;
 }
+
+/* int*& prem et int*& num sont optionnel
+ * int *&prem doit avoir son maximum à n-1 avant l'appel à la fonction
+ * int& r, le maximum des rangs finis trouvé*/
+bool Graphe::m_rangs(int* fs, int* aps, int& r, int* &m_rangs/*int*& prem, int*& num*/) const {
+    int* ddi;
+    m_rangs = new int[n+1];
+    int n = aps[0];
+    det_ddi(fs, aps, ddi);
+    int s;
+    int k = 0;
+    //int p = 1; //Si on utilise int*& num
+    int* pilch;
+    //num = new int [ddi[0]+1];
+    pilch = new int[ddi[0]+1];
+    pilch[0] = 0;
+    for(int i = 1; i <= ddi[0]; i++)
+    {
+        m_rangs[i] = -1;
+        if(ddi[i] == 0)
+        {
+            pilch[i] = pilch[0];
+            pilch[0] = i;
+        }
+    }
+    while(pilch[0] > 0)
+    {
+        s = pilch[0];
+        //prem[r] = s; //Si on utilise int*& prem
+        pilch[0] = 0;
+        while(s > 0)
+        {
+            m_rangs[s] = r;
+            //num[s] = p++; //Si l'on utilise int*& num
+            k++;
+            for(int h = aps[s]; (int t = fs[h]) != 0; h++)
+            {
+                ddi[t]--;
+                if(ddi[t] == 0)
+                {
+                    pilch[i] = pilch[0];
+                    pilch[0] = i;
+                }
+                s = pilch[s];
+            }
+            r++;
+        }
+        r--;
+        return(k == n);
+    }
+
+}

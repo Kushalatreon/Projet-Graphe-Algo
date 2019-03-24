@@ -82,6 +82,8 @@ public:
      */
     virtual void fs_aps_2_fp_app(int* fs, int* aps, int* &fp, int* &app) const override;
 
+    bool m_rangs(int* fs, int* aps, int& r, int* &m_rangs/*int*& prem, int*& num*/) const;
+
 private:
 
 };
