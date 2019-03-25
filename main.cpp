@@ -103,47 +103,47 @@ void creerGrapheOrienteClavier()
 
 void creerGrapheNonOrienteClavier()
 {
-//    GrapheNonOriente *gno;
-//    int nbSommet, liaison, cpt = 0;
-//    bool value;
-//    nbSommet = entrerNbSommets();
-//    liaison = entrerNbLiaison();
-//    value = creerGrapheValueOuNon();
-//    gno = new GrapheNonOriente(nbSommet);
-//    if (value)
-//    {
-//        int val;
-//        while (cpt < liaison)
-//        {
-//            int sommet1, sommet2;
-//            std::cout << "Sommet pere " << std::endl;
-//            std::cin >> sommet1;
-//            std::cout << "sommet fils ? " << std::endl;
-//            std::cin >> sommet2;
-//            std::cout << "Entrer le poid : " << std::endl;
-//            std::cin >> val;
-//            gno->ajouterLisaison(sommet1,sommet2,val);
-//            gno->ajouterLisaison(sommet2,sommet1,val);
-//            cpt++;
-//        }
-//    }
-//    else
-//    {
-//        int val;
-//        while (cpt < liaison)
-//        {
-//            int sommet1, sommet2;
-//            std::cout << "Sommet prere " << std::endl;
-//            std::cin >> sommet1;
-//            std::cout << "sommet fils ? " << std::endl;
-//            std::cin >> sommet2;
-//            gno->ajouterLisaison(sommet1,sommet2);
-//            gno->ajouterLisaison(sommet2,sommet1);
-//            cpt++;
-//        }
-//    }
-//
-//    gno->afficher();
+    GrapheNonOriente *gno;
+    int nbSommet, liaison, cpt = 0;
+    bool value;
+    nbSommet = entrerNbSommets();
+    liaison = entrerNbLiaison();
+    value = creerGrapheValueOuNon();
+   // gno = new GrapheNonOriente(nbSommet);
+    if (value)
+    {
+        int val;
+        while (cpt < liaison)
+        {
+            int sommet1, sommet2;
+            std::cout << "Sommet pere " << std::endl;
+            std::cin >> sommet1;
+            std::cout << "sommet fils ? " << std::endl;
+            std::cin >> sommet2;
+            std::cout << "Entrer le poid : " << std::endl;
+            std::cin >> val;
+            gno->ajouterLisaison(sommet1,sommet2,val);
+            gno->ajouterLisaison(sommet2,sommet1,val);
+            cpt++;
+        }
+    }
+    else
+    {
+        int val;
+        while (cpt < liaison)
+        {
+            int sommet1, sommet2;
+            std::cout << "Sommet prere " << std::endl;
+            std::cin >> sommet1;
+            std::cout << "sommet fils ? " << std::endl;
+            std::cin >> sommet2;
+            gno->ajouterLisaison(sommet1,sommet2);
+            gno->ajouterLisaison(sommet2,sommet1);
+            cpt++;
+        }
+    }
+
+    gno->afficher();
 }
 
 void creerGrapheClavier()

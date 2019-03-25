@@ -6,6 +6,11 @@ GrapheNonOriente::GrapheNonOriente() : Graphe()
 GrapheNonOriente::GrapheNonOriente(int** adj) : Graphe(adj)
 {}
 
+GrapheNonOriente::GrapheNonOriente(int nbSommets) : Graphe(nbSommets)
+{
+    initAdj();
+}
+
 // a modifier
 void GrapheNonOriente::adj_2_fs_aps(int* &fs, int* &aps) const
 {
