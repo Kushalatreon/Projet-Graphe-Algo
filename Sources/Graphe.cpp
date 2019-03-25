@@ -1,3 +1,4 @@
+#include <iostream>
 #include "../Headers/Graphe.h"
 
 Graphe::Graphe() : d_adj{}
@@ -267,6 +268,16 @@ void Graphe::dijkstra(int* fs, int* aps, int s, int* &d, int* &pred) const
     }
 
     delete[] x;
+}
+
+void Graphe::afficher()
+{
+    for (int i = 1; i <= d_adj[0][0]; i++ )
+    {
+        for (int j = 1 ; j <= d_adj[0][0]; j++)
+            std::cout << d_adj[i][j] << " " ;
+        std::cout << std::endl;
+    }
 }
 
 

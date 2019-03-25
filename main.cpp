@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Headers/GrapheOriente.h"
+#include "Headers/GrapheNonOriente.h"
 
 
 /**
@@ -41,7 +42,7 @@ bool creerGrapheValueOuNon()
 
 }
 
-int nombreSommets()
+int entrerNbSommets()
 {
     int i;
     std::cout << "combien voulez vous de sommets ? " << std::endl;
@@ -49,7 +50,7 @@ int nombreSommets()
     return i;
 }
 
-int nombreLiaison()
+int entrerNbLiaison()
 {
     int i;
     std::cout << "combien voulez vous de lien ? " << std::endl;
@@ -62,8 +63,8 @@ void creerGrapheOrienteClavier()
     GrapheOriente *go;
     int nbSommet, liaison, cpt = 0;
     bool value;
-    nbSommet = nombreSommets();
-    liaison = nombreLiaison();
+    nbSommet = entrerNbSommets();
+    liaison = entrerNbLiaison();
     value = creerGrapheValueOuNon();
     go = new GrapheOriente(nbSommet);
     if (value)
@@ -72,7 +73,7 @@ void creerGrapheOrienteClavier()
         while (cpt < liaison)
         {
             int sommet1, sommet2;
-            std::cout << "Sommet prere " << std::endl;
+            std::cout << "Sommet pere " << std::endl;
             std::cin >> sommet1;
             std::cout << "sommet fils ? " << std::endl;
             std::cin >> sommet2;
@@ -96,29 +97,60 @@ void creerGrapheOrienteClavier()
             cpt++;
         }
     }
+
+    go->afficher();
 }
 
 void creerGrapheNonOrienteClavier()
 {
-    int nbSommet, liaison;
-    bool value;
-    nbSommet = nombreSommets();
-    value = creerGrapheValueOuNon();
-    if (value)
-    {
-
-    }
-    else
-    {
-
-    }
+//    GrapheNonOriente *gno;
+//    int nbSommet, liaison, cpt = 0;
+//    bool value;
+//    nbSommet = entrerNbSommets();
+//    liaison = entrerNbLiaison();
+//    value = creerGrapheValueOuNon();
+//    gno = new GrapheNonOriente(nbSommet);
+//    if (value)
+//    {
+//        int val;
+//        while (cpt < liaison)
+//        {
+//            int sommet1, sommet2;
+//            std::cout << "Sommet pere " << std::endl;
+//            std::cin >> sommet1;
+//            std::cout << "sommet fils ? " << std::endl;
+//            std::cin >> sommet2;
+//            std::cout << "Entrer le poid : " << std::endl;
+//            std::cin >> val;
+//            gno->ajouterLisaison(sommet1,sommet2,val);
+//            gno->ajouterLisaison(sommet2,sommet1,val);
+//            cpt++;
+//        }
+//    }
+//    else
+//    {
+//        int val;
+//        while (cpt < liaison)
+//        {
+//            int sommet1, sommet2;
+//            std::cout << "Sommet prere " << std::endl;
+//            std::cin >> sommet1;
+//            std::cout << "sommet fils ? " << std::endl;
+//            std::cin >> sommet2;
+//            gno->ajouterLisaison(sommet1,sommet2);
+//            gno->ajouterLisaison(sommet2,sommet1);
+//            cpt++;
+//        }
+//    }
+//
+//    gno->afficher();
 }
 
 void creerGrapheClavier()
 {
     int choix ;
     std::cout << "Voulez vous un graphe oriente ou non oriente " << std::endl;
-    std::cout << "1 : Oriente " << std::endl << "2 : non orienté" << std::endl;
+    std::cout << "1 : Oriente " << std::endl << "2 : non oriente" << std::endl;
     std::cin >> choix;
 
     if (choix == 1)
@@ -138,7 +170,8 @@ void creerGrapheClavier()
 
 int main() {
     creerGrapheOriente();
-    // creerGrapheClavier();
+    //creerGrapheClavier();
+
 
     std::cout << "Hello, World!" << std::endl;
     return 0;

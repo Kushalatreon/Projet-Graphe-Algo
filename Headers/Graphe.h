@@ -214,6 +214,7 @@ public:
      */
     virtual void ordonnancement(int* fp, int* app, int *d, int *&lc, int *&fpc, int *&appc) const = 0;
 
+    void afficher();
 };
 
 
