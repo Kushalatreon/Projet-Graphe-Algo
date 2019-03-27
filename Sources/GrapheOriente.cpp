@@ -120,53 +120,7 @@ void GrapheOriente::det_cfc(int **dist, int *&prem, int *&pilch, int *&cfc)
 }
 
 
-void GrapheOriente::det_ddi(int* fs, int* aps, int* &ddi) const
-{
-    int n = aps[0];
-    ddi = new int[n + 1];
 
-    for (int i = 0 ; i <= n ; ++i)
-        ddi[i] = 0;
-
-    for (int i = 1 ; i <= n ; ++i)
-        ++ddi[fs[i]];
-}
-
-void GrapheOriente::det_app(int* ddi, int* &app) const
-{
-    int n = ddi[0];
-    app = new int[n +1 ];
-    app[0] = n;
-    app[1] = 1;
-
-    for (int i = 2 ; i <= n ; ++i)
-        app[i] = app[i - 1] + ddi[i - 1] + 1;
-}
-
-void GrapheOriente::fs_aps_2_fp_app(int* fs, int* aps, int* &fp, int* &app) const
-{
-    int* ddi;
-    int n = fs[0];
-    int j;
-
-    det_ddi(fs, aps, ddi);
-    det_app(ddi, app);
-    fp[0] = fs[0];
-
-    for(int i = 1 ; i <= n ; ++i)
-        for (int k = aps[i] ; (j = fs[k]) != 0 ; ++k)
-            fp[app[j]++] = i;
-
-    for (int i = 1 ; i <= n ; ++i)
-        fp[app[i]] = 0;
-
-    for (int i = n ; i > 1 ; --i)
-        app[i] = app[i - 1] + 1;
-
-    app[1] = 1;
-
-    delete[] ddi;
-}
 
 /* int*& prem et int*& num sont optionnel
  * int *&prem doit avoir son maximum à n-1 avant l'appel à la fonction
@@ -222,4 +176,30 @@ bool GrapheOriente::m_rangs(int* fs, int* aps, int& r, int* &m_rangs/*int*& prem
         return(k == n);
     }
 
+}
+
+void GrapheOriente::adj_2_fs_aps(int *&fs, int *&aps) const
+{
+    int n = d_adj[0][0], m = d_adj[0][1];
+    /*int m = 0;
+     *for (int i = 1; i <= d_adj[0][0]; i++) //Si l'on utilise la première ligne/colonne
+     *  if(d_adj[i][0] > 0)
+     *      m += d_adj[i][0]; */
+    fs = new int[n + m + 1];
+    fs[0] = n + m;
+
+    aps = new int[n + 1];
+    aps[0] = n;
+
+    int k =1;
+    for(int i = 1 ; i <= n ; i++)
+    {
+        aps[i] = k;
+        for(int j = 1 ; j <= n ; j++)
+        {
+            if(d_adj[i][j] >= 1)
+                fs[k++] = j;
+        }
+        fs[k++] = 0;
+    }
 }

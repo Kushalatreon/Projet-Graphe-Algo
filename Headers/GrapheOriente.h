@@ -22,7 +22,7 @@ public:
     /**
      * Algorithme de tarjan ### AJOUTER PARAMETRES GRAVE ERREUR ###
      */
-    virtual void tarjan() const override;
+     void tarjan()  const;
 
     /**
     *
@@ -33,7 +33,7 @@ public:
     * @param [in, out] fpc - file des premiers critiques
     * @param [in, out] appc - adresses des premiers critiques
     */
-    virtual void ordonnancement(int* fp, int* app, int *d, int *&lc, int *&fpc, int *&appc) const override;
+     void ordonnancement(int* fp, int* app, int *d, int *&lc, int *&fpc, int *&appc) const;
 
     /**
      * Permet de creer le graphe reduit a partir des composantes fortement connexes
@@ -56,31 +56,8 @@ public:
      */
     void det_cfc(int **dist, int *&prem, int *&pilch, int *&cfc);
 
-    /**
-     * Redéfinition
-     * Determine le nombre de predecesseurs de chaque sommet
-     * @param [in] fs
-     * @param [in] aps
-     */
-    virtual void det_ddi(int* fs, int* aps, int* &ddi) const override;
+    virtual void adj_2_fs_aps(int* &fs, int* &aps) const override;
 
-    /**
-     * Redéfinition
-     * Détermine la file des premiers prédécesseurs
-     * @param [in] ddi : tableau ddi
-     * @param [out] app : tableau app
-     */
-    virtual void det_app(int* ddi, int* &app) const override;
-
-    /**
-     * Redéfinition
-     * Passage de fs aps à fp app
-     * @param fs : tableau fs
-     * @param aps : tableau aps
-     * @param fp : tableau fp, file des prédécesseurs
-     * @param app : tableau app
-     */
-    virtual void fs_aps_2_fp_app(int* fs, int* aps, int* &fp, int* &app) const override;
 
     bool m_rangs(int* fs, int* aps, int& r, int* &m_rangs/*int*& prem, int*& num*/) const;
 

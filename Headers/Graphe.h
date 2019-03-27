@@ -9,7 +9,7 @@ using std::vector;
 
 class Graphe
 {
-private:
+protected:
     int** d_adj;
 
 public:
@@ -115,7 +115,7 @@ public:
      * @param [out] fs : tableau fs a remplir
      * @param [out] aps : tableau aps a remplir
      */
-    virtual void adj_2_fs_aps(int* &fs, int* &aps) const;
+    virtual void adj_2_fs_aps(int* &fs, int* &aps) const = 0;
 
     /**
      * Remplit la matrice d'adjacence (d_adj) depuis fs et aps
@@ -129,7 +129,7 @@ public:
      * @param [in] ddi : tableau ddi
      * @param [out] app : tableau app, adresses des premiers prédécesseurs
      */
-    virtual void det_app(int* ddi, int* &app) const = 0;
+    void det_app(int* ddi, int* &app) const ;
 
     /**
      * Passage de fs aps à fp app
@@ -138,7 +138,7 @@ public:
      * @param fp : tableau fp, file des prédécesseurs
      * @param app : tableau app
      */
-    virtual void fs_aps_2_fp_app(int* fs, int* aps, int* &fp, int* &app) const = 0;
+     void fs_aps_2_fp_app(int* fs, int* aps, int* &fp, int* &app) const;
 
     /**
      * Determine la tableau des distance pour un sommet donne
@@ -150,6 +150,7 @@ public:
      * @param [in] s : numero du sommet dont il faut determine la tableau des distances
      */
     void distance(int* fs, int* aps, int* &dist, int s) const;
+
 
     /**
      * Determine la matrice des distances
@@ -193,26 +194,8 @@ public:
      * @param [in] aps : tableau aps
      * @param [out] ddi : tableau des successeurs
      */
-    virtual void det_ddi(int* fs, int* aps, int* &ddi) const = 0;
+    void det_ddi(int* fs, int* aps, int* &ddi) const ;
 
-    /*
-     * Peut etre qu'il faudra delete ces 2 fonctions
-     */
-    /**
-     * Algorithme de tarjan ### AJOUTER PARAMETRES GRAVE ERREUR ###
-     */
-    virtual void tarjan() const = 0;
-
-    /**
-     * Algorithme du probleme d'ordonnancement
-     * @param [in] fp : tableau fp --> file des predecesseurs
-     * @param [in] app : tableau app --> file des premiers predecesseurs
-     * @param [in] d : aucune idee
-     * @param [in,out] lc : aucune idee
-     * @param [in,out] fpc : aucune idee
-     * @param [in,out] appc : aucune idee
-     */
-    virtual void ordonnancement(int* fp, int* app, int *d, int *&lc, int *&fpc, int *&appc) const = 0;
 
     void afficher();
 };
