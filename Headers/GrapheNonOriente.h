@@ -14,9 +14,11 @@ public:
 
     virtual void adj_2_fs_aps(int* &fs, int* &aps) const override;
 
+    void Kruskal(GrapheNonOriente &h) const;
 
 
 private:
+    void fusion(int i, int j, int* prem, int* &pilch, int* &cfc) const;
 };
 
 
