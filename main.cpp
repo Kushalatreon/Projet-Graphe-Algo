@@ -38,6 +38,7 @@ bool creerGrapheValueOuNon()
     else
     {
         std::cout << "Entree invalide " << std::endl;
+        return false;
     }
 
 }
@@ -67,36 +68,30 @@ void creerGrapheOrienteClavier()
     liaison = entrerNbLiaison();
     value = creerGrapheValueOuNon();
     go = new GrapheOriente(nbSommet);
-    if (value)
+
+    int val;
+    while (cpt < liaison)
     {
-        int val;
-        while (cpt < liaison)
-        {
-            int sommet1, sommet2;
-            std::cout << "Sommet pere " << std::endl;
-            std::cin >> sommet1;
-            std::cout << "sommet fils ? " << std::endl;
-            std::cin >> sommet2;
+        int sommet1, sommet2;
+        std::cout << "Sommet pere " << std::endl;
+        std::cin >> sommet1;
+        std::cout << "sommet fils ? " << std::endl;
+        std::cin >> sommet2;
+
+        if (value) {
             std::cout << "Entrer le poid : " << std::endl;
             std::cin >> val;
             go->ajouterLisaison(sommet1,sommet2,val);
-            cpt++;
         }
-    }
-    else
-    {
-        int val;
-        while (cpt < liaison)
+        else
         {
-            int sommet1, sommet2;
-            std::cout << "Sommet prere " << std::endl;
-            std::cin >> sommet1;
-            std::cout << "sommet fils ? " << std::endl;
-            std::cin >> sommet2;
-            go->ajouterLisaison(sommet1,sommet2);
-            cpt++;
+           go->ajouterLisaison(sommet1,sommet2);
         }
+
+        cpt++;
     }
+
+
 
     go->afficher();
 }
@@ -110,38 +105,33 @@ void creerGrapheNonOrienteClavier()
     liaison = entrerNbLiaison();
     value = creerGrapheValueOuNon();
    // gno = new GrapheNonOriente(nbSommet);
-    if (value)
+
+    int val;
+    while (cpt < liaison)
     {
-        int val;
-        while (cpt < liaison)
-        {
-            int sommet1, sommet2;
-            std::cout << "Sommet pere " << std::endl;
-            std::cin >> sommet1;
-            std::cout << "sommet fils ? " << std::endl;
-            std::cin >> sommet2;
+        int sommet1, sommet2;
+        std::cout << "Sommet pere " << std::endl;
+        std::cin >> sommet1;
+        std::cout << "sommet fils ? " << std::endl;
+        std::cin >> sommet2;
+
+        if (value) {
             std::cout << "Entrer le poid : " << std::endl;
             std::cin >> val;
             gno->ajouterLisaison(sommet1,sommet2,val);
             gno->ajouterLisaison(sommet2,sommet1,val);
-            cpt++;
+
+
         }
-    }
-    else
-    {
-        int val;
-        while (cpt < liaison)
+        else
         {
-            int sommet1, sommet2;
-            std::cout << "Sommet prere " << std::endl;
-            std::cin >> sommet1;
-            std::cout << "sommet fils ? " << std::endl;
-            std::cin >> sommet2;
             gno->ajouterLisaison(sommet1,sommet2);
             gno->ajouterLisaison(sommet2,sommet1);
-            cpt++;
         }
+        cpt++;
     }
+
+
 
     gno->afficher();
 }
