@@ -17,7 +17,7 @@ void creerGrapheOriente(){
     g->ajouterLisaison(4,3,1);
 
 
-    /** commenter cette ligne pour pouvoir tester, non commenté ici pour ne pas oublie de liberer l'espace memoir */
+    /** commenter cette ligne pour pouvoir tester, non commenter ici pour ne pas oublie de liberer l'espace memoir */
     delete g;
 }
 
@@ -54,14 +54,13 @@ int entrerNbSommets()
 int entrerNbLiaison()
 {
     int i;
-    std::cout << "combien voulez vous de lien ? " << std::endl;
+    std::cout << "combien voulez vous de liens ? " << std::endl;
     std::cin >> i;
     return i;
 }
 
-void creerGrapheOrienteClavier()
+void creerGrapheOrienteClavier(GrapheOriente *&go)
 {
-    GrapheOriente *go;
     int nbSommet, liaison, cpt = 0;
     bool value;
     nbSommet = entrerNbSommets();
@@ -91,20 +90,17 @@ void creerGrapheOrienteClavier()
         cpt++;
     }
 
-
-
     go->afficher();
 }
 
-void creerGrapheNonOrienteClavier()
+void creerGrapheNonOrienteClavier(GrapheNonOriente *&gno)
 {
-    GrapheNonOriente *gno;
     int nbSommet, liaison, cpt = 0;
     bool value;
     nbSommet = entrerNbSommets();
     liaison = entrerNbLiaison();
     value = creerGrapheValueOuNon();
-   // gno = new GrapheNonOriente(nbSommet);
+    gno = new GrapheNonOriente(nbSommet);
 
     int val;
     while (cpt < liaison)
@@ -116,12 +112,10 @@ void creerGrapheNonOrienteClavier()
         std::cin >> sommet2;
 
         if (value) {
-            std::cout << "Entrer le poid : " << std::endl;
+            std::cout << "Entrer le poids : " << std::endl;
             std::cin >> val;
             gno->ajouterLisaison(sommet1,sommet2,val);
             gno->ajouterLisaison(sommet2,sommet1,val);
-
-
         }
         else
         {
@@ -143,13 +137,16 @@ void creerGrapheClavier()
     std::cout << "1 : Oriente " << std::endl << "2 : non oriente" << std::endl;
     std::cin >> choix;
 
+    GrapheOriente *go;
+    GrapheNonOriente *gno;
+
     if (choix == 1)
     {
-        creerGrapheOrienteClavier();
+        creerGrapheOrienteClavier(go);
     }
     else if ( choix == 2)
     {
-        creerGrapheNonOrienteClavier();
+        creerGrapheNonOrienteClavier(gno);
     }
     else
     {
@@ -158,10 +155,26 @@ void creerGrapheClavier()
 }
 
 
+void testPrufer()
+{
+    GrapheNonOriente *gno;
+    int* C;
+
+    creerGrapheNonOrienteClavier(gno);
+
+    gno->codagePrufer(gno->matriceAdj(), C);
+
+
+    std::cout<<"Décodage : "<<std::endl;
+    gno->decodagePrufer(C);
+
+}
+
 int main() {
-    creerGrapheOriente();
+    //creerGrapheOriente();
 //    creerGrapheClavier();
 
+    testPrufer();
 
     std::cout << "Hello, World!" << std::endl;
     return 0;
