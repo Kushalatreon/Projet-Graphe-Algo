@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../Headers/GrapheNonOriente.h"
 
 GrapheNonOriente::GrapheNonOriente() : Graphe()
@@ -173,25 +172,3 @@ void GrapheNonOriente::decodagePrufer(int *C) {
     delete[] I;
     delete[] nbOcc;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

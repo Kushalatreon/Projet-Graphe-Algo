@@ -3,7 +3,7 @@
 
 
 #include <vector>
-#include <istream>
+#include <iostream>
 
 using std::vector;
 
