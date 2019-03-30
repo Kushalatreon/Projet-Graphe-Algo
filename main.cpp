@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "Headers/GrapheOriente.h"
 #include "Headers/GrapheNonOriente.h"
 
@@ -170,11 +171,65 @@ void testPrufer()
 
 }
 
+void charger(std::ifstream &is, Graphe *g)
+{
+    if( !is) return;
+
+    int n;  // nb sommets
+    int m;  // nb aretes
+    int** tmp;
+
+    is >> n >> m;
+
+    tmp = new int* [n+1];
+    tmp[0] = new int[2];
+    tmp[0][0] = n;
+    tmp[0][1] = m;
+    for(int i = 1 ; i <= n ; ++i)
+    {
+        tmp[i] = new int[n+1];
+    }
+
+    int val;
+    while(!is.eof())
+    {
+        for(int i = 1 ; i <= n ; i++)
+        {
+            for(int j = 1 ; j <= n ; j++)
+            {
+                is >> val;
+                tmp[i][j] = val;
+            }
+        }
+    }
+
+    g->setMatrice(tmp);
+
+}
+
 int main() {
     //creerGrapheOriente();
 //    creerGrapheClavier();
 
-    testPrufer();
+    //testPrufer();
+
+
+
+
+    Graphe *g;
+
+    std::ifstream f ("../Data/GrapheNonOriente1.txt");
+
+    bool type = 1;
+    f >> type;
+
+    if(type) g = new GrapheOriente();
+    else g = new GrapheNonOriente();
+
+    charger(f, g);
+
+    g->afficher();
+
 
     std::cout << "Hello, World!" << std::endl;
     return 0;
