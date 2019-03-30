@@ -207,6 +207,13 @@ void charger(std::ifstream &is, Graphe *g)
 
 }
 
+void testKruskal(GrapheNonOriente *g)
+{
+    GrapheNonOriente *h = new GrapheNonOriente();
+    g->Kruskal(*h);
+    h->afficher();
+}
+
 int main() {
     //creerGrapheOriente();
 //    creerGrapheClavier();
@@ -215,20 +222,30 @@ int main() {
 
 
 
-
-    Graphe *g;
-
     std::ifstream f ("../Data/GrapheNonOriente1.txt");
 
     bool type = 1;
     f >> type;
 
-    if(type) g = new GrapheOriente();
-    else g = new GrapheNonOriente();
+    if(type)
+    {
+        GrapheOriente *g = new GrapheOriente();
+    }
+    else
+    {
+        GrapheNonOriente *g = new GrapheNonOriente();
 
-    charger(f, g);
+        charger(f, g);
 
-    g->afficher();
+        g->afficher();
+
+
+
+        testKruskal(g);
+    }
+
+
+
 
 
     std::cout << "Hello, World!" << std::endl;
