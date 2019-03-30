@@ -39,7 +39,7 @@ void GrapheNonOriente::adj_2_fs_aps(int* &fs, int* &aps) const
 }
 
 
-void GrapheNonOriente::triAretes_ParBulle(GrapheNonOriente::arete *&_a, int taille) const
+void GrapheNonOriente::triAretes_ParBulle(vector<GrapheNonOriente::arete> &_a, int taille) const
 {
     bool estTrie = false;
     while(!estTrie)
@@ -58,7 +58,7 @@ void GrapheNonOriente::triAretes_ParBulle(GrapheNonOriente::arete *&_a, int tail
     }
 }
 
-void GrapheNonOriente::getAretesTrieesParPoids(GrapheNonOriente::arete *&_a, int taille) const
+void GrapheNonOriente::getAretesTrieesParPoids(vector<GrapheNonOriente::arete> &_a, int taille) const
 {
     // remplissage du tableau d'aretes
     for(int i = 1 ; i <= d_adj[0][0] ; ++i)
@@ -78,7 +78,7 @@ void GrapheNonOriente::getAretesTrieesParPoids(GrapheNonOriente::arete *&_a, int
     triAretes_ParBulle(_a, taille);
 }
 
-void GrapheNonOriente::setAretes(GrapheNonOriente &h, const GrapheNonOriente::arete *_a, int taille)
+void GrapheNonOriente::setAretes(GrapheNonOriente &h, const vector<GrapheNonOriente::arete> &_a, int taille)
 {
     for ( int i = 0 ; i < taille ; ++i)
     {
@@ -127,11 +127,10 @@ void GrapheNonOriente::Kruskal(GrapheNonOriente &h)
 
     // d_adj[0][1] = nb aretes du graphe courant
     // aretes de l'arbre recouvrant minimal
-    arete* aretesARM = new arete[m];      // <=> h.a dans l'algorithme du cours
+    std::vector<arete> aretesARM(m);      // <=> h.a dans l'algorithme du cours
 
-    // aretes du graphe courant classees selon leur poids par ordre croissant
     // aretes du graphe courant triees par ordre croissant selon leur poids
-    arete* aretesGCT = new arete[m];      // <=> g.a dans l'algorithme du cours
+    std::vector<arete> aretesGCT(m);      // <=> g.a dans l'algorithme du cours
 
     // remplissage du tableau d'arete du  graphe courant
     getAretesTrieesParPoids ( aretesGCT, m ) ;
@@ -173,8 +172,8 @@ void GrapheNonOriente::Kruskal(GrapheNonOriente &h)
 
     setAretes(h, aretesARM, m);
 
-    delete[] aretesARM;
-    delete[] aretesGCT;
+    //delete[] aretesARM;
+    //delete[] aretesGCT;
     delete[] prem;
     delete[] pilch;
     delete[] cfc;

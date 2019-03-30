@@ -44,11 +44,11 @@ private:
 
     void fusion(int i, int j, int* prem, int* &pilch, int* &cfc) const;
 
-    void triAretes_ParBulle(arete *&_a, int taille) const;
+    void triAretes_ParBulle(vector<GrapheNonOriente::arete> &_a, int taille) const;
 
-    void getAretesTrieesParPoids(arete *&_a, int taille) const;
+    void getAretesTrieesParPoids(vector<GrapheNonOriente::arete> &_a, int taille) const;
 
-    void setAretes(GrapheNonOriente &h, const arete *_a, int taille);
+    void setAretes(GrapheNonOriente &h, const vector<GrapheNonOriente::arete> &_a, int taille);
 };
 
 
