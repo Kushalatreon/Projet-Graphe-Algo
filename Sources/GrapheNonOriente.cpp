@@ -19,7 +19,7 @@ void GrapheNonOriente::adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps)
      *for (int i = 1; i <= d_adj[0][0]; i++) //Si l'on utilise la première ligne/colonne
      *  if(d_adj[i][0] > 0)
      *      m += d_adj[i][0]; */
-    fs.resize(n + m + 1);
+    fs.resize(n + m*2 + 1); // m*2 car pour le cas non oriente on duplique tous les arcs
     fs[0] = n + m;
 
     aps.resize(n + 1);
@@ -29,7 +29,7 @@ void GrapheNonOriente::adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps)
     for(int i = 1 ; i <= n ; i++)
     {
         aps[i] = k;
-        for(int j = i ; j <= n ; j++)
+        for(int j = 1 ; j <= n ; j++)
         {
             if(d_adj[i][j] >= 1)
                 fs[k++] = j;

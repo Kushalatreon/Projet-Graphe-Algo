@@ -214,13 +214,28 @@ void testKruskal(GrapheNonOriente *g)
     h->afficher();
 }
 
+void testadj_fs_aps()
+{
+    std::vector<int> fs;
+    std::vector<int> aps;
+
+    GrapheNonOriente *g = new GrapheNonOriente();
+    std::ifstream f ("../Data/GrapheNonOriente1.txt");
+    bool type = 1;
+    f >> type;
+    charger(f, g);
+
+    g->adj_2_fs_aps(fs,aps);
+
+
+}
 int main() {
 //    creerGrapheOriente();
 //    creerGrapheClavier();
 
    // testPrufer();
-
-
+   //
+    testadj_fs_aps();
 
     std::ifstream f ("../Data/GrapheNonOriente1.txt");
 
