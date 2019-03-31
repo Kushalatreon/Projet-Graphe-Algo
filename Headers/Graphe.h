@@ -5,12 +5,11 @@
 #include <vector>
 #include <iostream>
 
-using std::vector;
 
 class Graphe
 {
 protected:
-    int** d_adj;
+    std::vector<std::vector<int>> d_adj;
 
 public:
 
@@ -28,7 +27,7 @@ public:
      * Constructeur de Graphe avec une matrice d'adjacence en parametre
      * @param [in] adj
      */
-    Graphe(int** adj);
+    Graphe( std::vector<std::vector<int>> &adj);
 
 
     /**
@@ -75,14 +74,14 @@ public:
      * Retourne la matrice d'adjacence
      * @return tableau 2D : matrice d'adjacence
      */
-    int** matriceAdj() const;
+     std::vector<std::vector<int>> matriceAdj() const;
 
     /**
      * Retourne un tableau a une certaine ligne de la matrice d'adjacence
      * @param [in] i - ligne de la matrice
      * @return tableau 1D : ligne i de la matrice d'adjacence
      */
-    int* tableauMatrice(int i) const;
+    std::vector<int> tableauMatrice(int i) const;
 
     /**
      * Retourne une valeur a une certaine case de la matrivce d'adjacence
@@ -96,7 +95,7 @@ public:
      * Permet d'affecter d_adj a une autre matrice
      * @param [in] adj : nouvelle matrice d'adjacence
      */
-    void setMatrice(int** &adj);
+    void setMatrice( std::vector<std::vector<int>> &adj);
 
 
     // ----------------------------- Methodes de classe (par rapport au graphe)  -----------------------------
@@ -108,28 +107,28 @@ public:
      * @param [in] fs : tableau des successeurs
      * @param [out] aps : tableau aps a remplir
      */
-    void detAps(int* fs, int* &aps) const;
+    void detAps(std::vector<int> fs, std::vector<int> &aps) const;
 
     /**
      * Determine fs et aps. Adj est attribut prive
      * @param [out] fs : tableau fs a remplir
      * @param [out] aps : tableau aps a remplir
      */
-    virtual void adj_2_fs_aps(int* &fs, int* &aps) const = 0;
+    virtual void adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps) const = 0;
 
     /**
      * Remplit la matrice d'adjacence (d_adj) depuis fs et aps
      * @param fs : tableau fs
      * @param aps : teableau aps
      */
-    void fs_aps_2_adj(int* fs, int* aps);
+    void fs_aps_2_adj(std::vector<int> fs, std::vector<int> aps);
 
     /**
      * Détermine la file des premiers prédécesseurs
      * @param [in] ddi : tableau ddi
      * @param [out] app : tableau app, adresses des premiers prédécesseurs
      */
-    void det_app(int* ddi, int* &app) const ;
+    void det_app(std::vector<int> ddi, std::vector<int> &app) const ;
 
     /**
      * Passage de fs aps à fp app
@@ -138,7 +137,7 @@ public:
      * @param fp : tableau fp, file des prédécesseurs
      * @param app : tableau app
      */
-     void fs_aps_2_fp_app(int* fs, int* aps, int* &fp, int* &app) const;
+     void fs_aps_2_fp_app(std::vector<int> fs, std::vector<int> aps, std::vector<int> &fp, std::vector<int> &app) const;
 
     /**
      * Determine la tableau des distance pour un sommet donne
@@ -149,7 +148,7 @@ public:
      * @param [out] dist : tableau des distances
      * @param [in] s : numero du sommet dont il faut determine la tableau des distances
      */
-    void distance(int* fs, int* aps, int* &dist, int s) const;
+    void distance(std::vector<int> fs, std::vector<int> aps, std::vector<int> &dist, int s) const;
 
 
     /**
@@ -159,7 +158,7 @@ public:
      * @param [in] aps : tableau aps const
      * @param [out] m_dist : matrice des distances
      */
-    void m_distances(int* fs, int* aps, int** &m_dist) const;
+    void m_distances(std::vector<int> fs, std::vector<int> aps,  std::vector<std::vector<int>> &m_dist) const;
 
     /**
      * Determine le rang d'un sommet s
@@ -168,7 +167,7 @@ public:
      * @param [in] s : numero du sommet
      * @return int : rang du sommet
      */
-    int rang(int* fs, int* aps, int s) const;
+    int rang(std::vector<int> fs, std::vector<int> aps, int s) const;
 
     /**
      * Determine le rang de tous les sommets du graphe
@@ -176,7 +175,7 @@ public:
      * @param [in] aps : tableau aps
      * @param [out] m_rangs : matrice des rangs
      */
-    void m_rangs(int* fs, int* aps, int** &m_rangs) const;
+    void m_rangs(std::vector<int> fs, std::vector<int> aps,  std::vector<std::vector<int>> &m_rangs) const;
 
     /**
      * Algorithme de Dijkstra : plus court chemin
@@ -186,7 +185,7 @@ public:
      * @param [in,out] d -
      * @param [in,out] pred -
      */
-    void dijkstra(int* fs, int* aps, int s, int* &d, int* &pred) const;
+    void dijkstra(std::vector<int> fs, std::vector<int> aps, int s, std::vector<int> &d, std::vector<int> &pred) const;
 
     /**
      * Determine le nombre de predecesseurs de chaque sommet
@@ -194,7 +193,7 @@ public:
      * @param [in] aps : tableau aps
      * @param [out] ddi : tableau des successeurs
      */
-    void det_ddi(int* fs, int* aps, int* &ddi) const ;
+    void det_ddi(std::vector<int> fs, std::vector<int> aps, std::vector<int> &ddi) const ;
 
 
     void afficher();

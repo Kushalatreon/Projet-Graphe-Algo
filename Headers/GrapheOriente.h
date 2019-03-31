@@ -10,7 +10,7 @@ public:
 
     GrapheOriente();
 
-    GrapheOriente(int** adj);
+    GrapheOriente(std::vector<std::vector<int>> adj);
 
 
     /**
@@ -33,7 +33,7 @@ public:
     * @param [in, out] fpc - file des premiers critiques
     * @param [in, out] appc - adresses des premiers critiques
     */
-     void ordonnancement(int* fp, int* app, int *d, int *&lc, int *&fpc, int *&appc) const;
+     void ordonnancement(std::vector<int> fp, std::vector<int> app, std::vector<int> d, std::vector<int> &lc, std::vector<int> &fpc, std::vector<int> &appc) const;
 
     /**
      * Permet de creer le graphe reduit a partir des composantes fortement connexes
@@ -45,7 +45,7 @@ public:
      * @param [in, out] fsr
      * @param [in, out] apsr
      */
-    void graphe_reduit(int *fs, int *aps, int *prem, int *pilch, int *cfc, int *&fsr, int *& apsr);
+    void graphe_reduit(std::vector<int> fs, std::vector<int> aps, std::vector<int> prem, std::vector<int> pilch, std::vector<int> cfc, std::vector<int> &fsr, std::vector<int> & apsr);
 
     /**
      *
@@ -54,12 +54,12 @@ public:
      * @param [in, out] pilch
      * @param [in, out] cfc
      */
-    void det_cfc(int **dist, int *&prem, int *&pilch, int *&cfc);
+    void det_cfc(std::vector<std::vector<int>> dist, std::vector<int> &prem, std::vector<int> &pilch, std::vector<int> &cfc);
 
-    virtual void adj_2_fs_aps(int* &fs, int* &aps) const override;
+    virtual void adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps) const override;
 
 
-    bool m_rangs(int* fs, int* aps, int& r, int* &m_rangs/*int*& prem, int*& num*/) const;
+    bool m_rangs(std::vector<int> fs, std::vector<int> aps, int& r, std::vector<int> &m_rangs/*std::vector<int>& prem, std::vector<int>& num*/) const;
 
 private:
 

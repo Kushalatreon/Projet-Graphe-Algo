@@ -8,11 +8,11 @@ class GrapheNonOriente : public Graphe
 public:
     GrapheNonOriente();
 
-    GrapheNonOriente(int** adj);
+    GrapheNonOriente(std::vector<std::vector<int>> adj);
 
     GrapheNonOriente(int nbSommets);
 
-    virtual void adj_2_fs_aps(int* &fs, int* &aps) const override;
+    virtual void adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps) const override;
 
     void Kruskal(GrapheNonOriente &h);
 
@@ -21,13 +21,13 @@ public:
      * @param [in] A - la matrice d'adjacence
      * @param [out] C - le tableau qui accueillera le codage
      */
-    void codagePrufer (int **A, int *&C );
+    void codagePrufer (std::vector<std::vector<int>> A, std::vector<int> &C );
 
     /**
      * Affiche le codage de Prüfer contenu dans C
      * @param [in] C - tableau qui contient le codage
      */
-    void decodagePrufer (int *C);
+    void decodagePrufer (std::vector<int> &C);
 
 private:
 
@@ -42,13 +42,13 @@ private:
         int p;
     } arete;
 
-    void fusion(int i, int j, int* prem, int* &pilch, int* &cfc) const;
+    void fusion(int i, int j, std::vector<int> prem, std::vector<int> &pilch, std::vector<int> &cfc) const;
 
-    void triAretes_ParBulle(vector<GrapheNonOriente::arete> &_a, int taille) const;
+    void triAretes_ParBulle(std::vector<GrapheNonOriente::arete> &_a, int taille) const;
 
-    void getAretesTrieesParPoids(vector<GrapheNonOriente::arete> &_a, int taille) const;
+    void getAretesTrieesParPoids(std::vector<GrapheNonOriente::arete> &_a, int taille) const;
 
-    void setAretes(GrapheNonOriente &h, const vector<GrapheNonOriente::arete> &_a, int taille);
+    void setAretes(GrapheNonOriente &h, const std::vector<GrapheNonOriente::arete> &_a, int taille);
 };
 
 

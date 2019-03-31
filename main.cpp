@@ -159,7 +159,7 @@ void creerGrapheClavier()
 void testPrufer()
 {
     GrapheNonOriente *gno;
-    int* C;
+    std::vector<int> C;
 
     creerGrapheNonOrienteClavier(gno);
 
@@ -177,17 +177,17 @@ void charger(std::ifstream &is, Graphe *g)
 
     int n;  // nb sommets
     int m;  // nb aretes
-    int** tmp;
+
 
     is >> n >> m;
+    std::vector<std::vector<int>> tmp (n+1, std::vector<int>(n+1));
 
-    tmp = new int* [n+1];
-    tmp[0] = new int[2];
+    tmp[0].reserve(2);
     tmp[0][0] = n;
     tmp[0][1] = m;
     for(int i = 1 ; i <= n ; ++i)
     {
-        tmp[i] = new int[n+1];
+        tmp[i].reserve(n+1);
     }
 
     int val;
@@ -215,10 +215,10 @@ void testKruskal(GrapheNonOriente *g)
 }
 
 int main() {
-    //creerGrapheOriente();
+//    creerGrapheOriente();
 //    creerGrapheClavier();
 
-    //testPrufer();
+   // testPrufer();
 
 
 
@@ -236,6 +236,8 @@ int main() {
         GrapheNonOriente *g = new GrapheNonOriente();
 
         charger(f, g);
+
+
 
         g->afficher();
 

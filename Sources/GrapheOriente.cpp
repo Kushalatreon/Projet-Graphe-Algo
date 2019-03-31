@@ -3,7 +3,7 @@
 GrapheOriente::GrapheOriente() : Graphe()
 {}
 
-GrapheOriente::GrapheOriente(int** adj) : Graphe(adj)
+GrapheOriente::GrapheOriente(std::vector<std::vector<int>> adj) : Graphe(adj)
 {}
 
 GrapheOriente::GrapheOriente(int nbSommets) : Graphe(nbSommets)
@@ -15,13 +15,13 @@ void GrapheOriente::tarjan() const {
 
 }
 
-void GrapheOriente::ordonnancement(int *fp, int *app, int *d, int *&lc, int *&fpc, int *&appc) const
+void GrapheOriente::ordonnancement(std::vector<int> fp, std::vector<int> app, std::vector<int> d, std::vector<int> &lc, std::vector<int> &fpc, std::vector<int> &appc) const
 {
     int n = app[0], kc = 1, t;
-    lc = new int [n+1];
+    lc.resize(n+1);
     lc[0] = n;
-    fpc = new int [fp[0] + 1];
-    appc = new int [n + 1];
+    fpc.resize(fp[0] + 1);
+    appc.resize(n + 1);
     appc[0] = n;
     lc[1] = 0;
     fpc[0] = 0;
@@ -54,11 +54,11 @@ void GrapheOriente::ordonnancement(int *fp, int *app, int *d, int *&lc, int *&fp
     fpc[0] = kc;
 }
 
-void GrapheOriente::graphe_reduit(int *fs, int *aps, int *prem, int *pilch, int *cfc, int *&fsr, int *&apsr)
+void GrapheOriente::graphe_reduit(std::vector<int> fs, std::vector<int> aps, std::vector<int> prem, std::vector<int> pilch, std::vector<int> cfc, std::vector<int> &fsr, std::vector<int> &apsr)
 {
     int n = aps[0], nbc = prem[0], kr = 1, s, t;
-    fsr = new int [fs[0] + 1];
-    apsr = new int [nbc + 1];
+    fsr.resize(fs[0] + 1);
+    apsr.resize(nbc + 1);
     apsr[0] = nbc;
     bool *deja_mis = new bool[nbc + 1];
     for (int c = 1; c <= nbc; c++)
@@ -88,13 +88,13 @@ void GrapheOriente::graphe_reduit(int *fs, int *aps, int *prem, int *pilch, int 
     delete [] deja_mis;
 }
 
-void GrapheOriente::det_cfc(int **dist, int *&prem, int *&pilch, int *&cfc)
+void GrapheOriente::det_cfc(std::vector<std::vector<int>>dist, std::vector<int> &prem, std::vector<int> &pilch, std::vector<int> &cfc)
 {
     int nb = 0, l;
     int n = dist[0][0];
-    prem = new int [n + 1];
-    pilch =  new int [n + 1];
-    cfc = new int [n + 1];
+    prem.resize(n + 1);
+    pilch.resize(n + 1);
+    cfc.resize(n + 1);
     for (int i = 1; i <= n; i++) cfc[i] = 0;
     cfc[0] = n;
     for (int i = 1; i <= n; i++)
@@ -123,22 +123,22 @@ void GrapheOriente::det_cfc(int **dist, int *&prem, int *&pilch, int *&cfc)
 
 
 /* int*& prem et int*& num sont optionnel
- * int *&prem doit avoir son maximum à n-1 avant l'appel à la fonction
+ * std::vector<int> &prem doit avoir son maximum à n-1 avant l'appel à la fonction
  * int& r, le maximum des rangs finis trouvé*/
-bool GrapheOriente::m_rangs(int* fs, int* aps, int& r, int* &m_rangs/*int*& prem, int*& num*/) const
+bool GrapheOriente::m_rangs(std::vector<int>fs, std::vector<int>aps, int& r, std::vector<int>&m_rangs/*int*& prem, int*& num*/) const
 {
 
 
-    int* ddi;
+    std::vector<int>ddi;
     int n = aps[0];
-    m_rangs = new int[n+1];
+    m_rangs.resize(n+1);
     det_ddi(fs, aps, ddi);
     int s;
     int k = 0;
     //int p = 1; //Si on utilise int*& num
-    int* pilch;
-    //num = new int [ddi[0]+1];
-    pilch = new int[ddi[0]+1];
+    std::vector<int>pilch;
+    //num.resize()(ddi[0]+1];
+    pilch.resize(ddi[0]+1);
     pilch[0] = 0;
     for(int i = 1; i <= ddi[0]; i++)
     {
@@ -178,17 +178,17 @@ bool GrapheOriente::m_rangs(int* fs, int* aps, int& r, int* &m_rangs/*int*& prem
 
 }
 
-void GrapheOriente::adj_2_fs_aps(int *&fs, int *&aps) const
+void GrapheOriente::adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps) const
 {
     int n = d_adj[0][0], m = d_adj[0][1];
     /*int m = 0;
      *for (int i = 1; i <= d_adj[0][0]; i++) //Si l'on utilise la première ligne/colonne
      *  if(d_adj[i][0] > 0)
      *      m += d_adj[i][0]; */
-    fs = new int[n + m + 1];
+    fs.resize(n + m + 1);
     fs[0] = n + m;
 
-    aps = new int[n + 1];
+    aps.resize(n + 1);
     aps[0] = n;
 
     int k =1;

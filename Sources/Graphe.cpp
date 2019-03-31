@@ -4,14 +4,18 @@
 Graphe::Graphe() : d_adj{}
 {}
 
-Graphe::Graphe(int** adj) : d_adj{adj}
+Graphe::Graphe( std::vector<std::vector<int>> &adj) : d_adj{adj}
 {}
 
 Graphe::Graphe(int nbSommets) : d_adj{}
 {
-    d_adj = new int*[nbSommets];
-    for (int i = 0; i <= nbSommets; i++)
-        d_adj[i] = new int [nbSommets];
+    std::vector<std::vector<int>> inter (nbSommets+1,std::vector<int>(nbSommets+1));
+
+    d_adj = inter;
+
+//    for (int i = 0; i <= nbSommets; i++)
+//        d_adj[i] = new int [nbSommets];
+
     d_adj[0][0] = nbSommets;
 }
 
@@ -46,12 +50,12 @@ void Graphe::ajouterLisaison(int predecesseur, int successeur, int valeur)
      *d_adj[predecesseur][0]++;//Si l'on utilise la première colonne pour stocker le nombre de successeur*/
 }
 
-int** Graphe::matriceAdj() const
+ std::vector<std::vector<int>> Graphe::matriceAdj() const
 {
     return d_adj;
 }
 
-int* Graphe::tableauMatrice(int i) const
+std::vector<int> Graphe::tableauMatrice(int i) const
 {
     return d_adj[i];
 }
@@ -61,14 +65,14 @@ int Graphe::valMatrice(int i, int j) const
     return d_adj[i][j];
 }
 
-void Graphe::setMatrice(int **&adj)
+void Graphe::setMatrice(std::vector<std::vector<int>> &adj)
 {
     d_adj = adj;
 }
 
-void Graphe::detAps(int *fs, int *&aps) const {
+void Graphe::detAps(std::vector<int> fs, std::vector<int> &aps) const {
     int n = fs[0];
-    aps = new int[n+1];
+    aps.resize(n+1);
     aps[0] = n;
     aps[1] = 1;
 
@@ -85,7 +89,7 @@ void Graphe::detAps(int *fs, int *&aps) const {
 }
 
 
-void Graphe::fs_aps_2_adj(int *fs, int *aps)
+void Graphe::fs_aps_2_adj(std::vector<int> fs, std::vector<int> aps)
 {
     int n = aps[0], m = fs[0] -n;
 
@@ -108,7 +112,7 @@ void Graphe::fs_aps_2_adj(int *fs, int *aps)
 }
 
 //Est-ce que la distance fait sens dans un graphe non Orienté? Sinon, déplacer la méthode dans Graphe Orianté
-void Graphe::distance(int* fs, int* aps, int* &dist, int s) const
+void Graphe::distance(std::vector<int> fs, std::vector<int> aps, std::vector<int> &dist, int s) const
 {
     int t = 0;
     int q = 1;
@@ -116,10 +120,10 @@ void Graphe::distance(int* fs, int* aps, int* &dist, int s) const
     int d = 0;
     int n = aps[0];
 
-    dist = new int[n + 1];
+    dist.resize(n + 1);
     dist[0] = n;
 
-    int* fa = new int[n + 1];
+    std::vector<int> fa(n + 1);
 
     for(int i = 1 ; i <= n ; i++) dist[i] = -1;
     fa[0] = n;
@@ -146,16 +150,15 @@ void Graphe::distance(int* fs, int* aps, int* &dist, int s) const
         q = p;
     }
 
-    delete[] fa;
 }
 
 //Même combat que précédemment
-void Graphe::m_distances(int *fs, int *aps, int **&m_dist) const
+void Graphe::m_distances(std::vector<int> fs, std::vector<int> aps,  std::vector<std::vector<int>> &m_dist) const
 {
     int n = aps[0];
 
-    m_dist = new int*[n + 1];
-    m_dist[0] = new int[1];
+    m_dist.resize(n + 1);
+    m_dist[0].resize(1);
     m_dist[0][0] = n;
 
     for(int s = 1 ; s <= n ; s++)
@@ -166,23 +169,23 @@ void Graphe::m_distances(int *fs, int *aps, int **&m_dist) const
 
 //Ne peut exister que si le graphe est orienté
 //Est-ce nécessaire?
-int Graphe::rang(int* fs, int* aps, int s) const {
+int Graphe::rang(std::vector<int> fs, std::vector<int> aps, int s) const {
 
 }
 
 //Ne peut exister que si le graphe est orienté
-void Graphe::m_rangs(int* fs, int* aps, int** &m_rangs) const {
+void Graphe::m_rangs(std::vector<int> fs, std::vector<int> aps,  std::vector<std::vector<int>> &m_rangs) const {
 
 }
 
-void Graphe::dijkstra(int* fs, int* aps, int s, int* &d, int* &pred) const
+void Graphe::dijkstra(std::vector<int> fs, std::vector<int> aps, int s, std::vector<int> &d, std::vector<int> &pred) const
 {
     int n = aps[0], h;
 
-    d = new int[n + 1];
+    d.resize(n + 1);
     d[0] = n;
 
-    pred = new int[n + 1];
+    pred.resize(n+1);
     pred[0] = n;
 
     bool *x = new bool[n + 1];
@@ -255,10 +258,10 @@ void Graphe::afficher()
     }
 }
 
-void Graphe::det_app(int *ddi, int *&app) const
+void Graphe::det_app(std::vector<int> ddi, std::vector<int> &app) const
 {
     int n = ddi[0];
-    app = new int[n +1 ];
+    app.resize(n +1);
     app[0] = n;
     app[1] = 1;
 
@@ -266,10 +269,10 @@ void Graphe::det_app(int *ddi, int *&app) const
         app[i] = app[i - 1] + ddi[i - 1] + 1;
 }
 
-void Graphe::det_ddi(int *fs, int *aps, int *&ddi) const
+void Graphe::det_ddi(std::vector<int> fs, std::vector<int> aps, std::vector<int> &ddi) const
 {
     int n = aps[0];
-    ddi = new int[n + 1];
+    ddi.resize(n + 1);
 
     for (int i = 0 ; i <= n ; ++i)
         ddi[i] = 0;
@@ -278,9 +281,9 @@ void Graphe::det_ddi(int *fs, int *aps, int *&ddi) const
         ++ddi[fs[i]];
 }
 
-void Graphe::fs_aps_2_fp_app(int *fs, int *aps, int *&fp, int *&app) const
+void Graphe::fs_aps_2_fp_app(std::vector<int> fs, std::vector<int> aps, std::vector<int> &fp, std::vector<int> &app) const
 {
-    int* ddi;
+    std::vector<int> ddi;
     int n = fs[0];
     int j;
 
@@ -300,7 +303,6 @@ void Graphe::fs_aps_2_fp_app(int *fs, int *aps, int *&fp, int *&app) const
 
     app[1] = 1;
 
-    delete[] ddi;
 }
 
 

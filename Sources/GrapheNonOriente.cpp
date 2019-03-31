@@ -3,7 +3,7 @@
 GrapheNonOriente::GrapheNonOriente() : Graphe()
 {}
 
-GrapheNonOriente::GrapheNonOriente(int** adj) : Graphe(adj)
+GrapheNonOriente::GrapheNonOriente(std::vector<std::vector<int>> adj) : Graphe(adj)
 {}
 
 GrapheNonOriente::GrapheNonOriente(int nbSommets) : Graphe(nbSommets)
@@ -12,17 +12,17 @@ GrapheNonOriente::GrapheNonOriente(int nbSommets) : Graphe(nbSommets)
 }
 
 // a modifier
-void GrapheNonOriente::adj_2_fs_aps(int* &fs, int* &aps) const
+void GrapheNonOriente::adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps) const
 {
     int n = d_adj[0][0], m = d_adj[0][1];
     /*int m = 0;
      *for (int i = 1; i <= d_adj[0][0]; i++) //Si l'on utilise la première ligne/colonne
      *  if(d_adj[i][0] > 0)
      *      m += d_adj[i][0]; */
-    fs = new int[n + m + 1];
+    fs.resize(n + m + 1);
     fs[0] = n + m;
 
-    aps = new int[n + 1];
+    aps.resize(n + 1);
     aps[0] = n;
 
     int k =1;
@@ -39,7 +39,7 @@ void GrapheNonOriente::adj_2_fs_aps(int* &fs, int* &aps) const
 }
 
 
-void GrapheNonOriente::triAretes_ParBulle(vector<GrapheNonOriente::arete> &_a, int taille) const
+void GrapheNonOriente::triAretes_ParBulle(std::vector<GrapheNonOriente::arete> &_a, int taille) const
 {
     bool estTrie = false;
     while(!estTrie)
@@ -58,7 +58,7 @@ void GrapheNonOriente::triAretes_ParBulle(vector<GrapheNonOriente::arete> &_a, i
     }
 }
 
-void GrapheNonOriente::getAretesTrieesParPoids(vector<GrapheNonOriente::arete> &_a, int taille) const
+void GrapheNonOriente::getAretesTrieesParPoids(std::vector<GrapheNonOriente::arete> &_a, int taille) const
 {
     // remplissage du tableau d'aretes
     for(int i = 1 ; i <= d_adj[0][0] ; ++i)
@@ -78,7 +78,7 @@ void GrapheNonOriente::getAretesTrieesParPoids(vector<GrapheNonOriente::arete> &
     triAretes_ParBulle(_a, taille);
 }
 
-void GrapheNonOriente::setAretes(GrapheNonOriente &h, const vector<GrapheNonOriente::arete> &_a, int taille)
+void GrapheNonOriente::setAretes(GrapheNonOriente &h, const std::vector<GrapheNonOriente::arete> &_a, int taille)
 {
     for ( int i = 0 ; i < taille ; ++i)
     {
@@ -93,7 +93,7 @@ void GrapheNonOriente::setAretes(GrapheNonOriente &h, const vector<GrapheNonOrie
     }
 }
 
-void GrapheNonOriente::fusion(int i, int j, int *prem, int *&pilch, int *&cfc) const
+void GrapheNonOriente::fusion(int i, int j, std::vector<int> prem, std::vector<int> &pilch, std::vector<int> &cfc) const
 {
     // i et j sont des numeros de composantes
     // i != j
@@ -147,9 +147,9 @@ void GrapheNonOriente::Kruskal(GrapheNonOriente &h)
 
 
 
-    int *prem = new int[n + 1];
-    int *pilch = new int[n + 1];
-    int *cfc = new int[n + 1];
+    std::vector<int> prem(n + 1);
+    std::vector<int> pilch(n + 1);
+    std::vector<int> cfc(n + 1);
 
     // initialisation de prem, pilch et cfc
     for ( int i = 1 ; i <= n ; ++i)
@@ -174,16 +174,16 @@ void GrapheNonOriente::Kruskal(GrapheNonOriente &h)
 
     //delete[] aretesARM;
     //delete[] aretesGCT;
-    delete[] prem;
-    delete[] pilch;
-    delete[] cfc;
+
 }
 
-void GrapheNonOriente::codagePrufer(int **A, int *&C) {
+void GrapheNonOriente::codagePrufer(std::vector<std::vector<int>> A, std::vector<int> &C) {
     int n = A[0][0] - 2; //nombre de sommets - 2
 
-    C = new int [n + 1]; //nombre de sommets - 2, + 1 case pour le nombre de cases de C
+    C.resize(n + 1); //nombre de sommets - 2, + 1 case pour le nombre de cases de C
     C[0] = n;
+
+
 
 
     for (int i = 1 ; i <= n + 2 ; ++i)
@@ -212,11 +212,11 @@ void GrapheNonOriente::codagePrufer(int **A, int *&C) {
     }
 }
 
-void GrapheNonOriente::decodagePrufer(int *C) {
+void GrapheNonOriente::decodagePrufer(std::vector<int> &C) {
     //C[0] = l'indice du dernier élément
     int n = C[0] + 2;
     bool* I = new bool[n + 1];
-    int* nbOcc = new int[n + 1];
+    std::vector<int> nbOcc (n + 1);
     nbOcc[0] = n;
 
     for (int i = 1 ; i <= n ; ++i)
@@ -251,7 +251,7 @@ void GrapheNonOriente::decodagePrufer(int *C) {
 
 
     delete[] I;
-    delete[] nbOcc;
+
 }
 
 
