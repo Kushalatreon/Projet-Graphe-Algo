@@ -45,7 +45,7 @@ void GrapheNonOriente::triAretes_ParBulle(std::vector<GrapheNonOriente::arete> &
     while(!estTrie)
     {
         estTrie = true;
-        for(int i = 0 ; i < taille-1 ; i++)
+        for(int i = 0 ; i < taille ; i++)
         {
             if(_a[i].p > _a[i+1].p)
             {
@@ -56,20 +56,25 @@ void GrapheNonOriente::triAretes_ParBulle(std::vector<GrapheNonOriente::arete> &
 
         --taille;
     }
+
+
 }
 
 void GrapheNonOriente::getAretesTrieesParPoids(std::vector<GrapheNonOriente::arete> &_a, int taille) const
 {
+    int k = 1;
+
     // remplissage du tableau d'aretes
     for(int i = 1 ; i <= d_adj[0][0] ; ++i)
     {
-        for (int j = 1; j <= d_adj[0][0] ; ++j)
+        for (int j = i; j <= d_adj[0][0] ; ++j)
         {
             if(d_adj[i][j] != 0)
             {
-                _a[i].t = i;
-                _a[i].s = j;
-                _a[i].p = d_adj[i][j];
+                _a[k].t = i;
+                _a[k].s = j;
+                _a[k].p = d_adj[i][j];
+                ++k;
             }
         }
     }
@@ -78,8 +83,16 @@ void GrapheNonOriente::getAretesTrieesParPoids(std::vector<GrapheNonOriente::are
     triAretes_ParBulle(_a, taille);
 }
 
-void GrapheNonOriente::setAretes(GrapheNonOriente &h, const std::vector<GrapheNonOriente::arete> &_a, int taille)
+void GrapheNonOriente::setAretes(GrapheNonOriente *&h, const std::vector<GrapheNonOriente::arete> &_a, int taille)
 {
+    for(int i = 1 ; i <= h->d_adj[0][0] ; ++i)
+    {
+        for(int j = 1 ; j <= h->d_adj[0][0] ; ++j)
+        {
+            h->d_adj[i][j] = 0;
+        }
+    }
+
     for ( int i = 0 ; i < taille ; ++i)
     {
         int s = _a[i].s;
@@ -88,7 +101,8 @@ void GrapheNonOriente::setAretes(GrapheNonOriente &h, const std::vector<GrapheNo
 
         if(_a[i].p != 0)
         {
-            h.d_adj[t][s] = p;
+            h->d_adj[t][s] = p;
+            h->d_adj[s][t] = p;
         }
     }
 }
@@ -111,7 +125,7 @@ void GrapheNonOriente::fusion(int i, int j, std::vector<int> prem, std::vector<i
     }
 }
 
-void GrapheNonOriente::Kruskal(GrapheNonOriente &h)
+void GrapheNonOriente::Kruskal(GrapheNonOriente *&h)
 {
     // nombre de sommets
     int n = d_adj[0][0];
@@ -120,17 +134,17 @@ void GrapheNonOriente::Kruskal(GrapheNonOriente &h)
     int m = d_adj[0][1];
 
     // Appel au constructeur par recopie pour creer l'arbe h avec le nombre de sommets du graphe courant
-    h = {n};
+    h = new GrapheNonOriente(n);
 
     // Le nombre d'aretes, dans un arbre de Kruskal, est egal au nombre de sommets - 1
-    h.d_adj[0][1] = h.d_adj[0][0] - 1;  // <=> = d_adj[0][0]
+    h->d_adj[0][1] = h->d_adj[0][0] - 1;  // <=> = d_adj[0][0]
 
     // d_adj[0][1] = nb aretes du graphe courant
     // aretes de l'arbre recouvrant minimal
-    std::vector<arete> aretesARM(m);      // <=> h.a dans l'algorithme du cours
+    std::vector<arete> aretesARM(m+1);      // <=> h.a dans l'algorithme du cours
 
     // aretes du graphe courant triees par ordre croissant selon leur poids
-    std::vector<arete> aretesGCT(m);      // <=> g.a dans l'algorithme du cours
+    std::vector<arete> aretesGCT(m+1);      // <=> g.a dans l'algorithme du cours
 
     // remplissage du tableau d'arete du  graphe courant
     getAretesTrieesParPoids ( aretesGCT, m ) ;

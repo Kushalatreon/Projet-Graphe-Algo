@@ -14,7 +14,7 @@ public:
 
     virtual void adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps) const override;
 
-    void Kruskal(GrapheNonOriente &h);
+    void Kruskal(GrapheNonOriente *&h);
 
     /**
      * Créé un codage de Prüfer à partir d'une matrice d'adjacence
@@ -48,7 +48,7 @@ private:
 
     void getAretesTrieesParPoids(std::vector<GrapheNonOriente::arete> &_a, int taille) const;
 
-    void setAretes(GrapheNonOriente &h, const std::vector<GrapheNonOriente::arete> &_a, int taille);
+    void setAretes(GrapheNonOriente *&h, const std::vector<GrapheNonOriente::arete> &_a, int taille);
 };
 
 

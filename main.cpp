@@ -207,10 +207,22 @@ void charger(std::ifstream &is, Graphe *g)
 
 }
 
-void testKruskal(GrapheNonOriente *g)
+void testKruskal()
 {
-    GrapheNonOriente *h = new GrapheNonOriente();
-    g->Kruskal(*h);
+    std::ifstream f ("../Data/GrapheNonOriente1.txt");
+
+    GrapheNonOriente *g = new GrapheNonOriente();
+
+    bool t;
+    f >> t;
+
+    charger(f, g);
+
+    g->afficher();
+
+    GrapheNonOriente *h;
+    g->Kruskal(h);
+    std::cout << std::endl;
     h->afficher();
 }
 
@@ -235,31 +247,10 @@ int main() {
 
    // testPrufer();
    //
-    testadj_fs_aps();
-
-    std::ifstream f ("../Data/GrapheNonOriente1.txt");
-
-    bool type = 1;
-    f >> type;
-
-    if(type)
-    {
-        GrapheOriente *g = new GrapheOriente();
-    }
-    else
-    {
-        GrapheNonOriente *g = new GrapheNonOriente();
-
-        charger(f, g);
+    //testadj_fs_aps();
+    testKruskal();
 
 
-
-        g->afficher();
-
-
-
-        testKruskal(g);
-    }
 
 
 
