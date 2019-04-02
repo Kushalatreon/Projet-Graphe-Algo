@@ -11,8 +11,98 @@ GrapheOriente::GrapheOriente(int nbSommets) : Graphe(nbSommets)
     initAdj();
 }
 
-void GrapheOriente::tarjan() const {
+int GrapheOriente::sommet_accessible(int sommet, const std::vector<int> &num) const
+{
+    int n = 0;
+    for(int i = 1; i <= d_adj[0][0]; i++)
+    {
+        if(d_adj[sommet][i] > 0 && num[i] == 0)
+        {
+            n++;
+        }
+    }
+    return n;
+}
 
+void GrapheOriente::numerotation(std::vector<int> &num, std::vector<int> &cfc, std::vector<int> &prem, std::vector<int> &pilch, int sommet, int &nNum, int &numCfc) const
+{
+    if(sommet_accessible(sommet, num) == 0)
+    {
+        num[sommet] = nNum++;
+        cfc[sommet] = numCfc;
+        prem[numCfc++] = sommet;
+    }
+    else
+    {
+        for(int i = 1; i <= d_adj[0][0]; i++)
+        {
+            if(d_adj[sommet][i] > 0 && num[i] == 0)
+            {
+                num[sommet] = nNum++;
+                cfc[sommet] = numCfc;
+                pilch[sommet] = i;
+                numerotation(num, cfc, prem, pilch, i, nNum, numCfc)
+
+            }
+
+        }
+
+    }
+}
+
+int GrapheOriente::frondeMin(int s, const std::vector<int> &num) const
+{
+    int vmin = INT32_MAX;
+    for(int i = 1; i <= d_adj[0][0]; i++)
+    {
+        if(d_adj[s][i] > 0)
+        {
+            vmin = std::min(vmin, num[i]);
+        }
+    }
+    return vmin;
+}
+
+void GrapheOriente::det_ro(const std::vector<int> &prem, const std::vector<int> &pilch, const std::vector<int> &num, std::vector<int> &ro) const
+{
+    for(int i = 1; i <= d_adj[0][0]; i++)
+    {
+        int s = prem[i];
+
+        while(pilch[s] != 0)
+        {
+            int vro;
+            if(s == prem[i])
+            {
+                vro = INT32_MAX;
+            }
+            else
+            {
+                vro = ro[num[s]+1];
+            }
+
+            ro[s] = std::min( num[s], std::min( vro, frondeMin(s, num)));
+
+            s = pilch[s];
+        }
+
+    }
+}
+
+void GrapheOriente::tarjan(std::vector<int> &num, std::vector<int> &prem, std::vector<int> &pilch, std::vector<int> &ro, std::vector<int> &cfc, int sommet) const
+{
+    int nNum = 1, numCfc = 1;
+    numerotation(num, cfc, prem, pilch, sommet, nNum, numCfc);
+
+    for(int i = 1; i <= d_adj[0][0]; i++)
+    {
+        if(num[i] == 0)
+        {
+            numerotation(num, cfc, prem, pilch, i, nNum, numCfc);
+        }
+    }
+
+    det_ro(prem, pilch, num, ro);
 }
 
 void GrapheOriente::ordonnancement(std::vector<int> fp, std::vector<int> app, std::vector<int> d, std::vector<int> &lc, std::vector<int> &fpc, std::vector<int> &appc) const

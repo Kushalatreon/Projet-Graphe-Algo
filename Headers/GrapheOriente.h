@@ -6,6 +6,11 @@
 
 class GrapheOriente : public Graphe
 {
+private:
+    void numerotation(std::vector<int> &num, std::vector<int> &cfc, std::vector<int> &prem, std::vector<int> &pilch, int sommet, int &nNum, int &numCfc) const;
+    int sommet_accessible(int sommet, const std::vector<int> &num) const;
+    void det_ro(const std::vector<int> &prem, const std::vector<int> &pilch, const std::vector<int> &num, std::vector<int> &ro) const;
+    int frondeMin(int s, const std::vector<int> &num) const;
 public:
 
     GrapheOriente();
@@ -22,7 +27,7 @@ public:
     /**
      * Algorithme de tarjan ### AJOUTER PARAMETRES GRAVE ERREUR ###
      */
-     void tarjan()  const;
+     void tarjan(std::vector<int> &num, std::vector<int> &prem, std::vector<int> &pilch, std::vector<int> &ro, std::vector<int> &cfc, int sommet)  const;
 
     /**
     *
@@ -61,7 +66,6 @@ public:
 
     bool m_rangs(std::vector<int> fs, std::vector<int> aps, int& r, std::vector<int> &m_rangs/*std::vector<int>& prem, std::vector<int>& num*/) const;
 
-private:
 
 };
 

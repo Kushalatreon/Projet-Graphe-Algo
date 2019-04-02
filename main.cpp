@@ -233,7 +233,7 @@ void testadj_fs_aps()
 
     GrapheNonOriente *g = new GrapheNonOriente();
     std::ifstream f ("../Data/GrapheNonOriente1.txt");
-    bool type = 1;
+    bool type;
     f >> type;
     charger(f, g);
 
@@ -241,16 +241,48 @@ void testadj_fs_aps()
 
 
 }
+
+void testTarjan()
+{
+    std::ifstream f ("../Data/GrapheOriente1.txt");
+    bool type;
+    f >> type;
+
+    GrapheOriente *g = new GrapheOriente();
+    charger(f, g);
+
+    std::vector<int> pilch(static_cast<unsigned int>(g->matriceAdj()[0][0] + 1));
+    std::vector<int> prem(static_cast<unsigned int>(g->matriceAdj()[0][0] + 1));
+    std::vector<int> cfc(static_cast<unsigned int>(g->matriceAdj()[0][0] + 1));
+    std::vector<int> ro(static_cast<unsigned int>(g->matriceAdj()[0][0] + 1));
+    std::vector<int> num(static_cast<unsigned int>(g->matriceAdj()[0][0] + 1));
+
+    int sommet = 3;
+
+    // initialisation des tableaux à 0
+    for(int i = 1; i <= g->matriceAdj()[0][0]; i++)
+    {
+        pilch[i] = 0;
+        prem[i] = 0;
+        cfc[i] = 0;
+        ro[i] = 0;
+        num[i] = 0;
+    }
+
+    g->tarjan(num, prem, pilch, ro, cfc, sommet);
+}
+
 int main() {
 //    creerGrapheOriente();
 //    creerGrapheClavier();
 
-   // testPrufer();
+    //testPrufer();
    //
     //testadj_fs_aps();
-    testKruskal();
+    //testKruskal();
 
-
+    testTarjan();
+    int sertarien = 2;
 
 
 
