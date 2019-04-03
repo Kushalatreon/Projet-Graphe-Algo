@@ -9,8 +9,8 @@ class GrapheOriente : public Graphe
 private:
     void numerotation(std::vector<int> &num, std::vector<int> &cfc, std::vector<int> &prem, std::vector<int> &pilch, int sommet, int &nNum, int &numCfc) const;
     int sommet_accessible(int sommet, const std::vector<int> &num) const;
-    void det_ro(const std::vector<int> &prem, const std::vector<int> &pilch, const std::vector<int> &num, std::vector<int> &ro) const;
-    int frondeMin(int s, const std::vector<int> &num) const;
+    void det_ro(const std::vector<int> &prem, const std::vector<int> &pilch, const std::vector<int> &num, std::vector<int> &ro, std::vector<int> &cfc) const;
+    int frondeMin(int s, const std::vector<int> &num, std::vector<int> &cfc) const;
 public:
 
     GrapheOriente();

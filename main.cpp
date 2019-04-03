@@ -109,7 +109,7 @@ void creerGrapheNonOrienteClavier(GrapheNonOriente *&gno)
         int sommet1, sommet2;
         std::cout << "Sommet pere " << std::endl;
         std::cin >> sommet1;
-        std::cout << "sommet fils ? " << std::endl;
+        std::cout << "sommet fils  " << std::endl;
         std::cin >> sommet2;
 
         if (value) {
@@ -144,10 +144,12 @@ void creerGrapheClavier()
     if (choix == 1)
     {
         creerGrapheOrienteClavier(go);
+
     }
     else if ( choix == 2)
     {
         creerGrapheNonOrienteClavier(gno);
+
     }
     else
     {
@@ -274,14 +276,14 @@ void testTarjan()
 
 int main() {
 //    creerGrapheOriente();
-//    creerGrapheClavier();
+    creerGrapheClavier();
 
     //testPrufer();
    //
     //testadj_fs_aps();
     //testKruskal();
 
-    testTarjan();
+//    testTarjan();
     int sertarien = 2;
 
 
