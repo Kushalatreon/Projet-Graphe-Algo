@@ -198,8 +198,6 @@ void GrapheNonOriente::codagePrufer(std::vector<std::vector<int>> A, std::vector
     C[0] = n;
 
 
-
-
     for (int i = 1 ; i <= n + 2 ; ++i)
         A[i][0] = 0;
 

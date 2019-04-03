@@ -31,9 +31,8 @@ public:
 
 
     /**
-     * Constructeur de Graphe avec le nombre de sommets et le nombres d'arcs/aretes
+     * Constructeur de Graphe avec le nombre de sommets
      * @param nbSommets
-     * @param nbLiaison
      */
     Graphe(int nbSommets);
 
@@ -68,6 +67,13 @@ public:
      */
     void ajouterLisaison(int predecesseur, int successeur, int valeur = 1);
 
+    /**
+     * Redéfinition de l'opérateur []
+     * Permet par exemple d'utiliser std::cout<<g[0][0]
+     * @param [in] i - l'indice de la ligne à afficher
+     * @return le vecteur de la ligne i
+     */
+    std::vector<int> operator[](int i) const;
 
     // ----------------------------- Methodes d'acces et modification des attributs prives -----------------------------
     /**

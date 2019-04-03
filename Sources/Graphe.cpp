@@ -50,6 +50,12 @@ void Graphe::ajouterLisaison(int predecesseur, int successeur, int valeur)
      *d_adj[predecesseur][0]++;//Si l'on utilise la première colonne pour stocker le nombre de successeur*/
 }
 
+
+std::vector<int> Graphe::operator[](int i) const
+{
+    return d_adj[i];
+}
+
  std::vector<std::vector<int>> Graphe::matriceAdj() const
 {
     return d_adj;

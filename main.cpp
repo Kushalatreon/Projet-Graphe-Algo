@@ -73,13 +73,13 @@ void creerGrapheOrienteClavier(GrapheOriente *&go)
     while (cpt < liaison)
     {
         int sommet1, sommet2;
-        std::cout << "Sommet pere " << std::endl;
+        std::cout << "Sommet pere ?" << std::endl;
         std::cin >> sommet1;
         std::cout << "sommet fils ? " << std::endl;
         std::cin >> sommet2;
 
         if (value) {
-            std::cout << "Entrer le poid : " << std::endl;
+            std::cout << "Entrer le poids : " << std::endl;
             std::cin >> val;
             go->ajouterLisaison(sommet1,sommet2,val);
         }
@@ -162,6 +162,9 @@ void testPrufer()
 {
     GrapheNonOriente *gno;
     std::vector<int> C;
+    std::cout<<"---------------------------------------------------------------------------------------------------"<<std::endl;
+    std::cout<<"Ne fonctionne que sur un graphe non value ! Sinon les poids des aretes sont perdus lors du codage !"<<std::endl;
+    std::cout<<"---------------------------------------------------------------------------------------------------"<<std::endl;
 
     creerGrapheNonOrienteClavier(gno);
 
@@ -274,22 +277,64 @@ void testTarjan()
     g->tarjan(num, prem, pilch, ro, cfc, sommet);
 }
 
+void testConstructeurMatriceParam()
+{
+
+    std::vector<std::vector<int>> matrice(4, std::vector<int>(4));
+
+
+    for (int i = 1 ; i < matrice.size() ; ++i)
+    {
+        for (int j = 1 ; j < matrice[i].size() ; ++j)
+        {
+            if (i == j)
+            {
+                matrice[i][j] = 0;
+            }
+            else
+                matrice[i][j] = 1;
+        }
+    }
+
+    matrice[0][0] = 3;
+    matrice[0][1] = 6;
+    GrapheNonOriente g{matrice};
+    //GrapheOriente g{matrice};
+
+
+    g.afficher();
+
+}
+
+void testConstructeurNbSommets()
+{
+    int nbSommets = 3;
+
+    GrapheOriente g{nbSommets};
+    g.afficher();
+    std::cout<<std::endl;
+
+    std::cout<<g[0][0];
+}
+
 int main() {
 //    creerGrapheOriente();
-    creerGrapheClavier();
+//    creerGrapheClavier();
 
-    //testPrufer();
-   //
+    testPrufer();
+
     //testadj_fs_aps();
     //testKruskal();
 
-//    testTarjan();
-    int sertarien = 2;
+    //testTarjan();
+    //int sertarien = 2;
+
+    //testConstructeurMatriceParam();
+    //testConstructeurNbSommets();
 
 
 
 
-
-    std::cout << "Hello, World!" << std::endl;
+    //std::cout << "Hello, World!" << std::endl;
     return 0;
 }
