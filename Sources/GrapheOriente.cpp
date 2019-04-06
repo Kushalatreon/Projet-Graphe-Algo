@@ -114,8 +114,11 @@ void GrapheOriente::tarjan(std::vector<int> &num, std::vector<int> &prem, std::v
             numerotation(num, cfc, prem, pilch, i, nNum, numCfc);
         }
     }
+    prem.resize(numCfc);
+    prem[0] = prem.size()-1;
 
     det_ro(prem, pilch, num, ro,cfc);
+
 }
 
 void GrapheOriente::ordonnancement(std::vector<int> fp, std::vector<int> app, std::vector<int> d, std::vector<int> &lc, std::vector<int> &fpc, std::vector<int> &appc) const
@@ -163,7 +166,7 @@ void GrapheOriente::graphe_reduit(std::vector<int> fs, std::vector<int> aps, std
     fsr.resize(fs[0] + 1);
     apsr.resize(nbc + 1);
     apsr[0] = nbc;
-    bool *deja_mis = new bool[nbc + 1];
+    std::vector<bool> deja_mis (nbc + 1);
     for (int c = 1; c <= nbc; c++)
     {
         apsr[c] = kr;
@@ -188,7 +191,7 @@ void GrapheOriente::graphe_reduit(std::vector<int> fs, std::vector<int> aps, std
         kr++;
     }
     fsr[0] = kr -1;
-    delete [] deja_mis;
+
 }
 
 void GrapheOriente::det_cfc(std::vector<std::vector<int>>dist, std::vector<int> &prem, std::vector<int> &pilch, std::vector<int> &cfc)
@@ -306,4 +309,5 @@ void GrapheOriente::adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps) co
         }
         fs[k++] = 0;
     }
+    //aps[0] = aps.size();
 }

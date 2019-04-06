@@ -2,7 +2,7 @@
 #include <fstream>
 #include "Headers/GrapheOriente.h"
 #include "Headers/GrapheNonOriente.h"
-
+//#include "Sources/menuClavier.cpp"
 
 /**
  * Cette fonction créer un graphe (voir schema testGrapheOrienté1) qui va nous permettre de tester les fonctions vu en cours
@@ -21,6 +21,103 @@ void creerGrapheOriente(){
     /** commenter cette ligne pour pouvoir tester, non commenter ici pour ne pas oublie de liberer l'espace memoir */
     delete g;
 }
+
+void traitementGrapheOriente(GrapheOriente *&go)
+{
+
+    // Initialisation des tableaux
+    std::vector<int> pilch(static_cast<unsigned int>(go->matriceAdj()[0][0] + 1));
+    std::vector<int> prem(static_cast<unsigned int>(go->matriceAdj()[0][0] + 1));
+    std::vector<int> cfc(static_cast<unsigned int>(go->matriceAdj()[0][0] + 1));
+    std::vector<int> ro(static_cast<unsigned int>(go->matriceAdj()[0][0] + 1));
+    std::vector<int> num(static_cast<unsigned int>(go->matriceAdj()[0][0] + 1));
+
+    // FS et APS
+    std::vector<int> fs;
+    std::vector<int> aps;
+
+
+    int choix;
+
+    std::cout << "Quelle fonction voulez vous utiliser ?" << std::endl;
+    std::cout << "1 - Tarjan + graphe reduit" << std::endl;
+    std::cout << "2 - Ordonnancement " << std::endl;
+    std::cout << "3 - Rang" << std::endl;
+    std::cin >> choix;
+    if ( choix > 0 && choix < 4)
+    {
+        if ( choix ==  1)
+        {
+            for(int i = 1; i <= go->matriceAdj()[0][0]; i++)
+            {
+                pilch[i] = 0;
+                prem[i] = 0;
+                cfc[i] = 0;
+                ro[i] = 0;
+                num[i] = 0;
+            }
+            int sommetDepart;
+
+            std::cout << "Entrer le sommet de départ (entre 0 et " << go->matriceAdj()[0][0]<< std:: endl;
+            std::cin >> sommetDepart;
+            go->tarjan(num, prem, pilch, ro, cfc, sommetDepart);
+
+            //Graphe reduit
+
+            go->adj_2_fs_aps(fs,aps);
+            std::vector<int> fsr(static_cast<unsigned int>(fs[0]));
+            std::vector<int> apsr(static_cast<unsigned int>(aps[0]));
+
+            /*
+             * probleme
+             */
+            go->graphe_reduit(fs,aps,prem, pilch, cfc, fsr, apsr);
+        }
+        else if( choix ==  2)
+        {
+            go->adj_2_fs_aps(fs,aps);
+            std::vector<int> fp(static_cast<unsigned int>(fs[0]));
+            std::vector<int> app(static_cast<unsigned int>(aps[0]));
+            std::vector<int> d;
+
+            int sommetDepart;
+
+            std::cout << "Entrer le sommet de départ (entre 0 et " << go->matriceAdj()[0][0]<< std:: endl;
+            std::cin >> sommetDepart;
+
+            go->fs_aps_2_fp_app(fs,aps,fp,app);
+            go->distance(fs,aps,d,sommetDepart);
+
+            std::vector<int> lc(static_cast<unsigned int>(fs[0]));
+            std::vector<int> fpc(static_cast<unsigned int>(fs[0]));
+            std::vector<int> appc(static_cast<unsigned int>(aps[0]));
+
+            /*
+             * casse, marche pas fs aps 2 fp app, app ou fp ne fini pas par 0
+             */
+            go->ordonnancement(fp,app,d,lc, fpc,appc);
+        }
+        else if( choix ==  3)
+        {
+            int sommetDepart;
+            std::vector<int> m_rang;
+
+            std::cout << "Entrer le sommet de départ (entre 0 et " << go->matriceAdj()[0][0]<< std:: endl;
+            std::cin >> sommetDepart;
+            go->adj_2_fs_aps(fs,aps);
+            go->m_rangs(fs,aps,sommetDepart,m_rang);
+        }
+        else {
+        }
+
+
+
+
+
+    }
+
+}
+
 
 bool creerGrapheValueOuNon()
 {
@@ -60,6 +157,15 @@ int entrerNbLiaison()
     return i;
 }
 
+
+void saisieSommets(int &pere, int &fils)
+{
+    std::cout << "Sommet pere ?" << std::endl;
+    std::cin >> pere;
+    std::cout << "sommet fils ? " << std::endl;
+    std::cin >> fils;
+}
+
 void creerGrapheOrienteClavier(GrapheOriente *&go)
 {
     int nbSommet, liaison, cpt = 0;
@@ -73,10 +179,8 @@ void creerGrapheOrienteClavier(GrapheOriente *&go)
     while (cpt < liaison)
     {
         int sommet1, sommet2;
-        std::cout << "Sommet pere ?" << std::endl;
-        std::cin >> sommet1;
-        std::cout << "sommet fils ? " << std::endl;
-        std::cin >> sommet2;
+
+        saisieSommets(sommet1,sommet2);
 
         if (value) {
             std::cout << "Entrer le poids : " << std::endl;
@@ -107,10 +211,8 @@ void creerGrapheNonOrienteClavier(GrapheNonOriente *&gno)
     while (cpt < liaison)
     {
         int sommet1, sommet2;
-        std::cout << "Sommet pere " << std::endl;
-        std::cin >> sommet1;
-        std::cout << "sommet fils  " << std::endl;
-        std::cin >> sommet2;
+
+        saisieSommets(sommet1,sommet2);
 
         if (value) {
             std::cout << "Entrer le poids : " << std::endl;
@@ -131,6 +233,8 @@ void creerGrapheNonOrienteClavier(GrapheNonOriente *&gno)
     gno->afficher();
 }
 
+
+
 void creerGrapheClavier()
 {
     int choix ;
@@ -144,6 +248,7 @@ void creerGrapheClavier()
     if (choix == 1)
     {
         creerGrapheOrienteClavier(go);
+        traitementGrapheOriente(go);
 
     }
     else if ( choix == 2)
@@ -319,9 +424,9 @@ void testConstructeurNbSommets()
 
 int main() {
 //    creerGrapheOriente();
-//    creerGrapheClavier();
+    creerGrapheClavier();
 
-    testPrufer();
+//    testPrufer();
 
     //testadj_fs_aps();
     //testKruskal();

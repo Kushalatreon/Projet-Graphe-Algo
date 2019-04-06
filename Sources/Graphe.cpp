@@ -110,7 +110,7 @@ void Graphe::fs_aps_2_adj(std::vector<int> fs, std::vector<int> aps)
 
     for(int i = 1 ; i <= n ; i++)
     {
-        for(int j = aps[0] ; (j = fs[j]) != 0 ; j++)
+        for(int j = aps[i] ; (j = fs[j]) != 0 ; j++)
         {
             d_adj[i][j] = 1;//Fonctionne pour un graphe non valué mais comment on procède dans le cas d'un graphe valué?
         }
@@ -285,12 +285,13 @@ void Graphe::det_ddi(std::vector<int> fs, std::vector<int> aps, std::vector<int>
 
     for (int i = 1 ; i <= n ; ++i)
         ++ddi[fs[i]];
+    ddi[0] = n;
 }
 
 void Graphe::fs_aps_2_fp_app(std::vector<int> fs, std::vector<int> aps, std::vector<int> &fp, std::vector<int> &app) const
 {
     std::vector<int> ddi;
-    int n = fs[0];
+    int n = aps[0];
     int j;
 
     det_ddi(fs, aps, ddi);
