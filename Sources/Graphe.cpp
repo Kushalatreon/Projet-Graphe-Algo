@@ -108,11 +108,12 @@ void Graphe::fs_aps_2_adj(std::vector<int> fs, std::vector<int> aps)
     d_adj[0][0] = n;
     d_adj[0][1] = m;
 
+    int k;
     for(int i = 1 ; i <= n ; i++)
     {
-        for(int j = aps[i] ; (j = fs[j]) != 0 ; j++)
+        for(int j = aps[i] ; (k = fs[j]) != 0 ; j++)
         {
-            d_adj[i][j] = 1;//Fonctionne pour un graphe non valué mais comment on procède dans le cas d'un graphe valué?
+            d_adj[i][k] = 1;//Fonctionne pour un graphe non valué mais comment on procède dans le cas d'un graphe valué?
         }
     }
 }
@@ -194,7 +195,7 @@ void Graphe::dijkstra(std::vector<int> fs, std::vector<int> aps, int s, std::vec
     pred.resize(n+1);
     pred[0] = n;
 
-    bool *x = new bool[n + 1];
+    std::vector<bool> x(n+1);
 
     // initialisation de d a -1
     for(int i = 1 ; i <= n ; i++)
@@ -236,7 +237,7 @@ void Graphe::dijkstra(std::vector<int> fs, std::vector<int> aps, int s, std::vec
         if(minh == INT32_MAX) break;    // j == -1
         x[j] = true;
 
-        for(int k = aps[j] ; (k = fs[k]) != 0 ; k++)
+        for(int k = aps[j] ; (h = fs[k]) != 0 ; k++)
         {
             if(!x[k])
             {
@@ -250,8 +251,6 @@ void Graphe::dijkstra(std::vector<int> fs, std::vector<int> aps, int s, std::vec
             }
         }
     }
-
-    delete[] x;
 }
 
 void Graphe::afficher()
@@ -278,12 +277,13 @@ void Graphe::det_app(std::vector<int> ddi, std::vector<int> &app) const
 void Graphe::det_ddi(std::vector<int> fs, std::vector<int> aps, std::vector<int> &ddi) const
 {
     int n = aps[0];
+    int m = fs[0];
     ddi.resize(n + 1);
 
     for (int i = 0 ; i <= n ; ++i)
         ddi[i] = 0;
 
-    for (int i = 1 ; i <= n ; ++i)
+    for (int i = 1 ; i <= m ; ++i)
         ++ddi[fs[i]];
     ddi[0] = n;
 }

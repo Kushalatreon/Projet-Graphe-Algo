@@ -11,11 +11,11 @@
 void creerGrapheOriente(){
 
     GrapheOriente *g = new GrapheOriente(4);
-    g->ajouterLisaison(1,2);
+    g->ajouterLisaison(1,2,2);
     g->ajouterLisaison(1,3,1);
-    g->ajouterLisaison(1,4,1);
+    g->ajouterLisaison(1,4,3);
     g->ajouterLisaison(2,4,1);
-    g->ajouterLisaison(4,3,1);
+    g->ajouterLisaison(4,3,5);
 
 
     /** commenter cette ligne pour pouvoir tester, non commenter ici pour ne pas oublie de liberer l'espace memoir */
@@ -422,9 +422,61 @@ void testConstructeurNbSommets()
     std::cout<<g[0][0];
 }
 
+void testDijkstraEtLeResteQuiEstCasse()
+{
+
+    GrapheOriente *g = new GrapheOriente(4);
+    g->ajouterLisaison(1,2,2);
+    g->ajouterLisaison(1,3,1);
+    g->ajouterLisaison(1,4,3);
+    g->ajouterLisaison(2,4,1);
+    g->ajouterLisaison(4,3,5);
+
+
+    std::vector<int> fs(10);
+    std::vector<int> aps(5);
+    std::vector<int> d(5);
+    std::vector<int> pred(5);
+    int s = 2;
+
+    g->adj_2_fs_aps(fs, aps);
+
+    // test dijkstra
+    g->dijkstra(fs, aps, s, d, pred);
+
+
+
+
+    std::vector<int> fp(static_cast<unsigned int>(fs[0] + 1));
+    std::vector<int> app(static_cast<unsigned int>(aps[0] + 1));
+
+    // test fs_aps_2_fp_app
+    g->fs_aps_2_fp_app(fs, aps, fp, app);
+
+
+
+
+    d[1] = 2;
+    d[2] = 1;
+    d[3] = 7;
+    d[4] = 4;
+    d[5] = 3;
+
+    std::vector<int> lc(5);
+    std::vector<int> fpc(10);
+    std::vector<int> appc(5);
+
+    // test ordonnancement
+    g->ordonnancement(fp, app, d, lc, fpc, appc);
+
+    delete g;
+
+}
+
+
 int main() {
 //    creerGrapheOriente();
-    creerGrapheClavier();
+    //creerGrapheClavier();
 
 //    testPrufer();
 
@@ -437,7 +489,7 @@ int main() {
     //testConstructeurMatriceParam();
     //testConstructeurNbSommets();
 
-
+    testDijkstraEtLeResteQuiEstCasse();
 
 
     //std::cout << "Hello, World!" << std::endl;
