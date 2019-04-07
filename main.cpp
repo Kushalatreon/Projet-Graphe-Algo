@@ -99,23 +99,86 @@ void traitementGrapheOriente(GrapheOriente *&go)
         }
         else if( choix ==  3)
         {
-            int sommetDepart;
             std::vector<int> m_rang;
 
+            int sommetDepart;
             std::cout << "Entrer le sommet de départ (entre 0 et " << go->matriceAdj()[0][0]<< std:: endl;
             std::cin >> sommetDepart;
             go->adj_2_fs_aps(fs,aps);
             go->m_rangs(fs,aps,sommetDepart,m_rang);
         }
-        else {
-        }
+        else if ( choix == 4 )
+        {
+            go->adj_2_fs_aps(fs,aps);
+            std::vector<int> d;
+            std::vector<int> pred;
 
+            int sommetDepart;
+            std::cout << "Entrer le sommet de départ (entre 0 et " << go->matriceAdj()[0][0]<< std:: endl;
+            std::cin >> sommetDepart;
+
+            go->dijkstra(fs,aps,sommetDepart,d,pred);
+        }
+        else
+        {
+
+        }
 
 
 
 
     }
 
+}
+
+void traitementGrapheNonOriente(GrapheNonOriente *&gno)
+{
+
+    std::vector<int> fs;
+    std::vector<int> aps;
+    int choix;
+
+    std::cout << "Quelle fonction voulez vous utiliser ?" << std::endl;
+    std::cout << "1 - Kruskal" << std::endl;
+    std::cout << "2 - Codage Prufer + decodage" << std::endl;
+    std::cout << "3 - Dijkstra" << std::endl;
+    std::cin >> choix;
+
+    if ( choix > 0 && choix < 4)
+    {
+        if ( choix ==  1)
+        {
+            GrapheNonOriente *h;
+            gno->Kruskal(h);
+            h->afficher();
+        }
+        else if (choix == 2)
+        {
+            std::vector<int> C;
+            gno->codagePrufer(gno->matriceAdj(), C);
+            /*
+             * AFFICHER C
+             */
+            gno->decodagePrufer(C);
+        }
+        else if (choix == 3 )
+        {
+            gno->adj_2_fs_aps(fs,aps);
+            std::vector<int> d;
+            std::vector<int> pred;
+
+            int sommetDepart;
+            std::cout << "Entrer le sommet de départ (entre 0 et " << gno->matriceAdj()[0][0]<< std:: endl;
+            std::cin >> sommetDepart;
+
+            gno->dijkstra(fs,aps,sommetDepart,d,pred);
+        }
+        else
+        {
+
+        }
+
+    }
 }
 
 

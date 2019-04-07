@@ -187,6 +187,20 @@ void Graphe::m_rangs(std::vector<int> fs, std::vector<int> aps,  std::vector<std
 
 void Graphe::dijkstra(std::vector<int> fs, std::vector<int> aps, int s, std::vector<int> &d, std::vector<int> &pred) const
 {
+
+    std::vector<std::vector<int>> c = d_adj;
+
+    for (int i = 0; i < d_adj.size(); ++i)
+    {
+        for (int j = 0; j < d_adj.size() ; ++j)
+        {
+            if (d_adj[i][j] == -1)
+            {
+                c[i][j]= INT32_MAX;
+            }
+        }
+    }
+
     int n = aps[0], h;
 
     d.resize(n + 1);
@@ -205,8 +219,8 @@ void Graphe::dijkstra(std::vector<int> fs, std::vector<int> aps, int s, std::vec
 
     for(int i = 1 ; i <= n ; i++)
     {
-        d[i] = d_adj[s][i];
-        if(d[i] != -1) pred[i] = s;
+        d[i] = c[s][i];
+        if(d[i] != INT32_MAX) pred[i] = s;
         else pred[i] = -1;
         x[i] = false;
     }
@@ -241,11 +255,11 @@ void Graphe::dijkstra(std::vector<int> fs, std::vector<int> aps, int s, std::vec
         {
             if(!x[k])
             {
-                int v = d[j] + d_adj[j][h];
+                int v = d[j] + c[j][h];
 
                 if(v < d[h])
                 {
-                    d[h] = 0;
+                    d[h] = v;
                     pred[h] = j;
                 }
             }
