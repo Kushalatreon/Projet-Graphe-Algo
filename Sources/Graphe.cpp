@@ -174,17 +174,6 @@ void Graphe::m_distances(std::vector<int> fs, std::vector<int> aps,  std::vector
     }
 }
 
-//Ne peut exister que si le graphe est orienté
-//Est-ce nécessaire?
-int Graphe::rang(std::vector<int> fs, std::vector<int> aps, int s) const {
-
-}
-
-//Ne peut exister que si le graphe est orienté
-void Graphe::m_rangs(std::vector<int> fs, std::vector<int> aps,  std::vector<std::vector<int>> &m_rangs) const {
-
-}
-
 void Graphe::dijkstra(std::vector<int> fs, std::vector<int> aps, int s, std::vector<int> &d, std::vector<int> &pred) const
 {
 
