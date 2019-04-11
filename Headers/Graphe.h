@@ -167,23 +167,6 @@ public:
     void m_distances(std::vector<int> fs, std::vector<int> aps,  std::vector<std::vector<int>> &m_dist) const;
 
     /**
-     * Determine le rang d'un sommet s
-     * @param [in] fs : tableau fs
-     * @param [in] aps : tableau aps
-     * @param [in] s : numero du sommet
-     * @return int : rang du sommet
-     */
-    int rang(std::vector<int> fs, std::vector<int> aps, int s) const;
-
-    /**
-     * Determine le rang de tous les sommets du graphe
-     * @param [in] fs : tableau fs
-     * @param [in] aps : tableau aps
-     * @param [out] m_rangs : matrice des rangs
-     */
-    void m_rangs(std::vector<int> fs, std::vector<int> aps,  std::vector<std::vector<int>> &m_rangs) const;
-
-    /**
      * Algorithme de Dijkstra : plus court chemin
      * @param [in] fs - tableau fs
      * @param [in] aps - tableau aps
