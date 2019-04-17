@@ -201,7 +201,8 @@ void GrapheOriente::det_cfc(std::vector<std::vector<int>>dist, std::vector<int> 
     prem.resize(n + 1);
     pilch.resize(n + 1);
     cfc.resize(n + 1);
-    for (int i = 1; i <= n; i++) cfc[i] = 0;
+    for (int i = 1; i <= n; i++)
+        cfc[i] = 0;
     cfc[0] = n;
     for (int i = 1; i <= n; i++)
     {
@@ -211,9 +212,9 @@ void GrapheOriente::det_cfc(std::vector<std::vector<int>>dist, std::vector<int> 
             prem[nb] = i;
             cfc[i] = nb;
             l = i;
-            for (int j = i+1; j < n ; ++j)
+            for (int j = i+1; j <= n ; ++j)
             {
-                if((dist[i][i] != -1) && (dist[j][i] != -1) && (cfc[j] != 0) )
+                if((dist[i][j] != -1) && (dist[j][i] != -1) && (cfc[j] == 0) )
                 {
                     pilch[l] = j;
                     cfc[j] = nb;
