@@ -282,22 +282,7 @@ void testDetCfc()
     std::cout<<std::endl;
 }
 
-void testMRang()
-{
-    GrapheOriente *g = new GrapheOriente(4);
-    g->ajouterLisaison(1,2,2);
-    g->ajouterLisaison(1,3,1);
-    g->ajouterLisaison(1,4,3);
-    g->ajouterLisaison(2,4,1);
-    g->ajouterLisaison(4,3,5);
 
-    int r=0;
-    std::vector<int> fs, aps, m_rangs;
-    g->adj_2_fs_aps(fs, aps);
-    bool test = g->m_rangs(fs, aps, r, m_rangs);
-
-    std::cout<<std::endl;
-}
 
 void traitementGrapheOriente(GrapheOriente *&go)
 {
@@ -668,7 +653,42 @@ void testadj_fs_aps_NonOriente()
 
 }
 
+void testMRang()
+{
+    /*GrapheOriente *g = new GrapheOriente(4);
+    g->ajouterLisaison(1,2,2);
+    g->ajouterLisaison(1,3,1);
+    g->ajouterLisaison(1,4,3);
+    g->ajouterLisaison(2,4,1);
+    g->ajouterLisaison(4,3,5);
+    */
+    GrapheOriente *g = new GrapheOriente();
+    //creerGrapheOrienteClavier(g);
 
+    std::ifstream f ("C:/Users/Thibaud/Desktop/grapheTestRang.txt");
+    bool t;
+    f >> t;
+    charger(f, g);
+
+
+    int r=0;
+    std::vector<int> fs, aps, m_rangs;
+    g->adj_2_fs_aps(fs, aps);
+    bool test = g->m_rangs(fs, aps, r, m_rangs);
+
+    if (test)
+    {
+        std::cout << "Tous les sommets ont un rang fini. Le graphe ne contient pas de boucle" << std::endl;
+        for (int i = 1 ; i <= m_rangs.size() ; ++i)
+            std::cout << "Rang du sommet " << i << " : " << m_rangs[i];
+    }
+    else
+    {
+        std::cout << "Le graphe contient une boucle, des sommets n'ont pas de rang fini." << std::endl;
+        for (int i = 1 ; i <= m_rangs.size() ; ++i)
+            std::cout << "Rang du sommet " << i << " : " << m_rangs[i];
+    }
+}
 
 
 

@@ -268,7 +268,6 @@ bool GrapheOriente::m_rangs(std::vector<int>fs, std::vector<int>aps, int& r, std
             k++;
             for(int h = aps[s]; (fs[h]) != 0; h++)
             {
-                int t = fs[h];
                 ddi[t]--;
                 if(ddi[t] == 0)
                 {
