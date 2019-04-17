@@ -11,16 +11,12 @@ GrapheNonOriente::GrapheNonOriente(int nbSommets) : Graphe(nbSommets)
     initAdj();
 }
 
-// a modifier
 void GrapheNonOriente::adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps) const
 {
     int n = d_adj[0][0], m = d_adj[0][1];
-    /*int m = 0;
-     *for (int i = 1; i <= d_adj[0][0]; i++) //Si l'on utilise la première ligne/colonne
-     *  if(d_adj[i][0] > 0)
-     *      m += d_adj[i][0]; */
-    fs.resize(n + m*2 + 1); // m*2 car pour le cas non oriente on duplique tous les arcs
-    fs[0] = n + m;
+
+    fs.resize(n + m*2 + 1); // m*2 car pour le cas non oriente les aretes apparaissent deux fois dans fs
+    fs[0] = n + m*2;
 
     aps.resize(n + 1);
     aps[0] = n;
@@ -185,10 +181,6 @@ void GrapheNonOriente::Kruskal(GrapheNonOriente *&h)
     }
 
     setAretes(h, aretesARM, m);
-
-    //delete[] aretesARM;
-    //delete[] aretesGCT;
-
 }
 
 void GrapheNonOriente::codagePrufer(std::vector<std::vector<int>> A, std::vector<int> &C) {

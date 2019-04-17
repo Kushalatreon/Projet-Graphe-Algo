@@ -654,6 +654,17 @@ void testadj_fs_aps_NonOriente()
 
     g->adj_2_fs_aps(fs,aps);
 
+    for (int i = 0 ; i < fs.size() ; ++i)
+    {
+        std::cout<< "fs[" << i <<"] : " << fs[i] << std::endl;
+    }
+
+    for (int i = 0 ; i < aps.size() ; ++i)
+    {
+        std::cout<< "aps[" << i <<"] : " << aps[i] << std::endl;
+
+    }
+
 
 }
 
