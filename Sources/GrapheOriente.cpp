@@ -131,7 +131,7 @@ void GrapheOriente::ordonnancement(std::vector<int> fp, std::vector<int> app, st
     appc[0] = n;
     lc[1] = 0;
     fpc[0] = 0;
-    appc[1] = 4;
+    appc[1] = 1;
     for (int s = 2; s <= n; s++)
     {
         lc[s] = 0;
@@ -143,6 +143,7 @@ void GrapheOriente::ordonnancement(std::vector<int> fp, std::vector<int> app, st
             {
                 if ( r > lc[s])
                 {
+                    lc[s] = r;
                     kc = appc[s];
                     fpc[kc] = t;
                 }
@@ -201,8 +202,7 @@ void GrapheOriente::det_cfc(std::vector<std::vector<int>>dist, std::vector<int> 
     prem.resize(n + 1);
     pilch.resize(n + 1);
     cfc.resize(n + 1);
-    for (int i = 1; i <= n; i++)
-        cfc[i] = 0;
+    for (int i = 1; i <= n; i++) cfc[i] = 0;
     cfc[0] = n;
     for (int i = 1; i <= n; i++)
     {

@@ -167,6 +167,7 @@ void Graphe::m_distances(std::vector<int> fs, std::vector<int> aps,  std::vector
     m_dist.resize(n + 1);
     m_dist[0].resize(n+1);
     m_dist[0][0] = n;
+
     for(int i = 1; i<=n; i++)
         m_dist[0][i] = -1;
     for(int s = 1 ; s <= n ; s++)

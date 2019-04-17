@@ -536,6 +536,76 @@ void testDijkstraEtLeResteQuiEstCasse()
 
 }
 
+void affecteDuree(GrapheOriente *go, int duree, int sommet)
+{
+    for ( int i = 1; i <= go->matriceAdj()[0][0]; i++)
+    {
+        if (go->matriceAdj()[sommet][i] > 0 )
+        {
+           go->ajouterLisaison(sommet,i,duree);
+        }
+    }
+}
+
+
+void testOrdonnancement()
+{
+    int nbSommet, nbLiaison;
+    nbSommet = entrerNbSommets();
+    nbLiaison = entrerNbLiaison();
+
+    std::vector<std::string> tache ;
+    tache.resize(nbSommet+1);
+    GrapheOriente *go = new GrapheOriente(nbSommet);
+
+    for ( int i = 1; i <= nbSommet; i++)
+    {
+        std::cout << "Nom de la tache " << i << std::endl;
+        std::cin >> tache[i];
+    }
+
+    int cpt = 0;
+    while (cpt < nbLiaison)
+    {
+        int sommet1, sommet2;
+        saisieSommets(sommet1,sommet2);
+        go->ajouterLisaison(sommet1,sommet2);
+        cpt++;
+    }
+
+    int duree = 0;
+    std::vector<int> d;
+    d.resize(nbSommet+1);
+    for ( int i = 1; i <= nbSommet; i++)
+    {
+        std::cout << "Duree de la tache " << i << " : " << tache[i] << std::endl;
+        std::cin >> duree;
+        affecteDuree(go,duree,i);
+        d[i] = duree;
+    }
+
+    std::vector<int> fs;
+    std::vector<int> aps;
+    go->adj_2_fs_aps(fs, aps);
+
+    std::vector<int> fp;
+    std::vector<int> app;
+    fp.resize(fs.size());
+    app.resize(aps.size());
+    go->fs_aps_2_fp_app(fs, aps, fp, app);
+
+    std::vector<int> lc;
+    std::vector<int> fpc;
+    std::vector<int> appc;
+
+    go->ordonnancement(fp,app,d,lc,fpc,appc);
+
+
+
+
+
+}
+
 
 int main() {
 //    creerGrapheOriente();
@@ -552,8 +622,9 @@ int main() {
     //testConstructeurMatriceParam();
     //testConstructeurNbSommets();
 
-    testDijkstraEtLeResteQuiEstCasse();
+//    testDijkstraEtLeResteQuiEstCasse();
 
+    testOrdonnancement();
 
     //std::cout << "Hello, World!" << std::endl;
     return 0;
