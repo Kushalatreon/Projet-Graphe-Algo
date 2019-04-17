@@ -61,23 +61,16 @@ std::vector<int> Graphe::operator[](int i) const
     return d_adj;
 }
 
-std::vector<int> Graphe::tableauMatrice(int i) const
-{
-    return d_adj[i];
-}
-
-int Graphe::valMatrice(int i, int j) const
-{
-    return d_adj[i][j];
-}
-
 void Graphe::setMatrice(std::vector<std::vector<int>> &adj)
 {
     d_adj = adj;
 }
 
 void Graphe::detAps(std::vector<int> fs, std::vector<int> &aps) const {
-    int n = fs[0];
+    int n = 0;
+    for(int i = 0; i<fs.size();i++)
+        if(fs[i] == 0)
+            n++;
     aps.resize(n+1);
     aps[0] = n;
     aps[1] = 1;
@@ -115,6 +108,7 @@ void Graphe::fs_aps_2_adj(std::vector<int> fs, std::vector<int> aps)
         {
             d_adj[i][k] = 1;//Fonctionne pour un graphe non valué mais comment on procède dans le cas d'un graphe valué?
         }
+
     }
 }
 
@@ -298,6 +292,7 @@ void Graphe::fs_aps_2_fp_app(std::vector<int> fs, std::vector<int> aps, std::vec
     std::vector<int> ddi;
     int n = aps[0];
     int j;
+    fp.resize(fs[0]+1);
 
     det_ddi(fs, aps, ddi);
     det_app(ddi, app);
