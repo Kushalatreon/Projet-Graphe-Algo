@@ -22,6 +22,283 @@ void creerGrapheOriente(){
     delete g;
 }
 
+void charger(std::ifstream &is, Graphe *g)
+{
+    if( !is) return;
+
+    int n;  // nb sommets
+    int m;  // nb aretes
+
+
+    is >> n >> m;
+    std::vector<std::vector<int>> tmp (n+1, std::vector<int>(n+1));
+
+    tmp[0].reserve(2);
+    tmp[0][0] = n;
+    tmp[0][1] = m;
+    for(int i = 1 ; i <= n ; ++i)
+    {
+        tmp[i].reserve(n+1);
+    }
+
+    int val;
+    while(!is.eof())
+    {
+        for(int i = 1 ; i <= n ; i++)
+        {
+            for(int j = 1 ; j <= n ; j++)
+            {
+                is >> val;
+                tmp[i][j] = val;
+            }
+        }
+    }
+
+    g->setMatrice(tmp);
+
+}
+
+
+void testCreationGraphe()
+{
+    //Graphe par défaut (vide)
+    GrapheOriente gVide;
+
+    //Graphe dont on passe une matrice en paramètre
+    std::vector<std::vector<int>> adj;
+    int n=4;
+    adj.resize(n+1);
+    for(int i = 0; i<=n;i++)
+        adj[i].resize(n+1);
+    adj[0][0] = n;
+    for(int i = 1; i<=n; i++)
+        for(int j = 1; j<=n; j++)
+            adj[i][j] = i+j;
+    GrapheOriente gAdjDonne(adj);
+
+    //Graphe dont on ne donne que le nombre de sommet en paramètre
+    GrapheOriente gNbSommet(4);
+
+    std::cout<<std::endl;
+
+}
+
+void testAccesGraphe()
+{
+    //Accès à la ligne i du Graphe g via la méthode g[i]
+    GrapheOriente g(4);
+    std::vector<int> ligne = g[2];
+
+
+    //Accès à la matrice d'adjacence du Graphe g
+    std::vector<std::vector<int>> adj = g.matriceAdj();
+
+    //Accès à une valeur de la matrice d'adjacence du Graphe g
+    int val = g[2][3];
+
+    //Affichage du Graphe g
+    g.afficher();
+
+    std::cout<<std::endl;
+
+}
+
+void testSetMatrice()
+{
+    GrapheOriente g(4);
+
+    std::vector<std::vector<int>> adj;
+    int n=4;
+    adj.resize(n+1);
+    for(int i = 0; i<=n;i++)
+        adj[i].resize(n+1);
+    adj[0][0] = n;
+    for(int i = 1; i<=n; i++)
+        for(int j = 1; j<=n; j++)
+            adj[i][j] = i+j;
+
+    g.setMatrice(adj);
+    std::cout<<std::endl;
+}
+
+void testadj_fs_aps_Oriente()
+{
+    std::vector<int> fs;
+    std::vector<int> aps;
+
+    GrapheOriente *g = new GrapheOriente();
+    std::ifstream f ("../Data/GrapheOriente1.txt");
+    bool type;
+    f >> type;
+    charger(f, g);
+
+    g->adj_2_fs_aps(fs,aps);
+
+
+}
+
+void testDetAps()
+{
+    GrapheOriente *g = new GrapheOriente(4);
+    g->ajouterLisaison(1,2,2);
+    g->ajouterLisaison(1,3,1);
+    g->ajouterLisaison(1,4,3);
+    g->ajouterLisaison(2,4,1);
+    g->ajouterLisaison(4,3,5);
+
+    std::vector<int> fs, aps;
+    g->adj_2_fs_aps(fs, aps);
+    for(int i = 0; i>aps.size();i++)
+        aps[i] = 0;
+    g->detAps(fs,aps);
+
+    std::cout<<std::endl;
+}
+
+void testDetDdi()
+{
+    GrapheOriente *g = new GrapheOriente(4);
+    g->ajouterLisaison(1,2,2);
+    g->ajouterLisaison(1,3,1);
+    g->ajouterLisaison(1,4,3);
+    g->ajouterLisaison(2,4,1);
+    g->ajouterLisaison(4,3,5);
+
+    std::vector<int> fs, aps, ddi;
+    g->adj_2_fs_aps(fs, aps);
+
+    g->det_ddi(fs, aps, ddi);
+
+    std::cout<<std::endl;
+}
+
+void testDetApp()
+{
+    GrapheOriente *g = new GrapheOriente(4);
+    g->ajouterLisaison(1,2,2);
+    g->ajouterLisaison(1,3,1);
+    g->ajouterLisaison(1,4,3);
+    g->ajouterLisaison(2,4,1);
+    g->ajouterLisaison(4,3,5);
+
+    std::vector<int> fs, aps, ddi, app;
+    g->adj_2_fs_aps(fs, aps);
+
+    g->det_ddi(fs, aps, ddi);
+    g->det_app(ddi, app);
+
+    std::cout<<std::endl;
+}
+
+void testFsAps2FpApp()
+{
+    GrapheOriente *g = new GrapheOriente(4);
+    g->ajouterLisaison(1,2,2);
+    g->ajouterLisaison(1,3,1);
+    g->ajouterLisaison(1,4,3);
+    g->ajouterLisaison(2,4,1);
+    g->ajouterLisaison(4,3,5);
+
+    std::vector<int> fs, aps, fp, app;
+    g->adj_2_fs_aps(fs, aps);
+
+    g->fs_aps_2_fp_app(fs, aps, fp, app);
+
+    std::cout<<std::endl;
+}
+
+void testFsAps2Adj()
+{
+    GrapheOriente *g = new GrapheOriente(4);
+    g->ajouterLisaison(1,2,2);
+    g->ajouterLisaison(1,3,1);
+    g->ajouterLisaison(1,4,3);
+    g->ajouterLisaison(2,4,1);
+    g->ajouterLisaison(4,3,5);
+    g->ajouterLisaison(1,1,1);
+
+    std::vector<int> fs, aps;
+    g->adj_2_fs_aps(fs, aps);
+
+    for(int i = 0; i<g->matriceAdj().size(); i++)
+        for(int j = 0; j < g->matriceAdj()[1].size();j++)
+            g->matriceAdj()[i][j] = 0;
+    g->fs_aps_2_adj(fs, aps);
+    //Fonctionne mais si i != j et ne sont pas reliés, adj[i][j] = -1 alors que adj[i][i] = 0 si il n'y a pas de boucle
+    std::cout<<std::endl;
+}
+
+void testDistance()
+{
+    GrapheOriente *g = new GrapheOriente(4);
+    g->ajouterLisaison(1,2,2);
+    g->ajouterLisaison(1,3,1);
+    g->ajouterLisaison(1,4,3);
+    g->ajouterLisaison(2,4,1);
+    g->ajouterLisaison(4,3,5);
+
+
+    std::vector<int> fs, aps, dist;
+    g->adj_2_fs_aps(fs, aps);
+    g->distance(fs, aps, dist, 2);
+    //Renvoie -1 en dist[i] si i inaccessible depuis le sommet en paramètre
+    std::cout<<std::endl;
+}
+
+void testMatriceDistance()
+{
+    GrapheOriente *g = new GrapheOriente(4);
+    g->ajouterLisaison(1,2,2);
+    g->ajouterLisaison(1,3,1);
+    g->ajouterLisaison(1,4,3);
+    g->ajouterLisaison(2,4,1);
+    g->ajouterLisaison(4,3,5);
+
+
+    std::vector<int> fs, aps;
+    std::vector<std::vector<int>> m_dist;
+    g->adj_2_fs_aps(fs, aps);
+    g->m_distances(fs, aps, m_dist);
+    //Renvoie -1 en m_dist[i][j] si j inaccessible depuis i
+    std::cout<<std::endl;
+}
+
+void testDetCfc()
+{
+    GrapheOriente *g = new GrapheOriente(4);
+    g->ajouterLisaison(1,2,2);
+    g->ajouterLisaison(1,3,1);
+    g->ajouterLisaison(1,4,3);
+    g->ajouterLisaison(2,4,1);
+    g->ajouterLisaison(4,3,5);
+
+
+    std::vector<int> fs, aps, prem, pilch, cfc;
+    std::vector<std::vector<int>> m_dist;
+    g->adj_2_fs_aps(fs, aps);
+    g->m_distances(fs, aps, m_dist);
+    g->det_cfc(m_dist, prem, pilch, cfc);
+
+    std::cout<<std::endl;
+}
+
+void testMRang()
+{
+    GrapheOriente *g = new GrapheOriente(4);
+    g->ajouterLisaison(1,2,2);
+    g->ajouterLisaison(1,3,1);
+    g->ajouterLisaison(1,4,3);
+    g->ajouterLisaison(2,4,1);
+    g->ajouterLisaison(4,3,5);
+
+    int r=0;
+    std::vector<int> fs, aps, m_rangs;
+    g->adj_2_fs_aps(fs, aps);
+    bool test = g->m_rangs(fs, aps, r, m_rangs);
+
+    std::cout<<std::endl;
+}
+
 void traitementGrapheOriente(GrapheOriente *&go)
 {
 
@@ -344,41 +621,6 @@ void testPrufer()
 
 }
 
-void charger(std::ifstream &is, Graphe *g)
-{
-    if( !is) return;
-
-    int n;  // nb sommets
-    int m;  // nb aretes
-
-
-    is >> n >> m;
-    std::vector<std::vector<int>> tmp (n+1, std::vector<int>(n+1));
-
-    tmp[0].reserve(2);
-    tmp[0][0] = n;
-    tmp[0][1] = m;
-    for(int i = 1 ; i <= n ; ++i)
-    {
-        tmp[i].reserve(n+1);
-    }
-
-    int val;
-    while(!is.eof())
-    {
-        for(int i = 1 ; i <= n ; i++)
-        {
-            for(int j = 1 ; j <= n ; j++)
-            {
-                is >> val;
-                tmp[i][j] = val;
-            }
-        }
-    }
-
-    g->setMatrice(tmp);
-
-}
 
 void testKruskal()
 {
@@ -399,7 +641,7 @@ void testKruskal()
     h->afficher();
 }
 
-void testadj_fs_aps()
+void testadj_fs_aps_NonOriente()
 {
     std::vector<int> fs;
     std::vector<int> aps;
@@ -414,6 +656,10 @@ void testadj_fs_aps()
 
 
 }
+
+
+
+
 
 void testTarjan()
 {
@@ -445,45 +691,7 @@ void testTarjan()
     g->tarjan(num, prem, pilch, ro, cfc, sommet);
 }
 
-void testConstructeurMatriceParam()
-{
 
-    std::vector<std::vector<int>> matrice(4, std::vector<int>(4));
-
-
-    for (int i = 1 ; i < matrice.size() ; ++i)
-    {
-        for (int j = 1 ; j < matrice[i].size() ; ++j)
-        {
-            if (i == j)
-            {
-                matrice[i][j] = 0;
-            }
-            else
-                matrice[i][j] = 1;
-        }
-    }
-
-    matrice[0][0] = 3;
-    matrice[0][1] = 6;
-    GrapheNonOriente g{matrice};
-    //GrapheOriente g{matrice};
-
-
-    g.afficher();
-
-}
-
-void testConstructeurNbSommets()
-{
-    int nbSommets = 3;
-
-    GrapheOriente g{nbSommets};
-    g.afficher();
-    std::cout<<std::endl;
-
-    std::cout<<g[0][0];
-}
 
 void testDijkstraEtLeResteQuiEstCasse()
 {
@@ -609,22 +817,34 @@ void testOrdonnancement()
 
 int main() {
 //    creerGrapheOriente();
+//testCreationGraphe();
+//testAccesGraphe();
+//testSetMatrice();
+//testDetAps();
+//testDetDdi();
+//testDetApp();
+//testFsAps2FpApp();
+//testFsAps2Adj();
+//testDistance();
+//testMatriceDistance();
+//testDetCfc();
+testMRang();
     //creerGrapheClavier();
 
 //    testPrufer();
 
-    //testadj_fs_aps();
+    //testadj_fs_aps_NonOriente();
+    //testadj_fs_aps_Oriente();
     //testKruskal();
 
     //testTarjan();
     //int sertarien = 2;
 
-    //testConstructeurMatriceParam();
-    //testConstructeurNbSommets();
+
 
 //    testDijkstraEtLeResteQuiEstCasse();
 
-    testOrdonnancement();
+    //testOrdonnancement();
 
     //std::cout << "Hello, World!" << std::endl;
     return 0;
