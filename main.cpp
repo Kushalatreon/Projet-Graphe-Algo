@@ -1,8 +1,14 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
 #include "Headers/GrapheOriente.h"
 #include "Headers/GrapheNonOriente.h"
-//#include "Sources/menuClavier.cpp"
+#include "Headers/interface.h"
+#include "Headers/openfiledialog.h"
+
+#include <QApplication>
+#include <QDebug>
+
 
 /**
  * Cette fonction créer un graphe (voir schema testGrapheOrienté1) qui va nous permettre de tester les fonctions vu en cours
@@ -606,10 +612,9 @@ void testPrufer()
 
 }
 
-
 void testKruskal()
 {
-    std::ifstream f ("../Data/GrapheNonOriente1.txt");
+    std::ifstream f ("GrapheNonOriente1.txt");
 
     GrapheNonOriente *g = new GrapheNonOriente();
 
@@ -839,44 +844,215 @@ void testOrdonnancement()
 
     go->ordonnancement(fp,app,d,lc,fpc,appc);
 
-
-
-
-
 }
 
 
-int main() {
+// ######################################################################################################
+/**
+ * Les 2 méthodes suivantes vont de paire
+ */
+void tabDijkstra_2_graphe(GrapheOriente *gn, std::vector<int> &pred, std::vector<int> &d, const GrapheOriente *g)
+{
+    std::vector<std::vector<int>> tmp = g->matriceAdj();
+
+    for(int i = 1 ; i <= g->matriceAdj()[0][0] ; i++)
+    {
+        for(int j = 1 ; j <= g->matriceAdj()[0][0] ; j++)
+        {
+            tmp[i][j] = 0;
+        }
+    }
+
+
+
+    for(int i = 0; i < gn->matriceAdj().size(); i++) gn->matriceAdj()[i].resize(g->matriceAdj()[i].size());
+
+    for(int i = 1; i <= pred.size(); i++)
+    {
+        if(pred[i] > 0)
+        {
+            tmp[pred[i]][i] = d[i];
+        }
+    }
+
+    gn->setMatrice(tmp);
+}
+
+void DijkstraAvecAffichage(OpenFileDialog &o, GrapheOriente *g, GrapheOriente *gn, std::vector<std::string> &villes)
+{
+    std::string path = o.getFileName();
+    std::cout << std::endl << path;
+    std::ifstream i(path);
+
+    bool t;
+    i >> t;
+    charger(i, g);
+
+    std::vector<int> fs(g->matriceAdj()[0][0] + g->matriceAdj()[0][1] + 1);
+    std::vector<int> aps(g->matriceAdj()[0][0]);
+    std::vector<int> d(g->matriceAdj()[0][0]);
+    std::vector<int> pred(g->matriceAdj()[0][0]);
+
+    int s = 1;
+
+    g->adj_2_fs_aps(fs, aps);
+
+    g->dijkstra(fs, aps, s, d, pred);
+
+
+
+
+
+    tabDijkstra_2_graphe(gn, pred, d, g);
+
+    villes.resize((gn->matriceAdj()[0][0]));
+    for(int i = 0; i < villes.size(); i++)
+    {
+        std::string s;
+        std::cout << std::endl << "nom de la ville " << i+1 << " : " << std::endl;
+        std::cin >> s;
+        std::cout << std::endl;
+        villes[i] = s;
+    }
+}
+// ######################################################################################################
+
+
+
+
+
+
+
+
+
+int main(int argc, char *argv[]) {
+
+
+
 //    creerGrapheOriente();
-//testCreationGraphe();
-//testAccesGraphe();
-//testSetMatrice();
-//testDetAps();
-//testDetDdi();
-//testDetApp();
-//testFsAps2FpApp();
-//testFsAps2Adj();
-//testDistance();
-//testMatriceDistance();
-//testDetCfc();
-testMRang();
-    //creerGrapheClavier();
+//    testCreationGraphe();
+//    testAccesGraphe();
+//    testSetMatrice();
+//    testDetAps();
+//    testDetDdi();
+//    testDetApp();
+//    testFsAps2FpApp();
+//    testFsAps2Adj();
+//    testDistance();
+//    testMatriceDistance();
+//    testDetCfc();
+//    testMRang();
+//    creerGrapheClavier();
 
 //    testPrufer();
 
-    //testadj_fs_aps_NonOriente();
-    //testadj_fs_aps_Oriente();
-    //testKruskal();
+//    testadj_fs_aps_NonOriente();
+//    testadj_fs_aps_Oriente();
+//    testKruskal();
 
-    //testTarjan();
-    //int sertarien = 2;
+//    testTarjan();
+//    int sertarien = 2;
 
 
 
 //    testDijkstraEtLeResteQuiEstCasse();
 
-    //testOrdonnancement();
+//    testOrdonnancement();
 
-    //std::cout << "Hello, World!" << std::endl;
+//    std::cout << "Hello, World!" << std::endl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ======================================================================================================================================================= //
+    // ======================================== Tout ce qui est relatif a Qt est en dessous ================================================================== //
+    // ======================================================================================================================================================= //
+
+
+    // ##################################### TEST QT ##################################### //
+
+    QApplication app(argc, argv);
+
+    OpenFileDialog o;
+    o.show();
+
+    // doit etre appele imperativement avant les lignes du dessous, sinon le path sera vide
+    app.exec();
+
+    std::string path = o.getFileName();
+    std::cout << std::endl << path;
+    std::ifstream i(path);
+    GrapheOriente *g = new GrapheOriente();
+    bool t;
+    i >> t;
+    charger(i, g);
+
+    // OK
+
+//    GrapheOriente *g = new GrapheOriente(4);
+//    g->ajouterLisaison(1,2,2);
+//    g->ajouterLisaison(1,3,1);
+//    g->ajouterLisaison(1,4,3);
+//    g->ajouterLisaison(2,4,1);
+//    g->ajouterLisaison(4,3,5);
+
+    std::vector<std::string> villes(g->matriceAdj()[0][0]);
+    for(int i = 0; i < villes.size(); i++)
+    {
+        std::string s;
+        std::cout << std::endl << "nom de la ville " << i+1 << " : " << std::endl;
+        std::cin >> s;
+        std::cout << std::endl;
+        villes[i] = s;
+    }
+
+
+    interface in{g, g->matriceAdj()[0][0], villes};
+    in.process();
+
+
+    app.exec();
+
+
+
+
+
+
+
+
+
+
+    // ###################################### TEST POUR DIJKSTRA ###################################### //
+
+//    QApplication app(argc, argv);
+
+//    OpenFileDialog o;
+//    o.show();
+
+//    // doit etre appele imperativement avant les lignes du dessous, sinon le path sera vide
+//    app.exec();
+
+//    GrapheOriente *g = new GrapheOriente();
+//    GrapheOriente *gn = new GrapheOriente();
+//    std::vector<std::string> villes;
+//    DijkstraAvecAffichage(o, g, gn, villes);
+
+//    interface in{gn, gn->matriceAdj()[0][0], villes};
+//    in.process();
+
+
+//    app.exec();
+
+
     return 0;
 }

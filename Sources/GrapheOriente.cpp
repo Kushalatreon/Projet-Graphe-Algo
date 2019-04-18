@@ -235,7 +235,6 @@ void GrapheOriente::det_cfc(std::vector<std::vector<int>>dist, std::vector<int> 
 bool GrapheOriente::m_rangs(std::vector<int>fs, std::vector<int>aps, int& r, std::vector<int>&m_rangs/*int*& prem, int*& num*/) const
 {
 
-
     std::vector<int>ddi;
     int n = aps[0];
     m_rangs.resize(n+1);
@@ -266,7 +265,8 @@ bool GrapheOriente::m_rangs(std::vector<int>fs, std::vector<int>aps, int& r, std
             m_rangs[s] = r;
             //num[s] = p++; //Si l'on utilise int*& num
             k++;
-            for(int h = aps[s]; (fs[h]) != 0; h++)
+            int t;
+            for(int h = aps[s]; (t = fs[h]) != 0; h++)
             {
                 ddi[t]--;
                 if(ddi[t] == 0)

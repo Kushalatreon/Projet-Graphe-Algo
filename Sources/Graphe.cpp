@@ -23,9 +23,39 @@ Graphe::~Graphe() {
 
 }
 
-void Graphe::charger(const std::istream &ist)
+void Graphe::charger(std::ifstream &i)
 {
+    if( !i) return;
 
+    int n;  // nb sommets
+    int m;  // nb aretes
+
+
+    i >> n >> m;
+    std::vector<std::vector<int>> tmp (n+1, std::vector<int>(n+1));
+
+    tmp[0].reserve(2);
+    tmp[0][0] = n;
+    tmp[0][1] = m;
+    for(int i = 1 ; i <= n ; ++i)
+    {
+        tmp[i].reserve(n+1);
+    }
+
+    int val;
+    while(!i.eof())
+    {
+        for(int i = 1 ; i <= n ; i++)
+        {
+            for(int j = 1 ; j <= n ; j++)
+            {
+                i >> val;
+                tmp[i][j] = val;
+            }
+        }
+    }
+
+    setMatrice(tmp);
 }
 
 void Graphe::initAdj()
@@ -63,7 +93,25 @@ std::vector<int> Graphe::operator[](int i) const
 
 void Graphe::setMatrice(std::vector<std::vector<int>> &adj)
 {
-    d_adj = adj;
+    d_adj.resize(adj.size());
+
+    for(int i = 0; i < d_adj.size(); i++)
+    {
+        d_adj[i].resize(adj[i].size());
+    }
+
+    d_adj[0][0] = adj[0][0];
+    d_adj[0][1] = adj[0][1];
+
+    int n = d_adj[0][0];
+
+    for(int i = 1; i <= n; i++)
+    {
+        for(int j = 1; j <= n; j++)
+        {
+            d_adj[i][j] = adj[i][j];
+        }
+    }
 }
 
 void Graphe::detAps(std::vector<int> fs, std::vector<int> &aps) const {
