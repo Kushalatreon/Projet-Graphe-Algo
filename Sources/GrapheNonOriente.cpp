@@ -258,6 +258,54 @@ void GrapheNonOriente::decodagePrufer(std::vector<int> &C) {
 
 }
 
+void GrapheNonOriente::sauvegarder(const std::string &nomFichier) const {
+    std::ofstream f (nomFichier);
+
+    if (!f.is_open())
+        return;
+
+    f << 0 << '\n' << d_adj[0][0] << '\n' << d_adj[0][1] << '\n' << '\n';
+
+    for (int i = 1 ; i <= d_adj[0][0] ; ++i)
+    {
+        for (int j = 1 ; j <= d_adj[0][0] ; ++j)
+        {
+            f << d_adj[i][j] << ' ';
+        }
+        f << '\n';
+    }
+
+    f.close();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

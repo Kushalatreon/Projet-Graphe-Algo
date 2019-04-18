@@ -67,6 +67,13 @@ public:
 
     virtual void adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps) const override;
 
+    /**
+     * Sauvegarde le GrapheOriente actuel dans un fichier
+     * Avant de sauvegarder, veillez à fermer le fichier dans lequel vous souhaitez sauvegarder si celui-ci existe déjà.
+     * @param [out] nomFichier - le fichier dans lequel le graphe sera sauvegardé
+     */
+    void sauvegarder(const std::string &nomFichier) const;
+
 };
 
 

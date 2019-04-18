@@ -24,6 +24,7 @@ public:
      * @param[in] g - graphe a afficher
      * @param[in] taille - nombre de sommets du graphe : utile pour initialiser les vecteurs
      */
+
     interface(Graphe *g, int taille);
 
     /**
@@ -84,5 +85,5 @@ private:
     // Labels au-dessus des sommets (noms de villes par exemple)
     std::vector<std::string> d_labels;
 };
-
+*/
 #endif // INTERFACE_H

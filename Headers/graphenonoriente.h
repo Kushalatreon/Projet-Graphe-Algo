@@ -29,6 +29,14 @@ public:
      */
     void decodagePrufer (std::vector<int> &C);
 
+    /**
+     * Sauvegarde le GrapheNonOriente actuel dans un fichier
+     * Avant de sauvegarder, veillez à fermer le fichier dans lequel vous souhaitez sauvegarder si celui-ci existe déjà.
+     * @param [out] nomFichier - le fichier dans lequel le graphe sera sauvegardé
+     */
+    void sauvegarder(const std::string &nomFichier) const;
+
+
 private:
 
     /*

@@ -234,7 +234,6 @@ void GrapheOriente::det_cfc(std::vector<std::vector<int>>dist, std::vector<int> 
  * int& r, le maximum des rangs finis trouvé*/
 bool GrapheOriente::m_rangs(std::vector<int>fs, std::vector<int>aps, int& r, std::vector<int>&m_rangs/*int*& prem, int*& num*/) const
 {
-
     std::vector<int>ddi;
     int n = aps[0];
     m_rangs.resize(n+1);
@@ -249,6 +248,7 @@ bool GrapheOriente::m_rangs(std::vector<int>fs, std::vector<int>aps, int& r, std
     for(int i = 1; i <= ddi[0]; i++)
     {
         m_rangs[i] = -1;
+
         if(ddi[i] == 0)
         {
             pilch[i] = pilch[0];
@@ -269,19 +269,19 @@ bool GrapheOriente::m_rangs(std::vector<int>fs, std::vector<int>aps, int& r, std
             for(int h = aps[s]; (t = fs[h]) != 0; h++)
             {
                 ddi[t]--;
+
                 if(ddi[t] == 0)
                 {
-                    pilch[s] = pilch[0];
-                    pilch[0] = s;
+                    pilch[t] = pilch[0];
+                    pilch[0] = t;
                 }
-                s = pilch[s];
             }
-            r++;
+            s = pilch[s];
         }
-        r--;
-        return(k == n);
+        r++;
     }
-    return 0;
+    r--;
+    return (k == n);
 
 }
 
@@ -310,4 +310,24 @@ void GrapheOriente::adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps) co
         fs[k++] = 0;
     }
     //aps[0] = aps.size();
+}
+
+void GrapheOriente::sauvegarder(const std::string &nomFichier) const {
+    std::ofstream f (nomFichier);
+
+    if (!f.is_open())
+        return;
+
+    f << 1 << '\n' << d_adj[0][0] << '\n' << d_adj[0][1] << '\n' << '\n';
+
+    for (int i = 1 ; i <= d_adj[0][0] ; ++i)
+    {
+        for (int j = 1 ; j <= d_adj[0][0] ; ++j)
+        {
+            f << d_adj[i][j] << ' ';
+        }
+        f << '\n';
+    }
+
+    f.close();
 }

@@ -82,21 +82,6 @@ public:
      std::vector<std::vector<int>> matriceAdj() const;
 
     /**
-     * Retourne un tableau a une certaine ligne de la matrice d'adjacence
-     * @param [in] i - ligne de la matrice
-     * @return tableau 1D : ligne i de la matrice d'adjacence
-     */
-    std::vector<int> tableauMatrice(int i) const;
-
-    /**
-     * Retourne une valeur a une certaine case de la matrivce d'adjacence
-     * @param [in] i - ligne de la matrice
-     * @param [in] j - colonne de la matrice
-     * @return int : valeur a la case (i,i) de la matrice d'adjacence
-     */
-    int valMatrice(int i, int j) const;
-
-    /**
      * Permet d'affecter d_adj a une autre matrice
      * @param [in] adj : nouvelle matrice d'adjacence
      */

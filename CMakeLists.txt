@@ -6,4 +6,4 @@ set(CMAKE_CXX_STANDARD 11)
 add_executable(Graphes main.cpp
         Sources/Graphe.cpp Headers/Graphe.h
         Sources/GrapheOriente.cpp Headers/GrapheOriente.h
-        Sources/GrapheNonOriente.cpp Headers/GrapheNonOriente.h )
+        Sources/GrapheNonOriente.cpp Headers/GrapheNonOriente.h)

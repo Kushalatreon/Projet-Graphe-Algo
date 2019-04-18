@@ -3,6 +3,7 @@
 #include <vector>
 #include "Headers/GrapheOriente.h"
 #include "Headers/GrapheNonOriente.h"
+
 #include "Headers/interface.h"
 #include "Headers/openfiledialog.h"
 
@@ -878,6 +879,7 @@ void tabDijkstra_2_graphe(GrapheOriente *gn, std::vector<int> &pred, std::vector
     gn->setMatrice(tmp);
 }
 
+/*
 void DijkstraAvecAffichage(OpenFileDialog &o, GrapheOriente *g, GrapheOriente *gn, std::vector<std::string> &villes)
 {
     std::string path = o.getFileName();
@@ -916,9 +918,20 @@ void DijkstraAvecAffichage(OpenFileDialog &o, GrapheOriente *g, GrapheOriente *g
     }
 }
 // ######################################################################################################
+*/
+
+void testSauvegarde()
+{
+    GrapheNonOriente *g = new GrapheNonOriente;
+    std::ifstream f ("C:/Users/Thibaud/Desktop/grapheTestRang.txt");
+    bool t;
+    f >> t;
+    charger(f, g);
 
 
-
+    //creerGrapheNonOrienteClavier(g);
+    g->sauvegarder("C:/Users/Thibaud/Desktop/Sauvegarde.txt");
+}
 
 
 
@@ -958,6 +971,7 @@ int main(int argc, char *argv[]) {
 //    testDijkstraEtLeResteQuiEstCasse();
 
 //    testOrdonnancement();
+    testSauvegarde();
 
 //    std::cout << "Hello, World!" << std::endl;
 
@@ -1055,4 +1069,5 @@ int main(int argc, char *argv[]) {
 
 
     return 0;
+
 }

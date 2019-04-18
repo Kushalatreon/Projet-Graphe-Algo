@@ -8,9 +8,9 @@
 #include <QWidget>
 #include <QLabel>
 
-//#include "interface.h"
-//#include "grapheoriente.h"
-//#include "graphenonoriente.h"
+#include "interface.h"
+#include "grapheoriente.h"
+#include "graphenonoriente.h"
 
 
 class OpenFileDialog : public QWidget
