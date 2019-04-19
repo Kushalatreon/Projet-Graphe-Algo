@@ -41,7 +41,7 @@ public:
     /**
      * Charge un graphe depuis un objet istream
      * Les fichiers permettant de sauvegarder un graphe sont au format txt. Il faut passer un istream en parametre, deja initialise sur un fichier
-     * @param ist - objet istream permettant le remplissage du graphe (la matrice d'adjacence)
+     * @param i - objet istream permettant le remplissage du graphe (la matrice d'adjacence)
      */
     void charger(std::ifstream &i);
 
