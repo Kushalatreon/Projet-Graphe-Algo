@@ -169,7 +169,9 @@ public:
      */
     void det_ddi(std::vector<int> fs, std::vector<int> aps, std::vector<int> &ddi) const ;
 
-
+    /**
+     * Permet d'afficher la matrice d'adjacence
+     */
     void afficher();
 };
 

@@ -14,6 +14,10 @@ public:
 
     virtual void adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps) const override;
 
+    /**
+     * Affiche et creer le codage de Kruskal
+     * @param [in, out] h -  graphe issue du codage Kruskal
+     */
     void Kruskal(GrapheNonOriente *&h);
 
     /**
@@ -50,12 +54,36 @@ private:
         int p;
     } arete;
 
+    /**
+     * Va fusionner deux composantes si necessaire lors du codage
+     * @param [in] i  - numero de la premiere composante
+     * @param [in] j - numero de la deuxieme composante
+     * @param [in] prem - tableau des premiers indice dans pilch
+     * @param [in, out] pilch - pile des sommets visite
+     * @param [in, out] cfc - tableaux des composantes fortement connexe
+     */
     void fusion(int i, int j, std::vector<int> prem, std::vector<int> &pilch, std::vector<int> &cfc) const;
 
+    /**
+     * Tri du tableau d'arrete par ordre croissant
+     * @param [in, out] _a - tableau des aretes a trier
+     * @param [in] taille - taille du tableau
+     */
     void triAretes_ParBulle(std::vector<GrapheNonOriente::arete> &_a, int taille) const;
 
+    /**
+     * Remplis le tableau d'aretes et le tri
+     * @param [in, out] _a - tableau d'aretes
+     * @param [in] taille - tailles du tableau
+     */
     void getAretesTrieesParPoids(std::vector<GrapheNonOriente::arete> &_a, int taille) const;
 
+    /**
+     * rempli le tableau _a a partir du graphe
+     * @param [in) h - graphe donne
+     * @param [in, out] _a - tableau des aretes
+     * @param [in] taille - taille du tableau d'aretes
+     */
     void setAretes(GrapheNonOriente *&h, const std::vector<GrapheNonOriente::arete> &_a, int taille);
 };
 
