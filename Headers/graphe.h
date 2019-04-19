@@ -51,13 +51,13 @@ public:
     // ---------------------------- MANIPULATION ----------------------------
 
     /**
-     * Methode qui permet d'initialiser la matrice d'adjacence
+     * Permet d'initialiser la matrice d'adjacence
      */
     void initAdj();
 
 
     /**
-     * méthode qui permet de rajouter une arete ou un arc dans la matrice d'adjacence
+     * Permet de rajouter une arete ou un arc dans la matrice d'adjacence
      * @param [in] predecesseur - sommet pere
      * @param [in] successeur - sommet fils
      * @param [in] valeur - valeur de la liaison
@@ -77,13 +77,13 @@ public:
 
     /**
      * Retourne la matrice d'adjacence
-     * @return tableau 2D : matrice d'adjacence
+     * @return tableau 2D - matrice d'adjacence
      */
      std::vector<std::vector<int>> matriceAdj() const;
 
     /**
      * Permet d'affecter d_adj a une autre matrice
-     * @param [in] adj : nouvelle matrice d'adjacence
+     * @param [in] adj - nouvelle matrice d'adjacence
      */
     void setMatrice( std::vector<std::vector<int>> &adj);
 
@@ -92,61 +92,58 @@ public:
 
     /**
      * Determine aps
-     * Utilise fs
      * Fonction void car elle est utilisee quand un tableau est deja declare ailleurs dans le code. detAps remplit ce tableau
-     * @param [in] fs : tableau des successeurs
-     * @param [out] aps : tableau aps a remplir
+     * @param [in] fs - tableau des successeurs
+     * @param [out] aps - tableau aps a remplir
      */
     void detAps(std::vector<int> fs, std::vector<int> &aps) const;
 
     /**
      * Determine fs et aps. Adj est attribut prive
-     * @param [out] fs : tableau fs a remplir
-     * @param [out] aps : tableau aps a remplir
+     * @param [out] fs - tableau fs a remplir
+     * @param [out] aps - tableau aps a remplir
      */
     virtual void adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps) const = 0;
 
     /**
      * Remplit la matrice d'adjacence (d_adj) depuis fs et aps
-     * @param fs : tableau fs
-     * @param aps : teableau aps
+     * @param [in] fs - tableau fs
+     * @param [in] aps - tableau aps
      */
     void fs_aps_2_adj(std::vector<int> fs, std::vector<int> aps);
 
     /**
      * Détermine la file des premiers prédécesseurs
-     * @param [in] ddi : tableau ddi
-     * @param [out] app : tableau app, adresses des premiers prédécesseurs
+     * @param [in] ddi - tableau ddi
+     * @param [out] app - tableau app, adresses des premiers prédécesseurs
      */
     void det_app(std::vector<int> ddi, std::vector<int> &app) const ;
 
     /**
      * Passage de fs aps à fp app
-     * @param fs : tableau fs
-     * @param aps : tableau aps
-     * @param fp : tableau fp, file des prédécesseurs
-     * @param app : tableau app
+     * @param [in] fs - tableau fs
+     * @param [in] aps - tableau aps
+     * @param [out] fp - tableau fp, file des prédécesseurs
+     * @param [out] app - tableau app
      */
      void fs_aps_2_fp_app(std::vector<int> fs, std::vector<int> aps, std::vector<int> &fp, std::vector<int> &app) const;
 
     /**
      * Determine la tableau des distance pour un sommet donne
      * Correspond a une ligne de la matrice des distances
-     * Utilise fs, aps
-     * @param [in] fs : tableau fs const (pas modifie dans la methode)
-     * @param [in] aps : tableau aps const (pas modifie dans la methode)
-     * @param [out] dist : tableau des distances
-     * @param [in] s : numero du sommet dont il faut determine la tableau des distances
+     * @param [in] fs - tableau fs
+     * @param [in] aps - tableau aps
+     * @param [out] dist - tableau des distances
+     * @param [in] s - numero du sommet dont il faut determine la tableau des distances
      */
     void distance(std::vector<int> fs, std::vector<int> aps, std::vector<int> &dist, int s) const;
 
 
     /**
      * Determine la matrice des distances
-     * Utilise la matrice d'adj (d_adj)
-     * @param [in] fs : tableau fs const
-     * @param [in] aps : tableau aps const
-     * @param [out] m_dist : matrice des distances
+     * @param [in] fs - tableau fs
+     * @param [in] aps - tableau aps
+     * @param [out] m_dist - matrice des distances
      */
     void m_distances(std::vector<int> fs, std::vector<int> aps,  std::vector<std::vector<int>> &m_dist) const;
 
@@ -155,17 +152,16 @@ public:
      * @param [in] fs - tableau fs
      * @param [in] aps - tableau aps
      * @param [in] s - sommet pour lequel on veut calculer le plus court chemin
-     * @param [in,out] d -
-     * @param [in,out] pred -
+     * @param [in,out] d - la distance
+     * @param [in,out] pred - le tableau des predecesseurs
      */
-     // CASSE
     void dijkstra(std::vector<int> fs, std::vector<int> aps, int s, std::vector<int> &d, std::vector<int> &pred) const;
 
     /**
      * Determine le nombre de predecesseurs de chaque sommet
-     * @param [in] fs : tableau fs
-     * @param [in] aps : tableau aps
-     * @param [out] ddi : tableau des successeurs
+     * @param [in] fs - tableau fs
+     * @param [in] aps - tableau aps
+     * @param [out] ddi - tableau des successeurs
      */
     void det_ddi(std::vector<int> fs, std::vector<int> aps, std::vector<int> &ddi) const ;
 

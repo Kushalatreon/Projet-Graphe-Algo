@@ -15,13 +15,13 @@ public:
     virtual void adj_2_fs_aps(std::vector<int> &fs, std::vector<int> &aps) const override;
 
     /**
-     * Affiche et creer le codage de Kruskal
-     * @param [in, out] h -  graphe issue du codage Kruskal
+     * Affiche et cree le codage de Kruskal
+     * @param [in, out] h -  graphe issu du codage Kruskal
      */
     void Kruskal(GrapheNonOriente *&h);
 
     /**
-     * Créé un codage de Prüfer à partir d'une matrice d'adjacence
+     * Cree un codage de Prüfer a partir d'une matrice d'adjacence
      * @param [in] A - la matrice d'adjacence
      * @param [out] C - le tableau qui accueillera le codage
      */
@@ -58,28 +58,28 @@ private:
      * Va fusionner deux composantes si necessaire lors du codage
      * @param [in] i  - numero de la premiere composante
      * @param [in] j - numero de la deuxieme composante
-     * @param [in] prem - tableau des premiers indice dans pilch
-     * @param [in, out] pilch - pile des sommets visite
-     * @param [in, out] cfc - tableaux des composantes fortement connexe
+     * @param [in] prem - tableau des premiers indices dans pilch
+     * @param [in, out] pilch - pile des sommets visites
+     * @param [in, out] cfc - tableaux des composantes fortement connexes
      */
     void fusion(int i, int j, std::vector<int> prem, std::vector<int> &pilch, std::vector<int> &cfc) const;
 
     /**
-     * Tri du tableau d'arrete par ordre croissant
+     * Tri du tableau d'aretes par ordre croissant
      * @param [in, out] _a - tableau des aretes a trier
      * @param [in] taille - taille du tableau
      */
     void triAretes_ParBulle(std::vector<GrapheNonOriente::arete> &_a, int taille) const;
 
     /**
-     * Remplis le tableau d'aretes et le tri
+     * Remplit le tableau d'aretes et le trie
      * @param [in, out] _a - tableau d'aretes
-     * @param [in] taille - tailles du tableau
+     * @param [in] taille - taille du tableau
      */
     void getAretesTrieesParPoids(std::vector<GrapheNonOriente::arete> &_a, int taille) const;
 
     /**
-     * rempli le tableau _a a partir du graphe
+     * Remplit le tableau _a a partir du graphe
      * @param [in) h - graphe donne
      * @param [in, out] _a - tableau des aretes
      * @param [in] taille - taille du tableau d'aretes
