@@ -730,7 +730,7 @@ void testTarjan()
 
 
 
-void testDijkstraEtLeResteQuiEstCasse()
+void testDijkstra_fs_aps_2_fp_app_et_ordonnancement()
 {
 
     GrapheOriente *g = new GrapheOriente(4);
@@ -968,7 +968,7 @@ int main(int argc, char *argv[]) {
 
 
 
-//    testDijkstraEtLeResteQuiEstCasse();
+//    testDijkstra_fs_aps_2_fp_app_et_ordonnancement();
 
 //    testOrdonnancement();
     testSauvegarde();
@@ -1046,7 +1046,7 @@ int main(int argc, char *argv[]) {
 
 
 
-    // ###################################### TEST POUR DIJKSTRA ###################################### //
+    // ###################################### TEST POUR DIJKSTRA (affichage) ###################################### //
 
 //    QApplication app(argc, argv);
 
